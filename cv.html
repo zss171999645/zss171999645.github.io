@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feng Zhou - CV</title>
+    <meta
+      name="description"
+      content="Curriculum Vitae of Feng Zhou, Ph.D. student at Beijing University of Posts and Telecommunications."
+    >
+    <link rel="stylesheet" href="styles.css?v=20260623-fengzhou-local">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <p class="site-brand">Feng Zhou</p>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">About</a>
+          <a href="publications.html">Publications</a>
+          <a href="cv.html" class="is-current" aria-current="page">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="site-shell">
+      <div class="site-layout">
+        <aside class="profile-rail" aria-label="Profile">
+          <img class="portrait" src="assets/profile-photo.jpg" alt="Portrait of Feng Zhou">
+          <h1 class="profile-name">Feng Zhou</h1>
+          <p class="profile-bio">
+            Ph.D. student at Beijing University of Posts and Telecommunications. My work focuses on
+            3D reconstruction foundation models, 3D scene understanding, and controllable visual
+            generation.
+          </p>
+          <ul class="profile-meta">
+            <li class="profile-row profile-row-location">Beijing, China</li>
+            <li class="profile-row profile-row-institution">
+              Beijing University of Posts and Telecommunications
+            </li>
+          </ul>
+          <ul class="profile-links">
+            <li class="profile-row profile-row-email">
+              <a href="mailto:zhoufeng@bupt.edu.cn">Email</a>
+            </li>
+            <li class="profile-row profile-row-scholar">Google Scholar</li>
+            <li class="profile-row profile-row-cv">
+              <a href="assets/Feng_Zhou_CV.pdf">PDF CV</a>
+            </li>
+          </ul>
+        </aside>
+
+        <main class="page-content page-content-cv page-content-rich">
+          <section class="content-card cv-sections-card" aria-label="Curriculum sections">
+            <section class="cv-section cv-section-card" aria-labelledby="general-information-title">
+              <h3 class="section-title" id="general-information-title">General Information</h3>
+              <div class="cv-info-grid">
+                <div class="cv-info-chip">Full Name: Feng Zhou</div>
+                <div class="cv-info-chip">Email: zhoufeng@bupt.edu.cn</div>
+                <div class="cv-info-chip">Location: Beijing, China</div>
+              </div>
+            </section>
+
+            <section class="cv-section cv-section-card" aria-labelledby="education-title">
+              <h3 class="section-title" id="education-title">Education</h3>
+              <ul class="cv-list">
+                <li>
+                  Ph.D. student in Control Science and Engineering, Beijing University of Posts and
+                  Telecommunications, expected June 2027
+                  <ul class="cv-sublist">
+                    <li>Advisor: Prof. Jianqin Yin, BUPT-COST Lab</li>
+                    <li>Research direction: controllable visual generation and visual understanding of the 3D world</li>
+                  </ul>
+                </li>
+                <li>
+                  B.Eng. in Internet of Things Engineering, Beijing University of Posts and
+                  Telecommunications, June 2022
+                  <ul class="cv-sublist">
+                    <li>GPA: 3.7 / 4.0</li>
+                    <li>Recommended for direct Ph.D. admission</li>
+                  </ul>
+                </li>
+              </ul>
+            </section>
+
+            <section class="cv-section cv-section-card" aria-labelledby="research-focus-title">
+              <h3 class="section-title" id="research-focus-title">Research Interests</h3>
+              <ul class="cv-list">
+                <li>Feed-forward 3D reconstruction and 3D reconstruction foundation models</li>
+                <li>Sparse-view reconstruction, NeRF/3DGS scene representations, and 3D scene understanding</li>
+                <li>Diffusion models, controllable visual generation, and resolution extrapolation</li>
+                <li>AI-assisted research and engineering workflows for model development and experimentation</li>
+              </ul>
+            </section>
+
+            <section class="cv-section cv-section-card" aria-labelledby="experience-title">
+              <h3 class="section-title" id="experience-title">Experience</h3>
+
+              <div class="cv-timeline-item">
+                <p class="cv-timeline-heading">
+                  <strong>Nov 2025 - Present: Talent Program Intern, Horizon Robotics</strong>
+                </p>
+                <ul class="cv-sublist">
+                  <li>
+                    Work on 3D reconstruction foundation models, with a focus on feed-forward
+                    multi-view geometry reasoning, cross-view communication, and high-resolution
+                    reconstruction.
+                  </li>
+                  <li>
+                    Developed ATSR, a block-level top-k sparse attention design that reduces
+                    redundant cross-view communication and improves Pose AUC@30 from 0.879 to 0.891
+                    with 8.45x acceleration under 300-view evaluation.
+                  </li>
+                  <li>
+                    Developed GeoWeave, a selective cross-view communication mechanism for robust
+                    pose and point-cloud reconstruction under weak overlap and distracting views.
+                  </li>
+                  <li>
+                    Explored Hybrid-VGGT, a high-resolution architecture with a low-resolution global
+                    backbone and a high-resolution HDE branch for depth and point-cloud quality.
+                  </li>
+                  <li>
+                    Built mixed training data from 17 public datasets, unified evaluation scripts,
+                    business-data adaptation pipelines, and synthetic-data support for detailed object
+                    reconstruction.
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="cv-section cv-section-card" aria-labelledby="research-experience-title">
+              <h3 class="section-title" id="research-experience-title">Research Experience</h3>
+
+              <div class="cv-timeline-item">
+                <p class="cv-timeline-heading">
+                  <strong>3D Vision: Reconstruction and Scene Understanding</strong>
+                </p>
+                <ul class="cv-sublist">
+                  <li>
+                    Sparse-view 3D reconstruction: study initialization quality as a dominant factor
+                    for sparse-view 3DGS; proposed low-frequency-aware SfM, 3DGS self-initialization,
+                    and point-cloud consistency filtering.
+                  </li>
+                  <li>
+                    Object-level understanding in large 3D scenes: proposed Gaussian-segmentation
+                    guided object extraction and personalized diffusion priors for occluded or
+                    invisible regions.
+                  </li>
+                  <li>
+                    Monocular 3D human pose estimation: designed pose-guided attention and adaptive
+                    feature selection to leverage image cues for 2D-to-3D pose lifting.
+                  </li>
+                </ul>
+              </div>
+
+              <div class="cv-timeline-item">
+                <p class="cv-timeline-heading">
+                  <strong>Controllable Visual Generation and Resolution Extrapolation</strong>
+                </p>
+                <ul class="cv-sublist">
+                  <li>
+                    Analyzed implicit positional encoding in U-Net diffusion and proposed a
+                    training-free strategy for high-resolution image generation.
+                  </li>
+                  <li>
+                    Studied resolution scalability in Diffusion Transformers and FLUX-like models
+                    through attention receptive fields and frequency-aware detail preservation.
+                  </li>
+                  <li>
+                    Worked on image-only in-domain generation adaptation, controllable-generation
+                    evaluation, and a survey of text-to-image diffusion control.
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section class="cv-section cv-section-card" aria-labelledby="publications-title">
+              <h3 class="section-title" id="publications-title">Selected Publications</h3>
+              <ul class="cv-list">
+                <li>Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation. AAAI 2026 Oral.</li>
+                <li>Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation. AAAI 2024.</li>
+                <li>Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation. CVPR 2025.</li>
+                <li>ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers. CVPR 2026.</li>
+                <li>OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation. TCSVT 2025.</li>
+              </ul>
+            </section>
+
+            <section class="cv-section cv-section-card" aria-labelledby="skills-title">
+              <h3 class="section-title" id="skills-title">Technical Scope</h3>
+              <ul class="cv-list">
+                <li>Computer vision foundations: image formation, matching, optical flow, detection, segmentation, and pose estimation.</li>
+                <li>3D vision: camera models, epipolar geometry, triangulation, PnP/BA, SfM/MVS/SLAM, NeRF, 3DGS, and feed-forward 3D foundation models.</li>
+                <li>Generative modeling: DDPM/DDIM, SDE/ODE samplers, CFG, rectified flow / flow matching, latent diffusion, and Transformer-based diffusion / flow models.</li>
+                <li>General-purpose AI workflow: LLM/VLM applications, RAG/Agent patterns, tool use, and AI-assisted research and engineering workflows.</li>
+              </ul>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
