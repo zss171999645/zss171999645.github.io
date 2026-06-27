@@ -8,17 +8,23 @@
       name="description"
       content="Selected publications by Feng Zhou on 3D reconstruction, controllable generation, and diffusion models."
     >
-    <link rel="stylesheet" href="styles.css?v=20260623-fengzhou-local">
+    <link rel="stylesheet" href="styles.css?v=20260628-i18n">
+    <script src="assets/i18n.js?v=20260628-i18n" defer></script>
   </head>
-  <body>
+  <body data-page="publications">
     <header class="site-header">
       <div class="site-header-inner">
-        <p class="site-brand">Feng Zhou</p>
+        <p class="site-brand" data-i18n="profile.name">Feng Zhou</p>
         <nav class="site-nav" aria-label="Primary">
-          <a href="index.html">About</a>
-          <a href="publications.html" class="is-current" aria-current="page">Publications</a>
-          <a href="cv.html">CV</a>
+          <a href="index.html" data-i18n="nav.about">About</a>
+          <a href="publications.html" class="is-current" aria-current="page" data-i18n="nav.publications">Publications</a>
+          <a href="cv.html" data-i18n="nav.cv">CV</a>
         </nav>
+        <button class="language-toggle" type="button" data-language-toggle aria-label="切换到中文">
+          <span data-i18n="toggle.toChinese">中文</span>
+          <span class="language-toggle-divider" aria-hidden="true"></span>
+          <span data-i18n="toggle.toEnglish">EN</span>
+        </button>
       </div>
     </header>
 
@@ -26,25 +32,25 @@
       <div class="site-layout">
         <aside class="profile-rail" aria-label="Profile">
           <img class="portrait" src="assets/profile-photo.jpg" alt="Portrait of Feng Zhou">
-          <h1 class="profile-name">Feng Zhou</h1>
-          <p class="profile-bio">
+          <h1 class="profile-name" data-i18n="profile.name">Feng Zhou</h1>
+          <p class="profile-bio" data-i18n="profile.bio">
             Ph.D. student at Beijing University of Posts and Telecommunications. My work focuses on
             3D reconstruction foundation models, 3D scene understanding, and controllable visual
             generation.
           </p>
           <ul class="profile-meta">
-            <li class="profile-row profile-row-location">Beijing, China</li>
-            <li class="profile-row profile-row-institution">
+            <li class="profile-row profile-row-location" data-i18n="profile.location">Beijing, China</li>
+            <li class="profile-row profile-row-institution" data-i18n="profile.institution">
               Beijing University of Posts and Telecommunications
             </li>
           </ul>
           <ul class="profile-links">
             <li class="profile-row profile-row-email">
-              <a href="mailto:zhoufeng@bupt.edu.cn">Email</a>
+              <a href="mailto:zhoufeng@bupt.edu.cn" data-i18n="profile.email">Email</a>
             </li>
             <li class="profile-row profile-row-scholar">Google Scholar</li>
             <li class="profile-row profile-row-cv">
-              <a href="assets/Feng_Zhou_CV.pdf">CV</a>
+              <a href="assets/Feng_Zhou_CV.pdf" data-i18n="profile.cv">CV</a>
             </li>
           </ul>
         </aside>
@@ -52,8 +58,8 @@
         <main class="page-content page-content-publications page-content-rich">
           <section class="content-card publication-list-card" aria-labelledby="publication-stack-title">
             <div class="content-card-head">
-              <h2 class="content-card-title" id="publication-stack-title">Selected Publications</h2>
-              <span class="content-card-note">Published / accepted work</span>
+              <h2 class="content-card-title" id="publication-stack-title" data-i18n="publications.title">Selected Publications</h2>
+              <span class="content-card-note" data-i18n="publications.note">Published / accepted work</span>
             </div>
 
             <div class="publication-stack">
@@ -80,13 +86,13 @@
                       <strong>Feng Zhou*</strong>, Pu Cao*, Yiyang Ma, Lu Yang, Yonghao Dang, and Jianqin Yin
                     </p>
                     <p class="publication-entry-meta">AAAI Conference on Artificial Intelligence, 2026. Oral presentation.</p>
-                    <p class="publication-entry-summary">
+                    <p class="publication-entry-summary" data-i18n="publications.summary.position">
                       Analyzes the implicit positional role of convolutional zero padding in
                       high-resolution U-Net diffusion inference and introduces a training-free
                       boundary-complement strategy for resolution extrapolation.
                     </p>
                     <div class="publication-entry-actions">
-                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/aaai-2026-position-encoding.pdf">Paper</a>
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/aaai-2026-position-encoding.pdf" data-i18n="publications.paper">Paper</a>
                     </div>
                   </div>
                 </div>
@@ -114,13 +120,13 @@
                       Yiyang Ma*, <strong>Feng Zhou*</strong>, Pu Cao, Yonghao Dang, and Jianqin Yin
                     </p>
                     <p class="publication-entry-meta">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2026.</p>
-                    <p class="publication-entry-summary">
+                    <p class="publication-entry-summary" data-i18n="publications.summary.resdit">
                       Studies high-resolution extrapolation in Diffusion Transformers and FLUX-like
                       models, focusing on positional encoding, attention receptive fields, and
                       frequency-aware detail preservation.
                     </p>
                     <div class="publication-entry-actions">
-                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/cvpr-2026-resdit.pdf">Paper</a>
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/cvpr-2026-resdit.pdf" data-i18n="publications.paper">Paper</a>
                     </div>
                   </div>
                 </div>
@@ -148,13 +154,13 @@
                       Pu Cao*, <strong>Feng Zhou*</strong>, Lu Yang, Tianrui Huang, and Qing Song
                     </p>
                     <p class="publication-entry-meta">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025.</p>
-                    <p class="publication-entry-summary">
+                    <p class="publication-entry-summary" data-i18n="publications.summary.image">
                       Proposes image-only domain adaptation for large-scale text-to-image diffusion
                       models through guidance-decoupled prior preservation, reducing damage to the
                       original controllability of the model.
                     </p>
                     <div class="publication-entry-actions">
-                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/cvpr-2025-image-is-all-you-need.pdf">Paper</a>
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/cvpr-2025-image-is-all-you-need.pdf" data-i18n="publications.paper">Paper</a>
                     </div>
                   </div>
                 </div>
@@ -182,12 +188,12 @@
                       <strong>Feng Zhou</strong>, Jianqin Yin, and Peiyang Li
                     </p>
                     <p class="publication-entry-meta">AAAI Conference on Artificial Intelligence, 2024.</p>
-                    <p class="publication-entry-summary">
+                    <p class="publication-entry-summary" data-i18n="publications.summary.lifting">
                       Introduces pose-guided attention and adaptive feature selection to use image
                       cues for 2D-to-3D human pose lifting while suppressing background overfitting.
                     </p>
                     <div class="publication-entry-actions">
-                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/aaai-2024-lifting-by-image.pdf">Paper</a>
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/aaai-2024-lifting-by-image.pdf" data-i18n="publications.paper">Paper</a>
                     </div>
                   </div>
                 </div>
@@ -215,13 +221,13 @@
                       Lizhi Wang*, <strong>Feng Zhou*</strong>, Bo Yu, Pu Cao, and Jianqin Yin
                     </p>
                     <p class="publication-entry-meta">IEEE Transactions on Circuits and Systems for Video Technology, 2025.</p>
-                    <p class="publication-entry-summary">
+                    <p class="publication-entry-summary" data-i18n="publications.summary.omegas">
                       Extracts object-level meshes from large 3D scenes by combining 2D Gaussian
                       Splatting segmentation with personalized diffusion priors for occluded and
                       invisible regions.
                     </p>
                     <div class="publication-entry-actions">
-                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/tcsvt-2025-omegas.pdf">Paper</a>
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/tcsvt-2025-omegas.pdf" data-i18n="publications.paper">Paper</a>
                     </div>
                   </div>
                 </div>
@@ -232,7 +238,7 @@
                   <div class="publication-entry-visual">
                     <span class="publication-entry-badge publication-entry-badge-journal">TPAMI 2025</span>
                     <div class="publication-entry-thumbnail publication-placeholder">
-                      <span>Survey</span>
+                      <span data-i18n="publications.survey">Survey</span>
                     </div>
                   </div>
 
@@ -244,7 +250,7 @@
                       Pu Cao, <strong>Feng Zhou</strong>, Qing Song, and Lu Yang
                     </p>
                     <p class="publication-entry-meta">IEEE Transactions on Pattern Analysis and Machine Intelligence, 2025.</p>
-                    <p class="publication-entry-summary">
+                    <p class="publication-entry-summary" data-i18n="publications.summary.survey">
                       A systematic survey of controllable text-to-image diffusion, covering
                       condition injection, structural control, editing control, personalization, and
                       the evolution from prompt-level to spatial- and instance-level control.

@@ -8,17 +8,23 @@
       name="description"
       content="Curriculum Vitae of Feng Zhou, Ph.D. student at Beijing University of Posts and Telecommunications."
     >
-    <link rel="stylesheet" href="styles.css?v=20260623-fengzhou-local">
+    <link rel="stylesheet" href="styles.css?v=20260628-i18n">
+    <script src="assets/i18n.js?v=20260628-i18n" defer></script>
   </head>
-  <body>
+  <body data-page="cv">
     <header class="site-header">
       <div class="site-header-inner">
-        <p class="site-brand">Feng Zhou</p>
+        <p class="site-brand" data-i18n="profile.name">Feng Zhou</p>
         <nav class="site-nav" aria-label="Primary">
-          <a href="index.html">About</a>
-          <a href="publications.html">Publications</a>
-          <a href="cv.html" class="is-current" aria-current="page">CV</a>
+          <a href="index.html" data-i18n="nav.about">About</a>
+          <a href="publications.html" data-i18n="nav.publications">Publications</a>
+          <a href="cv.html" class="is-current" aria-current="page" data-i18n="nav.cv">CV</a>
         </nav>
+        <button class="language-toggle" type="button" data-language-toggle aria-label="切换到中文">
+          <span data-i18n="toggle.toChinese">中文</span>
+          <span class="language-toggle-divider" aria-hidden="true"></span>
+          <span data-i18n="toggle.toEnglish">EN</span>
+        </button>
       </div>
     </header>
 
@@ -26,25 +32,25 @@
       <div class="site-layout">
         <aside class="profile-rail" aria-label="Profile">
           <img class="portrait" src="assets/profile-photo.jpg" alt="Portrait of Feng Zhou">
-          <h1 class="profile-name">Feng Zhou</h1>
-          <p class="profile-bio">
+          <h1 class="profile-name" data-i18n="profile.name">Feng Zhou</h1>
+          <p class="profile-bio" data-i18n="profile.bio">
             Ph.D. student at Beijing University of Posts and Telecommunications. My work focuses on
             3D reconstruction foundation models, 3D scene understanding, and controllable visual
             generation.
           </p>
           <ul class="profile-meta">
-            <li class="profile-row profile-row-location">Beijing, China</li>
-            <li class="profile-row profile-row-institution">
+            <li class="profile-row profile-row-location" data-i18n="profile.location">Beijing, China</li>
+            <li class="profile-row profile-row-institution" data-i18n="profile.institution">
               Beijing University of Posts and Telecommunications
             </li>
           </ul>
           <ul class="profile-links">
             <li class="profile-row profile-row-email">
-              <a href="mailto:zhoufeng@bupt.edu.cn">Email</a>
+              <a href="mailto:zhoufeng@bupt.edu.cn" data-i18n="profile.email">Email</a>
             </li>
             <li class="profile-row profile-row-scholar">Google Scholar</li>
             <li class="profile-row profile-row-cv">
-              <a href="assets/Feng_Zhou_CV.pdf">PDF CV</a>
+              <a href="assets/Feng_Zhou_CV.pdf" data-i18n="profile.pdfCv">PDF CV</a>
             </li>
           </ul>
         </aside>
@@ -52,73 +58,77 @@
         <main class="page-content page-content-cv page-content-rich">
           <section class="content-card cv-sections-card" aria-label="Curriculum sections">
             <section class="cv-section cv-section-card" aria-labelledby="general-information-title">
-              <h3 class="section-title" id="general-information-title">General Information</h3>
+              <h3 class="section-title" id="general-information-title" data-i18n="cv.general.title">General Information</h3>
               <div class="cv-info-grid">
-                <div class="cv-info-chip">Full Name: Feng Zhou</div>
-                <div class="cv-info-chip">Email: zhoufeng@bupt.edu.cn</div>
-                <div class="cv-info-chip">Location: Beijing, China</div>
+                <div class="cv-info-chip" data-i18n="cv.general.name">Full Name: Feng Zhou</div>
+                <div class="cv-info-chip" data-i18n="cv.general.email">Email: zhoufeng@bupt.edu.cn</div>
+                <div class="cv-info-chip" data-i18n="cv.general.location">Location: Beijing, China</div>
               </div>
             </section>
 
             <section class="cv-section cv-section-card" aria-labelledby="education-title">
-              <h3 class="section-title" id="education-title">Education</h3>
+              <h3 class="section-title" id="education-title" data-i18n="cv.education.title">Education</h3>
               <ul class="cv-list">
                 <li>
-                  Ph.D. student in Control Science and Engineering, Beijing University of Posts and
-                  Telecommunications, expected June 2027
+                  <span data-i18n="cv.education.phd">
+                    Ph.D. student in Control Science and Engineering, Beijing University of Posts and
+                    Telecommunications, expected June 2027
+                  </span>
                   <ul class="cv-sublist">
-                    <li>Advisor: Prof. Jianqin Yin, BUPT-COST Lab</li>
-                    <li>Research direction: controllable visual generation and visual understanding of the 3D world</li>
+                    <li data-i18n="cv.education.advisor">Advisor: Prof. Jianqin Yin, BUPT-COST Lab</li>
+                    <li data-i18n="cv.education.direction">Research direction: controllable visual generation and visual understanding of the 3D world</li>
                   </ul>
                 </li>
                 <li>
-                  B.Eng. in Internet of Things Engineering, Beijing University of Posts and
-                  Telecommunications, June 2022
+                  <span data-i18n="cv.education.beng">
+                    B.Eng. in Internet of Things Engineering, Beijing University of Posts and
+                    Telecommunications, June 2022
+                  </span>
                   <ul class="cv-sublist">
-                    <li>GPA: 3.7 / 4.0</li>
-                    <li>Recommended for direct Ph.D. admission</li>
+                    <li data-i18n="cv.education.gpa">GPA: 3.7 / 4.0</li>
+                    <li data-i18n="cv.education.directPhd">Recommended for direct Ph.D. admission</li>
                   </ul>
                 </li>
               </ul>
             </section>
 
             <section class="cv-section cv-section-card" aria-labelledby="research-focus-title">
-              <h3 class="section-title" id="research-focus-title">Research Interests</h3>
+              <h3 class="section-title" id="research-focus-title" data-i18n="cv.research.title">Research Interests</h3>
               <ul class="cv-list">
-                <li>Feed-forward 3D reconstruction and 3D reconstruction foundation models</li>
-                <li>Sparse-view reconstruction, NeRF/3DGS scene representations, and 3D scene understanding</li>
-                <li>Diffusion models, controllable visual generation, and resolution extrapolation</li>
-                <li>AI-assisted research and engineering workflows for model development and experimentation</li>
+                <li data-i18n="cv.research.1">Feed-forward 3D reconstruction and 3D reconstruction foundation models</li>
+                <li data-i18n="cv.research.2">Sparse-view reconstruction, NeRF/3DGS scene representations, and 3D scene understanding</li>
+                <li data-i18n="cv.research.3">Diffusion models, controllable visual generation, and resolution extrapolation</li>
+                <li data-i18n="cv.research.4">AI-assisted research and engineering workflows for model development and experimentation</li>
               </ul>
             </section>
 
             <section class="cv-section cv-section-card" aria-labelledby="experience-title">
-              <h3 class="section-title" id="experience-title">Experience</h3>
+              <h3 class="section-title" id="experience-title" data-i18n="cv.experience.title">Experience</h3>
 
               <div class="cv-timeline-item">
-                <p class="cv-timeline-heading">
+                <p class="cv-timeline-heading" data-i18n="cv.experience.horizon.heading">
                   <strong>Nov 2025 - Present: Talent Program Intern, Horizon Robotics</strong>
                 </p>
                 <ul class="cv-sublist">
-                  <li>
+                  <li data-i18n="cv.experience.horizon.1">
                     Work on 3D reconstruction foundation models, with a focus on feed-forward
                     multi-view geometry reasoning, cross-view communication, and high-resolution
                     reconstruction.
                   </li>
-                  <li>
+                  <li data-i18n="cv.experience.horizon.2">
                     Developed ATSR, a block-level top-k sparse attention design that reduces
                     redundant cross-view communication and improves Pose AUC@30 from 0.879 to 0.891
                     with 8.45x acceleration under 300-view evaluation.
                   </li>
-                  <li>
+                  <li data-i18n="cv.experience.horizon.3">
                     Developed GeoWeave, a selective cross-view communication mechanism for robust
                     pose and point-cloud reconstruction under weak overlap and distracting views.
                   </li>
-                  <li>
+                  <li data-i18n="cv.experience.horizon.4">
                     Explored Hybrid-VGGT, a high-resolution architecture with a low-resolution global
                     backbone and a high-resolution HDE branch for depth and point-cloud quality.
                   </li>
-                  <li>
+                  <li data-i18n="cv.experience.horizon.5">
                     Built mixed training data from 17 public datasets, unified evaluation scripts,
                     business-data adaptation pipelines, and synthetic-data support for detailed object
                     reconstruction.
@@ -128,24 +138,24 @@
             </section>
 
             <section class="cv-section cv-section-card" aria-labelledby="research-experience-title">
-              <h3 class="section-title" id="research-experience-title">Research Experience</h3>
+              <h3 class="section-title" id="research-experience-title" data-i18n="cv.researchExperience.title">Research Experience</h3>
 
               <div class="cv-timeline-item">
-                <p class="cv-timeline-heading">
+                <p class="cv-timeline-heading" data-i18n="cv.researchExperience.3d.heading">
                   <strong>3D Vision: Reconstruction and Scene Understanding</strong>
                 </p>
                 <ul class="cv-sublist">
-                  <li>
+                  <li data-i18n="cv.researchExperience.3d.1">
                     Sparse-view 3D reconstruction: study initialization quality as a dominant factor
                     for sparse-view 3DGS; proposed low-frequency-aware SfM, 3DGS self-initialization,
                     and point-cloud consistency filtering.
                   </li>
-                  <li>
+                  <li data-i18n="cv.researchExperience.3d.2">
                     Object-level understanding in large 3D scenes: proposed Gaussian-segmentation
                     guided object extraction and personalized diffusion priors for occluded or
                     invisible regions.
                   </li>
-                  <li>
+                  <li data-i18n="cv.researchExperience.3d.3">
                     Monocular 3D human pose estimation: designed pose-guided attention and adaptive
                     feature selection to leverage image cues for 2D-to-3D pose lifting.
                   </li>
@@ -153,19 +163,19 @@
               </div>
 
               <div class="cv-timeline-item">
-                <p class="cv-timeline-heading">
+                <p class="cv-timeline-heading" data-i18n="cv.researchExperience.gen.heading">
                   <strong>Controllable Visual Generation and Resolution Extrapolation</strong>
                 </p>
                 <ul class="cv-sublist">
-                  <li>
+                  <li data-i18n="cv.researchExperience.gen.1">
                     Analyzed implicit positional encoding in U-Net diffusion and proposed a
                     training-free strategy for high-resolution image generation.
                   </li>
-                  <li>
+                  <li data-i18n="cv.researchExperience.gen.2">
                     Studied resolution scalability in Diffusion Transformers and FLUX-like models
                     through attention receptive fields and frequency-aware detail preservation.
                   </li>
-                  <li>
+                  <li data-i18n="cv.researchExperience.gen.3">
                     Worked on image-only in-domain generation adaptation, controllable-generation
                     evaluation, and a survey of text-to-image diffusion control.
                   </li>
@@ -174,7 +184,7 @@
             </section>
 
             <section class="cv-section cv-section-card" aria-labelledby="publications-title">
-              <h3 class="section-title" id="publications-title">Selected Publications</h3>
+              <h3 class="section-title" id="publications-title" data-i18n="cv.publications.title">Selected Publications</h3>
               <ul class="cv-list">
                 <li>Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation. AAAI 2026 Oral.</li>
                 <li>Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation. AAAI 2024.</li>
@@ -185,12 +195,12 @@
             </section>
 
             <section class="cv-section cv-section-card" aria-labelledby="skills-title">
-              <h3 class="section-title" id="skills-title">Technical Scope</h3>
+              <h3 class="section-title" id="skills-title" data-i18n="cv.skills.title">Technical Scope</h3>
               <ul class="cv-list">
-                <li>Computer vision foundations: image formation, matching, optical flow, detection, segmentation, and pose estimation.</li>
-                <li>3D vision: camera models, epipolar geometry, triangulation, PnP/BA, SfM/MVS/SLAM, NeRF, 3DGS, and feed-forward 3D foundation models.</li>
-                <li>Generative modeling: DDPM/DDIM, SDE/ODE samplers, CFG, rectified flow / flow matching, latent diffusion, and Transformer-based diffusion / flow models.</li>
-                <li>General-purpose AI workflow: LLM/VLM applications, RAG/Agent patterns, tool use, and AI-assisted research and engineering workflows.</li>
+                <li data-i18n="cv.skills.1">Computer vision foundations: image formation, matching, optical flow, detection, segmentation, and pose estimation.</li>
+                <li data-i18n="cv.skills.2">3D vision: camera models, epipolar geometry, triangulation, PnP/BA, SfM/MVS/SLAM, NeRF, 3DGS, and feed-forward 3D foundation models.</li>
+                <li data-i18n="cv.skills.3">Generative modeling: DDPM/DDIM, SDE/ODE samplers, CFG, rectified flow / flow matching, latent diffusion, and Transformer-based diffusion / flow models.</li>
+                <li data-i18n="cv.skills.4">General-purpose AI workflow: LLM/VLM applications, RAG/Agent patterns, tool use, and AI-assisted research and engineering workflows.</li>
               </ul>
             </section>
           </section>
