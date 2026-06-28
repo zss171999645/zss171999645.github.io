@@ -63,8 +63,8 @@
     "home.eyebrow": { en: "About Me", zh: "个人简介" },
     "home.title": { en: "About Me", zh: "个人简介" },
     "home.intro.education": {
-      en: "I am a Ph.D. student in Control Science and Engineering at Beijing University of Posts and Telecommunications, advised by Prof. Jianqin Yin at the BUPT-COST Lab. I received my B.Eng. degree in Internet of Things Engineering from BUPT in 2022.",
-      zh: "我目前是北京邮电大学控制科学与工程专业博士研究生，师从尹建芹教授，在 BUPT-COST Lab 开展研究；本科毕业于北京邮电大学物联网工程专业，获工学学士学位。",
+      en: "I am a Ph.D. student in Control Science and Engineering at Beijing University of Posts and Telecommunications, expected to graduate in June 2027, advised by Prof. Jianqin Yin at the BUPT-COST Lab. I received my B.Eng. degree in Internet of Things Engineering from BUPT in 2022.",
+      zh: "我目前是北京邮电大学控制科学与工程专业博士研究生，拟 2027 年 6 月毕业，师从尹建芹教授，在 BUPT-COST Lab 开展研究；本科毕业于北京邮电大学物联网工程专业，获工学学士学位。",
     },
     "home.intro.research": {
       en: "My research interests lie at the intersection of 3D vision and generative models, including feed-forward 3D reconstruction, sparse-view reconstruction, 3D Gaussian Splatting, 3D world models, controllable visual generation, and resolution extrapolation in diffusion models.",

@@ -37,6 +37,7 @@ for (const page of pages) {
     assertOrdered(html, ["research-overview-card", 'id="publications"'], "homepage places publications after research overview");
     assertIncludes(html, "<title>周峰 - 个人简介</title>", "homepage has Chinese default title");
     assertIncludes(html, "北京邮电大学博士研究生", "homepage static copy defaults to Chinese");
+    assertIncludes(html, "拟 2027 年 6 月毕业", "homepage static education copy includes expected graduation time");
     assertIncludes(html, "三维世界模型", "homepage static copy includes Chinese research direction");
     assertIncludes(html, "影溯科技", "homepage static copy includes current InSpatio internship in Chinese");
     assertDoesNotInclude(html, 'data-i18n="home.intro.internship"', "homepage removes internship copy from the about bullet list");
@@ -82,6 +83,8 @@ assertIncludes(script, "zhoufeng-homepage-language-v2", "script ignores stale En
 assertIncludes(script, "zh-CN", "script supports Chinese locale");
 assertIncludes(script, "localStorage", "script persists language preference");
 assertIncludes(script, "个人简介", "script contains Chinese homepage copy");
+assertIncludes(script, "expected to graduate in June 2027", "script contains English homepage graduation timing");
+assertIncludes(script, "拟 2027 年 6 月毕业", "script contains Chinese homepage graduation timing");
 assertIncludes(script, "主要论文", "script contains Chinese publications copy");
 assertIncludes(script, "Internship Experience", "script contains English internship panel copy");
 assertIncludes(script, "实习经历", "script contains Chinese internship panel copy");
