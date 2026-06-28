@@ -79,6 +79,23 @@
     "keyword.worldModels": { en: "3D World Models", zh: "三维世界模型" },
     "keyword.controllable": { en: "Controllable Generation", zh: "可控生成" },
     "keyword.diffusion": { en: "Diffusion Models", zh: "扩散模型" },
+    "home.research.title": { en: "Research Overview", zh: "研究内容" },
+    "home.research.note": { en: "Research Overview", zh: "研究主线" },
+    "home.research.3d.title": { en: "3D Reconstruction and Foundation Models", zh: "三维重建与基础模型" },
+    "home.research.3d.body": {
+      en: "My work studies sparse-view and feed-forward 3D reconstruction, including multi-view geometry, cross-view reasoning, NeRF/3DGS scene representations, and high-resolution reconstruction. Related internship work covers cross-view communication, sparse attention, and high-resolution architecture design for 3D reconstruction foundation models.",
+      zh: "围绕稀疏视角与前馈式三维重建，研究多视图几何、跨视角推理、NeRF/3DGS 场景表征与高分辨率重建等问题；相关工作包括三维重建基础模型中的跨视角通信、稀疏注意力与高分辨率结构设计。",
+    },
+    "home.research.world.title": { en: "3D World Models and Spatial Intelligence", zh: "三维世界模型与空间智能" },
+    "home.research.world.body": {
+      en: "At InSpatio, I participate in TOPOS1.0 and 3DGS-based 3D world model construction. My current research includes panoramic-image feed-forward 3D reconstruction and scene-level 3D VAE latent-space design.",
+      zh: "参与 TOPOS1.0 与基于 3DGS 的三维世界模型搭建，当前研究基于全景图像的前馈三维重建模型，以及场景级三维 VAE 隐空间设计。",
+    },
+    "home.research.gen.title": { en: "Controllable Generation and Diffusion Models", zh: "可控生成与扩散模型" },
+    "home.research.gen.body": {
+      en: "My generative-model work focuses on controllable text-to-image generation, resolution extrapolation, and mechanism analysis, studying positional encodings, attention receptive fields, frequency-aware details, and in-domain adaptation in U-Net/DiT/FLUX-like diffusion and flow models.",
+      zh: "围绕可控文生图、分辨率外推与生成机制分析，研究 U-Net/DiT/FLUX-like 扩散与流模型中的位置编码、注意力感受野、频率细节保持与域内生成适配。",
+    },
 
     "publications.title": { en: "Selected Publications", zh: "主要论文" },
     "publications.note": { en: "Published / accepted work", zh: "已发表 / 已接收工作" },
