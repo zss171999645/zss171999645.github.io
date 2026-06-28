@@ -4,12 +4,15 @@ import { join } from "node:path";
 const root = new URL("..", import.meta.url).pathname;
 const pages = ["index.html", "publications.html", "cv.html"];
 const i18nKeys = new Set();
+const scholarUrl = "https://scholar.google.com/citations?user=1XPQWKIAAAAJ&hl=en";
 
 for (const page of pages) {
   const html = readFileSync(join(root, page), "utf8");
   assertIncludes(html, 'class="language-toggle"', `${page} exposes a visible language toggle`);
   assertIncludes(html, 'data-i18n="nav.about"', `${page} wires navigation labels to i18n keys`);
   assertIncludes(html, 'script src="assets/i18n.js', `${page} loads the language toggle script`);
+  assertIncludes(html, `href="${scholarUrl}"`, `${page} links to Google Scholar`);
+  assertDoesNotInclude(html, '<li class="profile-row profile-row-scholar">Google Scholar</li>', `${page} does not leave Scholar as plain text`);
   for (const match of html.matchAll(/data-i18n="([^"]+)"/g)) {
     i18nKeys.add(match[1]);
   }
@@ -33,6 +36,11 @@ assertDoesNotInclude(script, "2025 年 11 月至今：地平线", "Chinese copy 
 for (const key of i18nKeys) {
   assertIncludes(script, `"${key}":`, `${key} has a translation entry`);
 }
+
+const styles = readFileSync(join(root, "styles.css"), "utf8");
+assertIncludes(styles, "font-size: 17px;", "base font size is larger than the previous 16px baseline");
+assertIncludes(styles, "font-size: 14px;", "sidebar small text is raised above the previous 12px baseline");
+assertDoesNotInclude(styles, "font-size: 12px;", "stylesheet no longer uses tiny 12px text");
 
 function assertIncludes(haystack, needle, message) {
   if (!haystack.includes(needle)) {
