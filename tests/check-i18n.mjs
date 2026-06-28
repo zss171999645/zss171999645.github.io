@@ -20,26 +20,35 @@ for (const page of pages) {
     throw new Error("cv.html keeps nested education sublists inside their parent list items");
   }
   if (page === "index.html") {
-    assertIncludes(
+    assertOrdered(
       html,
+      [
+        "Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation",
+        "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
+        "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
+        "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation",
+        "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
+      ],
+      "homepage CV snapshot lists selected publications in reverse chronological order",
+    );
+    for (const title of [
       "Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation",
-      "homepage CV snapshot uses the full AAAI 2026 publication title",
-    );
-    assertIncludes(
-      html,
-      "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
-      "homepage CV snapshot uses the full AAAI 2024 publication title",
-    );
-    assertIncludes(
-      html,
-      "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
-      "homepage CV snapshot uses the full CVPR 2025 publication title",
-    );
-    assertIncludes(
-      html,
       "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
-      "homepage CV snapshot uses the full CVPR 2026 publication title",
-    );
+      "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
+      "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation",
+      "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
+    ]) {
+      assertIncludes(html, title, `homepage CV snapshot uses full publication title: ${title}`);
+    }
+    assertIncludes(html, "AAAI Conference on Artificial Intelligence, 2026", "homepage CV snapshot expands AAAI 2026 venue");
+    assertIncludes(html, "IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2026", "homepage CV snapshot expands CVPR 2026 venue");
+    assertIncludes(html, "IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025", "homepage CV snapshot expands CVPR 2025 venue");
+    assertIncludes(html, "IEEE Transactions on Circuits and Systems for Video Technology, 2025", "homepage CV snapshot expands TCSVT venue");
+    assertIncludes(html, "AAAI Conference on Artificial Intelligence, 2024", "homepage CV snapshot expands AAAI 2024 venue");
+    assertDoesNotInclude(html, "AAAI 2026 Oral", "homepage CV snapshot avoids shorthand AAAI venue");
+    assertDoesNotInclude(html, "CVPR 2025", "homepage CV snapshot avoids shorthand CVPR venue");
+    assertDoesNotInclude(html, "CVPR 2026", "homepage CV snapshot avoids shorthand CVPR venue");
+    assertDoesNotInclude(html, "TCSVT 2025", "homepage CV snapshot avoids shorthand TCSVT venue");
     assertDoesNotInclude(html, "<li>Lifting by Image, AAAI 2024.</li>", "homepage CV snapshot avoids shorthand publication titles");
     assertDoesNotInclude(html, "<li>ResDiT, CVPR 2026.</li>", "homepage CV snapshot avoids shorthand publication titles");
   }
@@ -75,5 +84,19 @@ function assertIncludes(haystack, needle, message) {
 function assertDoesNotInclude(haystack, needle, message) {
   if (haystack.includes(needle)) {
     throw new Error(`${message}: unexpected ${needle}`);
+  }
+}
+
+function assertOrdered(haystack, needles, message) {
+  let previous = -1;
+  for (const needle of needles) {
+    const index = haystack.indexOf(needle);
+    if (index === -1) {
+      throw new Error(`${message}: missing ${needle}`);
+    }
+    if (index <= previous) {
+      throw new Error(`${message}: ${needle} is out of order`);
+    }
+    previous = index;
   }
 }
