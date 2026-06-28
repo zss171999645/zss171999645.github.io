@@ -79,31 +79,6 @@
     "keyword.worldModels": { en: "3D World Models", zh: "三维世界模型" },
     "keyword.controllable": { en: "Controllable Generation", zh: "可控生成" },
     "keyword.diffusion": { en: "Diffusion Models", zh: "扩散模型" },
-    "home.snapshot.title": { en: "CV Snapshot", zh: "简历概览" },
-    "home.snapshot.open": { en: "Open Full CV", zh: "打开完整简历" },
-    "home.snapshot.education.title": { en: "Education", zh: "教育经历" },
-    "home.snapshot.education.phd": {
-      en: "Ph.D. student in Control Science and Engineering, BUPT, expected June 2027.",
-      zh: "北京邮电大学控制科学与工程博士研究生，预计 2027 年 6 月毕业。",
-    },
-    "home.snapshot.education.beng": {
-      en: "B.Eng. in Internet of Things Engineering, BUPT, June 2022.",
-      zh: "北京邮电大学物联网工程专业工学学士，2022 年 6 月毕业。",
-    },
-    "home.snapshot.internship.title": { en: "Internship Experience", zh: "实习经历" },
-    "home.snapshot.internship.1": {
-      en: "Current intern at InSpatio, participating in TOPOS1.0 and 3DGS-based 3D world model construction.",
-      zh: "当前在影溯科技 (InSpatio) 实习，参与 TOPOS1.0 研发与基于 3DGS 的三维世界模型搭建。",
-    },
-    "home.snapshot.internship.2": {
-      en: "Researching panoramic-image feed-forward 3D reconstruction and scene-level 3D VAE latent-space design.",
-      zh: "正在研究基于全景图像的前馈三维重建模型，以及场景级别的三维 VAE 隐空间设计。",
-    },
-    "home.snapshot.internship.3": {
-      en: "Previous talent-program intern at Horizon Robotics from Nov 2025 to May 2026, focused on 3D reconstruction foundation models.",
-      zh: "曾于 2025 年 11 月至 2026 年 5 月在地平线机器人人才计划实习，参与三维重建基础模型研究。",
-    },
-    "home.snapshot.publications.title": { en: "Selected Publications", zh: "主要论文" },
 
     "publications.title": { en: "Selected Publications", zh: "主要论文" },
     "publications.note": { en: "Published / accepted work", zh: "已发表 / 已接收工作" },

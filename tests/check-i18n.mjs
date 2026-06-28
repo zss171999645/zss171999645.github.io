@@ -12,6 +12,8 @@ for (const page of pages) {
   assertIncludes(html, 'data-i18n="nav.about"', `${page} wires navigation labels to i18n keys`);
   assertIncludes(html, 'script src="assets/i18n.js', `${page} loads the language toggle script`);
   assertIncludes(html, `href="${scholarUrl}"`, `${page} links to Google Scholar`);
+  assertIncludes(html, 'href="assets/Feng_Zhou_CV.pdf"', `${page} keeps the downloadable PDF CV link`);
+  assertDoesNotInclude(html, 'href="cv.html"', `${page} removes the visible CV page entry`);
   assertDoesNotInclude(html, '<li class="profile-row profile-row-scholar">Google Scholar</li>', `${page} does not leave Scholar as plain text`);
   for (const match of html.matchAll(/data-i18n="([^"]+)"/g)) {
     i18nKeys.add(match[1]);
@@ -20,42 +22,12 @@ for (const page of pages) {
     throw new Error("cv.html keeps nested education sublists inside their parent list items");
   }
   if (page === "index.html") {
-    assertIncludes(html, 'class="snapshot-sections"', "homepage CV snapshot renders as normal page content");
-    assertDoesNotInclude(html, 'class="cv-window"', "homepage CV snapshot does not use an inner panel");
-    assertDoesNotInclude(html, 'class="cv-window-head"', "homepage CV snapshot does not use a fake window header");
-    assertDoesNotInclude(html, 'class="cv-scroll"', "homepage CV snapshot does not use an internal scroll container");
-    assertDoesNotInclude(html, 'class="cv-dot"', "homepage CV snapshot does not show fake window dots");
-    assertOrdered(
-      html,
-      [
-        "Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation",
-        "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
-        "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
-        "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation",
-        "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
-      ],
-      "homepage CV snapshot lists selected publications in reverse chronological order",
-    );
-    for (const title of [
-      "Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation",
-      "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
-      "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
-      "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation",
-      "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
-    ]) {
-      assertIncludes(html, title, `homepage CV snapshot uses full publication title: ${title}`);
-    }
-    assertIncludes(html, "AAAI Conference on Artificial Intelligence, 2026", "homepage CV snapshot expands AAAI 2026 venue");
-    assertIncludes(html, "IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2026", "homepage CV snapshot expands CVPR 2026 venue");
-    assertIncludes(html, "IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025", "homepage CV snapshot expands CVPR 2025 venue");
-    assertIncludes(html, "IEEE Transactions on Circuits and Systems for Video Technology, 2025", "homepage CV snapshot expands TCSVT venue");
-    assertIncludes(html, "AAAI Conference on Artificial Intelligence, 2024", "homepage CV snapshot expands AAAI 2024 venue");
-    assertDoesNotInclude(html, "AAAI 2026 Oral", "homepage CV snapshot avoids shorthand AAAI venue");
-    assertDoesNotInclude(html, "CVPR 2025", "homepage CV snapshot avoids shorthand CVPR venue");
-    assertDoesNotInclude(html, "CVPR 2026", "homepage CV snapshot avoids shorthand CVPR venue");
-    assertDoesNotInclude(html, "TCSVT 2025", "homepage CV snapshot avoids shorthand TCSVT venue");
-    assertDoesNotInclude(html, "<li>Lifting by Image, AAAI 2024.</li>", "homepage CV snapshot avoids shorthand publication titles");
-    assertDoesNotInclude(html, "<li>ResDiT, CVPR 2026.</li>", "homepage CV snapshot avoids shorthand publication titles");
+    assertDoesNotInclude(html, "CV Snapshot", "homepage removes the CV snapshot panel");
+    assertDoesNotInclude(html, "Open Full CV", "homepage removes the duplicate full-CV panel link");
+    assertDoesNotInclude(html, 'id="cv-preview-title"', "homepage removes the CV preview heading");
+    assertDoesNotInclude(html, 'class="preview-card"', "homepage removes the CV preview card");
+    assertDoesNotInclude(html, 'class="snapshot-sections"', "homepage removes CV snapshot content sections");
+    assertDoesNotInclude(html, 'class="snapshot-block"', "homepage removes CV snapshot content blocks");
   }
 }
 
@@ -81,6 +53,9 @@ assertIncludes(styles, "font-size: 14px;", "sidebar small text is raised above t
 assertDoesNotInclude(styles, "font-size: 12px;", "stylesheet no longer uses tiny 12px text");
 assertDoesNotInclude(styles, ".cv-window", "stylesheet no longer contains inner CV panel styles");
 assertDoesNotInclude(styles, ".cv-scroll", "stylesheet no longer contains internal CV scrolling styles");
+assertDoesNotInclude(styles, ".preview-card", "stylesheet no longer contains homepage CV preview card styles");
+assertDoesNotInclude(styles, ".snapshot-sections", "stylesheet no longer contains CV snapshot section styles");
+assertDoesNotInclude(styles, ".snapshot-block", "stylesheet no longer contains CV snapshot block styles");
 
 function assertIncludes(haystack, needle, message) {
   if (!haystack.includes(needle)) {
@@ -91,19 +66,5 @@ function assertIncludes(haystack, needle, message) {
 function assertDoesNotInclude(haystack, needle, message) {
   if (haystack.includes(needle)) {
     throw new Error(`${message}: unexpected ${needle}`);
-  }
-}
-
-function assertOrdered(haystack, needles, message) {
-  let previous = -1;
-  for (const needle of needles) {
-    const index = haystack.indexOf(needle);
-    if (index === -1) {
-      throw new Error(`${message}: missing ${needle}`);
-    }
-    if (index <= previous) {
-      throw new Error(`${message}: ${needle} is out of order`);
-    }
-    previous = index;
   }
 }
