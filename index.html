@@ -8,8 +8,8 @@
       name="description"
       content="周峰，北京邮电大学博士研究生，研究方向包括三维重建基础模型、三维世界模型与可控视觉生成。"
     >
-    <link rel="stylesheet" href="styles.css?v=20260628-research-overview">
-    <script src="assets/i18n.js?v=20260628-research-overview" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260628-home-publications">
+    <script src="assets/i18n.js?v=20260628-home-publications" defer></script>
   </head>
   <body data-page="about" data-lang="zh">
     <header class="site-header">
@@ -17,7 +17,7 @@
         <p class="site-brand" data-i18n="profile.name">周峰</p>
         <nav class="site-nav" aria-label="Primary">
           <a href="index.html" class="is-current" aria-current="page" data-i18n="nav.about">个人简介</a>
-          <a href="publications.html" data-i18n="nav.publications">主要论文</a>
+          <a href="#publications" data-i18n="nav.publications">主要论文</a>
         </nav>
         <button class="language-toggle" type="button" data-language-toggle aria-label="Switch to English">
           <span data-i18n="toggle.toChinese">中文</span>
@@ -113,6 +113,211 @@
                   扩散与流模型中的位置编码、注意力感受野、频率细节保持与域内生成适配。
                 </p>
               </section>
+            </div>
+          </section>
+
+          <section id="publications" class="content-card publication-list-card" aria-labelledby="publication-stack-title">
+            <div class="content-card-head">
+              <h2 class="content-card-title" id="publication-stack-title" data-i18n="publications.title">主要论文</h2>
+              <span class="content-card-note" data-i18n="publications.note">已发表 / 已接收工作</span>
+            </div>
+
+            <div class="publication-stack">
+              <article class="publication-entry publication-item-soft">
+                <div class="publication-card">
+                  <div class="publication-entry-visual">
+                    <span class="publication-entry-badge publication-entry-badge-aaai">AAAI 2026 Oral</span>
+                    <a class="publication-entry-thumbnail" href="assets/papers/aaai-2026-position-encoding.pdf">
+                      <img
+                        src="assets/publications/aaai-2026-position-encoding.png"
+                        alt="Preview for Exploring Position Encoding in Diffusion U-Net"
+                      >
+                    </a>
+                  </div>
+
+                  <div class="publication-entry-body">
+                    <h4 class="publication-entry-title">
+                      <a href="assets/papers/aaai-2026-position-encoding.pdf">
+                        Exploring Position Encoding in Diffusion U-Net for Training-free
+                        High-resolution Image Generation
+                      </a>
+                    </h4>
+                    <p class="publication-entry-authors">
+                      <strong>Feng Zhou*</strong>, Pu Cao*, Yiyang Ma, Lu Yang, Yonghao Dang, and Jianqin Yin
+                    </p>
+                    <p class="publication-entry-meta">AAAI Conference on Artificial Intelligence, 2026. Oral presentation.</p>
+                    <p class="publication-entry-summary" data-i18n="publications.summary.position">
+                      Analyzes the implicit positional role of convolutional zero padding in
+                      high-resolution U-Net diffusion inference and introduces a training-free
+                      boundary-complement strategy for resolution extrapolation.
+                    </p>
+                    <div class="publication-entry-actions">
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/aaai-2026-position-encoding.pdf" data-i18n="publications.paper">论文</a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="publication-entry publication-item-soft">
+                <div class="publication-card">
+                  <div class="publication-entry-visual">
+                    <span class="publication-entry-badge publication-entry-badge-cvpr">CVPR 2026</span>
+                    <a class="publication-entry-thumbnail" href="assets/papers/cvpr-2026-resdit.pdf">
+                      <img
+                        src="assets/publications/cvpr-2026-resdit.png"
+                        alt="Preview for ResDiT"
+                      >
+                    </a>
+                  </div>
+
+                  <div class="publication-entry-body">
+                    <h4 class="publication-entry-title">
+                      <a href="assets/papers/cvpr-2026-resdit.pdf">
+                        ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers
+                      </a>
+                    </h4>
+                    <p class="publication-entry-authors">
+                      Yiyang Ma*, <strong>Feng Zhou*</strong>, Pu Cao, Yonghao Dang, and Jianqin Yin
+                    </p>
+                    <p class="publication-entry-meta">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2026.</p>
+                    <p class="publication-entry-summary" data-i18n="publications.summary.resdit">
+                      Studies high-resolution extrapolation in Diffusion Transformers and FLUX-like
+                      models, focusing on positional encoding, attention receptive fields, and
+                      frequency-aware detail preservation.
+                    </p>
+                    <div class="publication-entry-actions">
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/cvpr-2026-resdit.pdf" data-i18n="publications.paper">论文</a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="publication-entry publication-item-soft">
+                <div class="publication-card">
+                  <div class="publication-entry-visual">
+                    <span class="publication-entry-badge publication-entry-badge-cvpr">CVPR 2025</span>
+                    <a class="publication-entry-thumbnail" href="assets/papers/cvpr-2025-image-is-all-you-need.pdf">
+                      <img
+                        src="assets/publications/cvpr-2025-image-is-all-you-need.png"
+                        alt="Preview for Image is All You Need"
+                      >
+                    </a>
+                  </div>
+
+                  <div class="publication-entry-body">
+                    <h4 class="publication-entry-title">
+                      <a href="assets/papers/cvpr-2025-image-is-all-you-need.pdf">
+                        Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation
+                      </a>
+                    </h4>
+                    <p class="publication-entry-authors">
+                      Pu Cao*, <strong>Feng Zhou*</strong>, Lu Yang, Tianrui Huang, and Qing Song
+                    </p>
+                    <p class="publication-entry-meta">IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2025.</p>
+                    <p class="publication-entry-summary" data-i18n="publications.summary.image">
+                      Proposes image-only domain adaptation for large-scale text-to-image diffusion
+                      models through guidance-decoupled prior preservation, reducing damage to the
+                      original controllability of the model.
+                    </p>
+                    <div class="publication-entry-actions">
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/cvpr-2025-image-is-all-you-need.pdf" data-i18n="publications.paper">论文</a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="publication-entry publication-item-soft">
+                <div class="publication-card">
+                  <div class="publication-entry-visual">
+                    <span class="publication-entry-badge publication-entry-badge-aaai">AAAI 2024</span>
+                    <a class="publication-entry-thumbnail" href="assets/papers/aaai-2024-lifting-by-image.pdf">
+                      <img
+                        src="assets/publications/aaai-2024-lifting-by-image.png"
+                        alt="Preview for Lifting by Image"
+                      >
+                    </a>
+                  </div>
+
+                  <div class="publication-entry-body">
+                    <h4 class="publication-entry-title">
+                      <a href="assets/papers/aaai-2024-lifting-by-image.pdf">
+                        Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation
+                      </a>
+                    </h4>
+                    <p class="publication-entry-authors">
+                      <strong>Feng Zhou</strong>, Jianqin Yin, and Peiyang Li
+                    </p>
+                    <p class="publication-entry-meta">AAAI Conference on Artificial Intelligence, 2024.</p>
+                    <p class="publication-entry-summary" data-i18n="publications.summary.lifting">
+                      Introduces pose-guided attention and adaptive feature selection to use image
+                      cues for 2D-to-3D human pose lifting while suppressing background overfitting.
+                    </p>
+                    <div class="publication-entry-actions">
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/aaai-2024-lifting-by-image.pdf" data-i18n="publications.paper">论文</a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="publication-entry publication-item-soft">
+                <div class="publication-card">
+                  <div class="publication-entry-visual">
+                    <span class="publication-entry-badge publication-entry-badge-journal">TCSVT 2025</span>
+                    <a class="publication-entry-thumbnail" href="assets/papers/tcsvt-2025-omegas.pdf">
+                      <img
+                        src="assets/publications/tcsvt-2025-omegas.png"
+                        alt="Preview for OMEGAS"
+                      >
+                    </a>
+                  </div>
+
+                  <div class="publication-entry-body">
+                    <h4 class="publication-entry-title">
+                      <a href="assets/papers/tcsvt-2025-omegas.pdf">
+                        OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation
+                      </a>
+                    </h4>
+                    <p class="publication-entry-authors">
+                      Lizhi Wang*, <strong>Feng Zhou*</strong>, Bo Yu, Pu Cao, and Jianqin Yin
+                    </p>
+                    <p class="publication-entry-meta">IEEE Transactions on Circuits and Systems for Video Technology, 2025.</p>
+                    <p class="publication-entry-summary" data-i18n="publications.summary.omegas">
+                      Extracts object-level meshes from large 3D scenes by combining 2D Gaussian
+                      Splatting segmentation with personalized diffusion priors for occluded and
+                      invisible regions.
+                    </p>
+                    <div class="publication-entry-actions">
+                      <a class="publication-entry-chip publication-entry-chip-primary" href="assets/papers/tcsvt-2025-omegas.pdf" data-i18n="publications.paper">论文</a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="publication-entry publication-item-soft">
+                <div class="publication-card publication-card-text">
+                  <div class="publication-entry-visual">
+                    <span class="publication-entry-badge publication-entry-badge-journal">TPAMI 2025</span>
+                    <div class="publication-entry-thumbnail publication-placeholder">
+                      <span data-i18n="publications.survey">综述</span>
+                    </div>
+                  </div>
+
+                  <div class="publication-entry-body">
+                    <h4 class="publication-entry-title">
+                      Controllable Generation with Text-to-Image Diffusion Models: A Survey
+                    </h4>
+                    <p class="publication-entry-authors">
+                      Pu Cao, <strong>Feng Zhou</strong>, Qing Song, and Lu Yang
+                    </p>
+                    <p class="publication-entry-meta">IEEE Transactions on Pattern Analysis and Machine Intelligence, 2025.</p>
+                    <p class="publication-entry-summary" data-i18n="publications.summary.survey">
+                      A systematic survey of controllable text-to-image diffusion, covering
+                      condition injection, structural control, editing control, personalization, and
+                      the evolution from prompt-level to spatial- and instance-level control.
+                    </p>
+                  </div>
+                </div>
+              </article>
             </div>
           </section>
 

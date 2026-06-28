@@ -2,9 +2,13 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
-const pages = ["index.html", "publications.html", "cv.html"];
+const pages = ["index.html", "cv.html"];
 const i18nKeys = new Set();
 const scholarUrl = "https://scholar.google.com/citations?user=1XPQWKIAAAAJ&hl=en";
+
+const publicationsRedirect = readFileSync(join(root, "publications.html"), "utf8");
+assertIncludes(publicationsRedirect, 'url=index.html#publications', "legacy publications page redirects to the homepage section");
+assertIncludes(publicationsRedirect, 'href="index.html#publications"', "legacy publications page exposes a fallback homepage-section link");
 
 for (const page of pages) {
   const html = readFileSync(join(root, page), "utf8");
@@ -14,9 +18,11 @@ for (const page of pages) {
   assertIncludes(html, 'aria-label="Switch to English"', `${page} makes English the toggle target by default`);
   assertIncludes(html, 'class="language-toggle"', `${page} exposes a visible language toggle`);
   assertIncludes(html, 'data-i18n="nav.about"', `${page} wires navigation labels to i18n keys`);
+  assertIncludes(html, 'data-i18n="nav.publications"', `${page} wires the publications navigation label to i18n keys`);
   assertIncludes(html, 'script src="assets/i18n.js', `${page} loads the language toggle script`);
   assertIncludes(html, `href="${scholarUrl}"`, `${page} links to Google Scholar`);
   assertIncludes(html, 'href="assets/Feng_Zhou_CV.pdf"', `${page} keeps the downloadable PDF CV link`);
+  assertDoesNotInclude(html, 'href="publications.html"', `${page} does not route publications navigation to a separate page`);
   assertDoesNotInclude(html, 'href="cv.html"', `${page} removes the visible CV page entry`);
   assertDoesNotInclude(html, '<li class="profile-row profile-row-scholar">Google Scholar</li>', `${page} does not leave Scholar as plain text`);
   for (const match of html.matchAll(/data-i18n="([^"]+)"/g)) {
@@ -26,6 +32,9 @@ for (const page of pages) {
     throw new Error("cv.html keeps nested education sublists inside their parent list items");
   }
   if (page === "index.html") {
+    assertIncludes(html, 'href="#publications"', "homepage publications nav points to the local publications section");
+    assertIncludes(html, 'id="publications"', "homepage has a publications anchor section");
+    assertOrdered(html, ["research-overview-card", 'id="publications"'], "homepage places publications after research overview");
     assertIncludes(html, "<title>周峰 - 个人简介</title>", "homepage has Chinese default title");
     assertIncludes(html, "北京邮电大学博士研究生", "homepage static copy defaults to Chinese");
     assertIncludes(html, "三维世界模型", "homepage static copy includes Chinese research direction");
@@ -36,12 +45,19 @@ for (const page of pages) {
     assertIncludes(html, "三维世界模型与空间智能", "homepage summarizes the 3D world model research line");
     assertIncludes(html, "可控生成与扩散模型", "homepage summarizes the generative-model research line");
     assertIncludes(html, "场景级三维 VAE", "homepage mentions the current scene-level 3D VAE work");
+    assertIncludes(html, "AAAI 2026 Oral", "homepage lists the AAAI 2026 oral paper");
+    assertIncludes(html, "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers", "homepage lists ResDiT");
+    assertIncludes(html, "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation", "homepage lists OMEGAS");
+    assertIncludes(html, "Controllable Generation with Text-to-Image Diffusion Models: A Survey", "homepage lists the TPAMI survey");
     assertDoesNotInclude(html, "CV Snapshot", "homepage removes the CV snapshot panel");
     assertDoesNotInclude(html, "Open Full CV", "homepage removes the duplicate full-CV panel link");
     assertDoesNotInclude(html, 'id="cv-preview-title"', "homepage removes the CV preview heading");
     assertDoesNotInclude(html, 'class="preview-card"', "homepage removes the CV preview card");
     assertDoesNotInclude(html, 'class="snapshot-sections"', "homepage removes CV snapshot content sections");
     assertDoesNotInclude(html, 'class="snapshot-block"', "homepage removes CV snapshot content blocks");
+  }
+  if (page === "cv.html") {
+    assertIncludes(html, 'href="index.html#publications"', "CV page publications nav points back to the homepage section");
   }
 }
 
@@ -90,5 +106,19 @@ function assertIncludes(haystack, needle, message) {
 function assertDoesNotInclude(haystack, needle, message) {
   if (haystack.includes(needle)) {
     throw new Error(`${message}: unexpected ${needle}`);
+  }
+}
+
+function assertOrdered(haystack, needles, message) {
+  let previous = -1;
+  for (const needle of needles) {
+    const index = haystack.indexOf(needle);
+    if (index === -1) {
+      throw new Error(`${message}: missing ${needle}`);
+    }
+    if (index <= previous) {
+      throw new Error(`${message}: ${needle} is out of order`);
+    }
+    previous = index;
   }
 }
