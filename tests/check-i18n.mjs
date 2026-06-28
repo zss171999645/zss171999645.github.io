@@ -39,6 +39,15 @@ for (const page of pages) {
     assertIncludes(html, "北京邮电大学博士研究生", "homepage static copy defaults to Chinese");
     assertIncludes(html, "三维世界模型", "homepage static copy includes Chinese research direction");
     assertIncludes(html, "影溯科技", "homepage static copy includes current InSpatio internship in Chinese");
+    assertDoesNotInclude(html, 'data-i18n="home.intro.internship"', "homepage removes internship copy from the about bullet list");
+    assertIncludes(html, 'class="content-card internship-card"', "homepage has a dedicated internship panel");
+    assertIncludes(html, "实习经历", "homepage internship panel has a Chinese title");
+    assertIncludes(html, "地平线机器人人才计划", "homepage internship panel includes the previous Horizon internship");
+    assertOrdered(
+      html,
+      ["hero-card", "internship-card", "research-overview-card", 'id="publications"'],
+      "homepage orders about, internship, research, and publications sections"
+    );
     assertIncludes(html, "research-overview-card", "homepage includes a dedicated research overview section");
     assertIncludes(html, "研究内容", "homepage research overview has a Chinese section title");
     assertIncludes(html, "三维重建与基础模型", "homepage summarizes the 3D reconstruction research line");
@@ -69,6 +78,8 @@ assertIncludes(script, "zh-CN", "script supports Chinese locale");
 assertIncludes(script, "localStorage", "script persists language preference");
 assertIncludes(script, "个人简介", "script contains Chinese homepage copy");
 assertIncludes(script, "主要论文", "script contains Chinese publications copy");
+assertIncludes(script, "Internship Experience", "script contains English internship panel copy");
+assertIncludes(script, "实习经历", "script contains Chinese internship panel copy");
 assertIncludes(script, "教育经历", "script contains Chinese CV copy");
 assertIncludes(script, "InSpatio", "script contains the current InSpatio internship");
 assertIncludes(script, "TOPOS1.0", "script contains the TOPOS1.0 internship work");
@@ -87,6 +98,8 @@ const styles = readFileSync(join(root, "styles.css"), "utf8");
 assertIncludes(styles, "--cjk:", "stylesheet defines a Chinese-focused font stack");
 assertIncludes(styles, 'body[data-lang="zh"]', "stylesheet has Chinese-specific layout tuning");
 assertIncludes(styles, 'body[data-lang="zh"] .hero-list li', "stylesheet adjusts Chinese homepage paragraph rhythm");
+assertIncludes(styles, ".internship-card", "stylesheet defines the homepage internship panel");
+assertIncludes(styles, ".internship-timeline", "stylesheet defines the homepage internship panel layout");
 assertIncludes(styles, ".research-overview-list", "stylesheet defines homepage research overview layout");
 assertIncludes(styles, "font-size: 17px;", "base font size is larger than the previous 16px baseline");
 assertIncludes(styles, "font-size: 14px;", "sidebar small text is raised above the previous 12px baseline");

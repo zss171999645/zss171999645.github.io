@@ -374,6 +374,72 @@ body[data-lang="zh"] .keyword-list li {
   letter-spacing: 0.02em;
 }
 
+.internship-card {
+  padding: 28px 32px;
+}
+
+.internship-timeline {
+  display: grid;
+  gap: 0;
+}
+
+.internship-item {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.24fr) minmax(0, 1fr);
+  gap: 24px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(65, 73, 84, 0.1);
+}
+
+.internship-item:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.internship-item:last-child {
+  padding-bottom: 0;
+}
+
+.internship-meta {
+  margin: 2px 0 0;
+  color: var(--accent-strong);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.internship-body h3 {
+  margin: 0 0 8px;
+  color: #45505c;
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.internship-body p {
+  margin: 0;
+  color: #54606c;
+  font-size: 15.5px;
+  line-height: 1.78;
+}
+
+body[data-lang="zh"] .internship-card {
+  padding: 30px 34px;
+}
+
+body[data-lang="zh"] .internship-meta {
+  font-size: 14px;
+  letter-spacing: 0;
+}
+
+body[data-lang="zh"] .internship-body h3 {
+  font-size: 18px;
+}
+
+body[data-lang="zh"] .internship-body p {
+  font-size: 16px;
+  line-height: 1.9;
+}
+
 .research-overview-card {
   padding: 28px 32px;
 }
@@ -975,6 +1041,12 @@ body[data-lang="zh"] .cv-timeline-heading {
 
   .hero-title {
     font-size: 30px;
+  }
+
+  .internship-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 18px 0;
   }
 
   .research-overview-item {

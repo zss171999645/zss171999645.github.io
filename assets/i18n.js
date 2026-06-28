@@ -70,15 +70,37 @@
       en: "My research interests lie at the intersection of 3D vision and generative models, including feed-forward 3D reconstruction, sparse-view reconstruction, 3D Gaussian Splatting, 3D world models, controllable visual generation, and resolution extrapolation in diffusion models.",
       zh: "研究方向主要围绕三维视觉与生成模型，包括前馈式三维重建、稀疏视角重建、3D Gaussian Splatting、三维世界模型、可控视觉生成，以及扩散模型的分辨率外推。",
     },
-    "home.intro.internship": {
-      en: "I am currently an intern at InSpatio, working on TOPOS1.0 and 3DGS-based 3D world models. Previously, I was a talent-program intern at Horizon Robotics, working on 3D reconstruction foundation models.",
-      zh: "目前在影溯科技 (InSpatio) 实习，参与 TOPOS1.0 与基于 3DGS 的三维世界模型研发；此前曾在地平线机器人人才计划实习，参与三维重建基础模型相关工作。",
-    },
     "keyword.3dReconstruction": { en: "3D Reconstruction", zh: "三维重建" },
     "keyword.3dFoundation": { en: "3D Foundation Models", zh: "三维基础模型" },
     "keyword.worldModels": { en: "3D World Models", zh: "三维世界模型" },
     "keyword.controllable": { en: "Controllable Generation", zh: "可控生成" },
     "keyword.diffusion": { en: "Diffusion Models", zh: "扩散模型" },
+    "home.internship.title": { en: "Internship Experience", zh: "实习经历" },
+    "home.internship.note": { en: "Industry Research", zh: "产业研究经历" },
+    "home.internship.inspatio.meta": {
+      en: "Current · InSpatio",
+      zh: "当前 · 影溯科技 (InSpatio)",
+    },
+    "home.internship.inspatio.title": {
+      en: "Spatial Intelligence and 3D World Model Intern",
+      zh: "空间智能与三维世界模型实习",
+    },
+    "home.internship.inspatio.body": {
+      en: "Participating in TOPOS1.0 and 3DGS-based 3D world model development; researching panoramic-image feed-forward 3D reconstruction and scene-level 3D VAE latent-space design.",
+      zh: "参与 TOPOS1.0 与基于 3DGS 的三维世界模型研发；正在研究基于全景图像的前馈三维重建模型与场景级三维 VAE 隐空间设计。",
+    },
+    "home.internship.horizon.meta": {
+      en: "Previous · Horizon Robotics Talent Program",
+      zh: "此前 · 地平线机器人人才计划",
+    },
+    "home.internship.horizon.title": {
+      en: "3D Reconstruction Foundation Model Intern",
+      zh: "三维重建基础模型实习",
+    },
+    "home.internship.horizon.body": {
+      en: "Worked on 3D reconstruction foundation models, with a focus on feed-forward multi-view geometry reasoning, cross-view communication, and high-resolution reconstruction.",
+      zh: "参与三维重建基础模型相关工作，围绕前馈式多视角几何推理、跨视角通信与高分辨率重建开展模型设计与实验。",
+    },
     "home.research.title": { en: "Research Overview", zh: "研究内容" },
     "home.research.note": { en: "Research Overview", zh: "研究主线" },
     "home.research.3d.title": { en: "3D Reconstruction and Foundation Models", zh: "三维重建与基础模型" },
