@@ -7,12 +7,12 @@
       en: {
         title: "Feng Zhou - About",
         description:
-          "Feng Zhou is a Ph.D. student at Beijing University of Posts and Telecommunications working on 3D reconstruction foundation models, 3D scene understanding, and controllable visual generation.",
+          "Feng Zhou is a Ph.D. student at Beijing University of Posts and Telecommunications working on 3D reconstruction foundation models, 3D world models, and controllable visual generation.",
       },
       zh: {
         title: "周峰 - 个人简介",
         description:
-          "周峰，北京邮电大学博士研究生，研究方向包括三维重建基础模型、三维场景理解与可控视觉生成。",
+          "周峰，北京邮电大学博士研究生，研究方向包括三维重建基础模型、三维世界模型与可控视觉生成。",
       },
     },
     publications: {
@@ -48,8 +48,8 @@
 
     "profile.name": { en: "Feng Zhou", zh: "周峰" },
     "profile.bio": {
-      en: "Ph.D. student at Beijing University of Posts and Telecommunications. My work focuses on 3D reconstruction foundation models, 3D scene understanding, and controllable visual generation.",
-      zh: "北京邮电大学博士研究生，研究方向包括三维重建基础模型、三维场景理解与可控视觉生成。",
+      en: "Ph.D. student at Beijing University of Posts and Telecommunications. My work focuses on 3D reconstruction foundation models, 3D world models, and controllable visual generation.",
+      zh: "北京邮电大学博士研究生，研究方向包括三维重建基础模型、三维世界模型与可控视觉生成。",
     },
     "profile.location": { en: "Beijing, China", zh: "中国北京" },
     "profile.institution": {
@@ -67,15 +67,16 @@
       zh: "我目前是北京邮电大学控制科学与工程专业博士研究生，师从尹建芹教授，在 BUPT-COST Lab 开展研究。本科毕业于北京邮电大学物联网工程专业，获工学学士学位。",
     },
     "home.intro.research": {
-      en: "My research interests lie at the intersection of 3D vision and generative models, including feed-forward 3D reconstruction, sparse-view reconstruction, 3D Gaussian Splatting, controllable visual generation, and resolution extrapolation in diffusion models.",
-      zh: "我的研究兴趣集中在三维视觉与生成模型的交叉方向，包括前馈式三维重建、稀疏视角重建、3D Gaussian Splatting、可控视觉生成，以及扩散模型的分辨率外推。",
+      en: "My research interests lie at the intersection of 3D vision and generative models, including feed-forward 3D reconstruction, sparse-view reconstruction, 3D Gaussian Splatting, 3D world models, controllable visual generation, and resolution extrapolation in diffusion models.",
+      zh: "我的研究兴趣集中在三维视觉与生成模型的交叉方向，包括前馈式三维重建、稀疏视角重建、3D Gaussian Splatting、三维世界模型、可控视觉生成，以及扩散模型的分辨率外推。",
     },
     "home.intro.internship": {
-      en: "I am currently a talent-program intern at Horizon Robotics, working on 3D reconstruction foundation models with a focus on scalable cross-view reasoning, sparse attention, data construction, and evaluation pipelines.",
-      zh: "我目前在地平线机器人人才计划实习，参与三维重建基础模型相关工作，重点包括可扩展跨视角推理、稀疏注意力、数据构建与评测流程。",
+      en: "I am currently an intern at InSpatio, working on TOPOS1.0 and 3DGS-based 3D world models. Previously, I was a talent-program intern at Horizon Robotics, working on 3D reconstruction foundation models.",
+      zh: "我目前在影溯科技 (InSpatio) 实习，参与 TOPOS1.0 研发与基于 3DGS 的三维世界模型搭建。此前曾在地平线机器人人才计划实习，参与三维重建基础模型相关工作。",
     },
     "keyword.3dReconstruction": { en: "3D Reconstruction", zh: "三维重建" },
     "keyword.3dFoundation": { en: "3D Foundation Models", zh: "三维基础模型" },
+    "keyword.worldModels": { en: "3D World Models", zh: "三维世界模型" },
     "keyword.controllable": { en: "Controllable Generation", zh: "可控生成" },
     "keyword.diffusion": { en: "Diffusion Models", zh: "扩散模型" },
     "home.snapshot.title": { en: "CV Snapshot", zh: "简历概览" },
@@ -90,18 +91,18 @@
       en: "B.Eng. in Internet of Things Engineering, BUPT, June 2022.",
       zh: "北京邮电大学物联网工程专业工学学士，2022 年 6 月毕业。",
     },
-    "home.snapshot.internship.title": { en: "Current Internship", zh: "当前实习" },
+    "home.snapshot.internship.title": { en: "Internship Experience", zh: "实习经历" },
     "home.snapshot.internship.1": {
-      en: "Talent-program intern at Horizon Robotics, working on feed-forward 3D reconstruction foundation models.",
-      zh: "地平线机器人人才计划实习生，参与前馈式三维重建基础模型研究。",
+      en: "Current intern at InSpatio, participating in TOPOS1.0 and 3DGS-based 3D world model construction.",
+      zh: "当前在影溯科技 (InSpatio) 实习，参与 TOPOS1.0 研发与基于 3DGS 的三维世界模型搭建。",
     },
     "home.snapshot.internship.2": {
-      en: "Designed sparse attention and selective cross-view communication modules for scalable multi-view geometry reasoning.",
-      zh: "设计面向可扩展多视角几何推理的稀疏注意力与选择性跨视角通信模块。",
+      en: "Researching panoramic-image feed-forward 3D reconstruction and scene-level 3D VAE latent-space design.",
+      zh: "正在研究基于全景图像的前馈三维重建模型，以及场景级别的三维 VAE 隐空间设计。",
     },
     "home.snapshot.internship.3": {
-      en: "Built training data mixtures, evaluation scripts, and business-data adaptation pipelines for 3D reconstruction models.",
-      zh: "构建三维重建模型训练数据混合、评测脚本与业务数据适配流程。",
+      en: "Previous talent-program intern at Horizon Robotics from Nov 2025 to May 2026, focused on 3D reconstruction foundation models.",
+      zh: "曾于 2025 年 11 月至 2026 年 5 月在地平线机器人人才计划实习，参与三维重建基础模型研究。",
     },
     "home.snapshot.publications.title": { en: "Selected Publications", zh: "主要论文" },
 
@@ -162,8 +163,8 @@
     },
     "cv.research.title": { en: "Research Interests", zh: "研究兴趣" },
     "cv.research.1": {
-      en: "Feed-forward 3D reconstruction and 3D reconstruction foundation models",
-      zh: "前馈式三维重建与三维重建基础模型",
+      en: "Feed-forward 3D reconstruction, 3D world models, and 3D reconstruction foundation models",
+      zh: "前馈式三维重建、三维世界模型与三维重建基础模型",
     },
     "cv.research.2": {
       en: "Sparse-view reconstruction, NeRF/3DGS scene representations, and 3D scene understanding",
@@ -178,9 +179,21 @@
       zh: "面向模型开发与实验验证的 AI 辅助科研与工程工作流",
     },
     "cv.experience.title": { en: "Experience", zh: "实习经历" },
+    "cv.experience.inspatio.heading": {
+      en: "<strong>Jun 2026 - Present: Spatial Intelligence and 3D World Model Intern, InSpatio</strong>",
+      zh: "<strong>2026 年 6 月至今：影溯科技 (InSpatio) 空间智能与三维世界模型实习</strong>",
+    },
+    "cv.experience.inspatio.1": {
+      en: "Participate in TOPOS1.0 development and 3DGS-based 3D world model construction.",
+      zh: "参与 TOPOS1.0 研发，参与基于 3DGS 的三维世界模型搭建。",
+    },
+    "cv.experience.inspatio.2": {
+      en: "Research panoramic-image feed-forward 3D reconstruction and scene-level 3D VAE latent-space design.",
+      zh: "正在研究基于全景图像的前馈三维重建模型，以及场景级别的三维 VAE 隐空间设计。",
+    },
     "cv.experience.horizon.heading": {
-      en: "<strong>Nov 2025 - Present: Talent Program Intern, Horizon Robotics</strong>",
-      zh: "<strong>2025 年 11 月至今：地平线机器人人才计划实习生</strong>",
+      en: "<strong>Nov 2025 - May 2026: Talent Program Intern, Horizon Robotics</strong>",
+      zh: "<strong>2025 年 11 月 - 2026 年 5 月：地平线机器人人才计划实习生</strong>",
     },
     "cv.experience.horizon.1": {
       en: "Work on 3D reconstruction foundation models, with a focus on feed-forward multi-view geometry reasoning, cross-view communication, and high-resolution reconstruction.",

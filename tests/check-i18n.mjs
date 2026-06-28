@@ -24,6 +24,11 @@ assertIncludes(script, "localStorage", "script persists language preference");
 assertIncludes(script, "个人简介", "script contains Chinese homepage copy");
 assertIncludes(script, "主要论文", "script contains Chinese publications copy");
 assertIncludes(script, "教育经历", "script contains Chinese CV copy");
+assertIncludes(script, "InSpatio", "script contains the current InSpatio internship");
+assertIncludes(script, "TOPOS1.0", "script contains the TOPOS1.0 internship work");
+assertIncludes(script, "Nov 2025 - May 2026", "script treats Horizon as a past internship");
+assertDoesNotInclude(script, "Nov 2025 - Present: Talent Program Intern, Horizon Robotics", "script no longer treats Horizon as current");
+assertDoesNotInclude(script, "2025 年 11 月至今：地平线", "Chinese copy no longer treats Horizon as current");
 
 for (const key of i18nKeys) {
   assertIncludes(script, `"${key}":`, `${key} has a translation entry`);
@@ -32,5 +37,11 @@ for (const key of i18nKeys) {
 function assertIncludes(haystack, needle, message) {
   if (!haystack.includes(needle)) {
     throw new Error(`${message}: missing ${needle}`);
+  }
+}
+
+function assertDoesNotInclude(haystack, needle, message) {
+  if (haystack.includes(needle)) {
+    throw new Error(`${message}: unexpected ${needle}`);
   }
 }
