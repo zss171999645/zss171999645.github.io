@@ -19,6 +19,30 @@ for (const page of pages) {
   if (page === "cv.html" && /<\/li>\s*<ul class="cv-sublist">/.test(html)) {
     throw new Error("cv.html keeps nested education sublists inside their parent list items");
   }
+  if (page === "index.html") {
+    assertIncludes(
+      html,
+      "Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation",
+      "homepage CV snapshot uses the full AAAI 2026 publication title",
+    );
+    assertIncludes(
+      html,
+      "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
+      "homepage CV snapshot uses the full AAAI 2024 publication title",
+    );
+    assertIncludes(
+      html,
+      "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
+      "homepage CV snapshot uses the full CVPR 2025 publication title",
+    );
+    assertIncludes(
+      html,
+      "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
+      "homepage CV snapshot uses the full CVPR 2026 publication title",
+    );
+    assertDoesNotInclude(html, "<li>Lifting by Image, AAAI 2024.</li>", "homepage CV snapshot avoids shorthand publication titles");
+    assertDoesNotInclude(html, "<li>ResDiT, CVPR 2026.</li>", "homepage CV snapshot avoids shorthand publication titles");
+  }
 }
 
 const script = readFileSync(join(root, "assets/i18n.js"), "utf8");
