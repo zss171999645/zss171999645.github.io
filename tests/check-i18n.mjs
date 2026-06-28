@@ -42,7 +42,12 @@ for (const page of pages) {
     assertDoesNotInclude(html, 'data-i18n="home.intro.internship"', "homepage removes internship copy from the about bullet list");
     assertIncludes(html, 'class="content-card internship-card"', "homepage has a dedicated internship panel");
     assertIncludes(html, "实习经历", "homepage internship panel has a Chinese title");
-    assertIncludes(html, "地平线机器人人才计划", "homepage internship panel includes the previous Horizon internship");
+    assertIncludes(html, "2026 年 6 月至今 · 影溯科技", "homepage InSpatio internship meta uses dates instead of current label");
+    assertIncludes(html, "2025 年 11 月 - 2026 年 5 月 · 地平线机器人", "homepage Horizon internship meta uses dates instead of previous label");
+    assertIncludes(html, "专项人才计划实习生 · 三维重建基础模型研发", "homepage Horizon internship title uses the requested wording");
+    assertDoesNotInclude(html, "当前 · 影溯科技", "homepage does not label InSpatio as current in internship meta");
+    assertDoesNotInclude(html, "此前 · 地平线", "homepage does not label Horizon as previous in internship meta");
+    assertIncludes(html, "地平线机器人", "homepage internship panel includes the previous Horizon internship");
     assertOrdered(
       html,
       ["hero-card", "internship-card", "research-overview-card", 'id="publications"'],
@@ -80,6 +85,12 @@ assertIncludes(script, "个人简介", "script contains Chinese homepage copy");
 assertIncludes(script, "主要论文", "script contains Chinese publications copy");
 assertIncludes(script, "Internship Experience", "script contains English internship panel copy");
 assertIncludes(script, "实习经历", "script contains Chinese internship panel copy");
+assertIncludes(script, "Jun 2026 - Present · InSpatio", "script contains dated English InSpatio internship meta");
+assertIncludes(script, "2026 年 6 月至今 · 影溯科技", "script contains dated Chinese InSpatio internship meta");
+assertIncludes(script, "Special Talent Program Intern · 3D Reconstruction Foundation Model R&D", "script contains requested English Horizon internship title");
+assertIncludes(script, "专项人才计划实习生 · 三维重建基础模型研发", "script contains requested Chinese Horizon internship title");
+assertDoesNotInclude(script, "Current · InSpatio", "script does not label InSpatio as current in homepage internship meta");
+assertDoesNotInclude(script, "Previous · Horizon Robotics Talent Program", "script does not label Horizon as previous in homepage internship meta");
 assertIncludes(script, "教育经历", "script contains Chinese CV copy");
 assertIncludes(script, "InSpatio", "script contains the current InSpatio internship");
 assertIncludes(script, "TOPOS1.0", "script contains the TOPOS1.0 internship work");

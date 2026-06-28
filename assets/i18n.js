@@ -78,8 +78,8 @@
     "home.internship.title": { en: "Internship Experience", zh: "实习经历" },
     "home.internship.note": { en: "Industry Research", zh: "产业研究经历" },
     "home.internship.inspatio.meta": {
-      en: "Current · InSpatio",
-      zh: "当前 · 影溯科技 (InSpatio)",
+      en: "Jun 2026 - Present · InSpatio",
+      zh: "2026 年 6 月至今 · 影溯科技 (InSpatio)",
     },
     "home.internship.inspatio.title": {
       en: "Spatial Intelligence and 3D World Model Intern",
@@ -90,12 +90,12 @@
       zh: "参与 TOPOS1.0 与基于 3DGS 的三维世界模型研发；正在研究基于全景图像的前馈三维重建模型与场景级三维 VAE 隐空间设计。",
     },
     "home.internship.horizon.meta": {
-      en: "Previous · Horizon Robotics Talent Program",
-      zh: "此前 · 地平线机器人人才计划",
+      en: "Nov 2025 - May 2026 · Horizon Robotics",
+      zh: "2025 年 11 月 - 2026 年 5 月 · 地平线机器人",
     },
     "home.internship.horizon.title": {
-      en: "3D Reconstruction Foundation Model Intern",
-      zh: "三维重建基础模型实习",
+      en: "Special Talent Program Intern · 3D Reconstruction Foundation Model R&D",
+      zh: "专项人才计划实习生 · 三维重建基础模型研发",
     },
     "home.internship.horizon.body": {
       en: "Worked on 3D reconstruction foundation models, with a focus on feed-forward multi-view geometry reasoning, cross-view communication, and high-resolution reconstruction.",
