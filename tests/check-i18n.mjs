@@ -8,6 +8,10 @@ const scholarUrl = "https://scholar.google.com/citations?user=1XPQWKIAAAAJ&hl=en
 
 for (const page of pages) {
   const html = readFileSync(join(root, page), "utf8");
+  assertIncludes(html, '<html lang="zh-CN">', `${page} ships Chinese as the default document language`);
+  assertIncludes(html, '<body data-page=', `${page} keeps page metadata on body`);
+  assertIncludes(html, 'data-lang="zh"', `${page} marks Chinese as the default visible language`);
+  assertIncludes(html, 'aria-label="Switch to English"', `${page} makes English the toggle target by default`);
   assertIncludes(html, 'class="language-toggle"', `${page} exposes a visible language toggle`);
   assertIncludes(html, 'data-i18n="nav.about"', `${page} wires navigation labels to i18n keys`);
   assertIncludes(html, 'script src="assets/i18n.js', `${page} loads the language toggle script`);
@@ -22,6 +26,10 @@ for (const page of pages) {
     throw new Error("cv.html keeps nested education sublists inside their parent list items");
   }
   if (page === "index.html") {
+    assertIncludes(html, "<title>周峰 - 个人简介</title>", "homepage has Chinese default title");
+    assertIncludes(html, "北京邮电大学博士研究生", "homepage static copy defaults to Chinese");
+    assertIncludes(html, "三维世界模型", "homepage static copy includes Chinese research direction");
+    assertIncludes(html, "影溯科技", "homepage static copy includes current InSpatio internship in Chinese");
     assertDoesNotInclude(html, "CV Snapshot", "homepage removes the CV snapshot panel");
     assertDoesNotInclude(html, "Open Full CV", "homepage removes the duplicate full-CV panel link");
     assertDoesNotInclude(html, 'id="cv-preview-title"', "homepage removes the CV preview heading");
@@ -32,6 +40,9 @@ for (const page of pages) {
 }
 
 const script = readFileSync(join(root, "assets/i18n.js"), "utf8");
+assertIncludes(script, 'const DEFAULT_LANG = "zh";', "script defaults first-time visitors to Chinese");
+assertIncludes(script, 'value === "en" || value === "zh"', "script preserves explicit English language selections");
+assertIncludes(script, "zhoufeng-homepage-language-v2", "script ignores stale English-first language preferences");
 assertIncludes(script, "zh-CN", "script supports Chinese locale");
 assertIncludes(script, "localStorage", "script persists language preference");
 assertIncludes(script, "个人简介", "script contains Chinese homepage copy");
@@ -48,6 +59,9 @@ for (const key of i18nKeys) {
 }
 
 const styles = readFileSync(join(root, "styles.css"), "utf8");
+assertIncludes(styles, "--cjk:", "stylesheet defines a Chinese-focused font stack");
+assertIncludes(styles, 'body[data-lang="zh"]', "stylesheet has Chinese-specific layout tuning");
+assertIncludes(styles, 'body[data-lang="zh"] .hero-list li', "stylesheet adjusts Chinese homepage paragraph rhythm");
 assertIncludes(styles, "font-size: 17px;", "base font size is larger than the previous 16px baseline");
 assertIncludes(styles, "font-size: 14px;", "sidebar small text is raised above the previous 12px baseline");
 assertDoesNotInclude(styles, "font-size: 12px;", "stylesheet no longer uses tiny 12px text");

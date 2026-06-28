@@ -1,6 +1,6 @@
 (function () {
-  const STORAGE_KEY = "zhoufeng-homepage-language";
-  const DEFAULT_LANG = "en";
+  const STORAGE_KEY = "zhoufeng-homepage-language-v2";
+  const DEFAULT_LANG = "zh";
 
   const pageMeta = {
     about: {
@@ -49,7 +49,7 @@
     "profile.name": { en: "Feng Zhou", zh: "周峰" },
     "profile.bio": {
       en: "Ph.D. student at Beijing University of Posts and Telecommunications. My work focuses on 3D reconstruction foundation models, 3D world models, and controllable visual generation.",
-      zh: "北京邮电大学博士研究生，研究方向包括三维重建基础模型、三维世界模型与可控视觉生成。",
+      zh: "北京邮电大学控制科学与工程博士研究生，研究方向聚焦三维重建基础模型、三维世界模型与可控视觉生成。",
     },
     "profile.location": { en: "Beijing, China", zh: "中国北京" },
     "profile.institution": {
@@ -64,15 +64,15 @@
     "home.title": { en: "About Me", zh: "个人简介" },
     "home.intro.education": {
       en: "I am a Ph.D. student in Control Science and Engineering at Beijing University of Posts and Telecommunications, advised by Prof. Jianqin Yin at the BUPT-COST Lab. I received my B.Eng. degree in Internet of Things Engineering from BUPT in 2022.",
-      zh: "我目前是北京邮电大学控制科学与工程专业博士研究生，师从尹建芹教授，在 BUPT-COST Lab 开展研究。本科毕业于北京邮电大学物联网工程专业，获工学学士学位。",
+      zh: "我目前是北京邮电大学控制科学与工程专业博士研究生，师从尹建芹教授，在 BUPT-COST Lab 开展研究；本科毕业于北京邮电大学物联网工程专业，获工学学士学位。",
     },
     "home.intro.research": {
       en: "My research interests lie at the intersection of 3D vision and generative models, including feed-forward 3D reconstruction, sparse-view reconstruction, 3D Gaussian Splatting, 3D world models, controllable visual generation, and resolution extrapolation in diffusion models.",
-      zh: "我的研究兴趣集中在三维视觉与生成模型的交叉方向，包括前馈式三维重建、稀疏视角重建、3D Gaussian Splatting、三维世界模型、可控视觉生成，以及扩散模型的分辨率外推。",
+      zh: "研究方向主要围绕三维视觉与生成模型，包括前馈式三维重建、稀疏视角重建、3D Gaussian Splatting、三维世界模型、可控视觉生成，以及扩散模型的分辨率外推。",
     },
     "home.intro.internship": {
       en: "I am currently an intern at InSpatio, working on TOPOS1.0 and 3DGS-based 3D world models. Previously, I was a talent-program intern at Horizon Robotics, working on 3D reconstruction foundation models.",
-      zh: "我目前在影溯科技 (InSpatio) 实习，参与 TOPOS1.0 研发与基于 3DGS 的三维世界模型搭建。此前曾在地平线机器人人才计划实习，参与三维重建基础模型相关工作。",
+      zh: "目前在影溯科技 (InSpatio) 实习，参与 TOPOS1.0 与基于 3DGS 的三维世界模型研发；此前曾在地平线机器人人才计划实习，参与三维重建基础模型相关工作。",
     },
     "keyword.3dReconstruction": { en: "3D Reconstruction", zh: "三维重建" },
     "keyword.3dFoundation": { en: "3D Foundation Models", zh: "三维基础模型" },
@@ -247,7 +247,7 @@
   }
 
   function normalizeLang(value) {
-    return value === "zh" ? "zh" : DEFAULT_LANG;
+    return value === "en" || value === "zh" ? value : DEFAULT_LANG;
   }
 
   function getStoredLang() {
