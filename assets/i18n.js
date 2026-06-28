@@ -81,7 +81,6 @@
     "keyword.diffusion": { en: "Diffusion Models", zh: "扩散模型" },
     "home.snapshot.title": { en: "CV Snapshot", zh: "简历概览" },
     "home.snapshot.open": { en: "Open Full CV", zh: "打开完整简历" },
-    "home.snapshot.window": { en: "Research and experience preview", zh: "研究与经历预览" },
     "home.snapshot.education.title": { en: "Education", zh: "教育经历" },
     "home.snapshot.education.phd": {
       en: "Ph.D. student in Control Science and Engineering, BUPT, expected June 2027.",

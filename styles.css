@@ -402,46 +402,22 @@ body[data-lang="en"] .language-toggle span[data-i18n="toggle.toEnglish"] {
   color: var(--accent);
 }
 
-.cv-window {
-  border-radius: 20px;
-  background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
-  border: 1px solid var(--line);
-  overflow: hidden;
+.snapshot-sections {
+  display: grid;
+  gap: 20px;
 }
 
-.cv-window-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--line);
-  background: rgba(246, 247, 249, 0.9);
+.snapshot-block {
+  padding-top: 20px;
+  border-top: 1px solid rgba(65, 73, 84, 0.1);
 }
 
-.cv-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #d4dae1;
+.snapshot-block:first-child {
+  padding-top: 0;
+  border-top: 0;
 }
 
-.cv-window-head span:last-child {
-  margin-left: 6px;
-  font-size: 13px;
-  color: #73808c;
-}
-
-.cv-scroll {
-  max-height: 470px;
-  overflow: auto;
-  padding: 18px 18px 4px;
-}
-
-.cv-block {
-  margin-bottom: 18px;
-}
-
-.cv-block h4 {
+.snapshot-block h4 {
   margin: 0 0 10px;
   font-size: 14px;
   letter-spacing: 0.06em;
@@ -449,19 +425,19 @@ body[data-lang="en"] .language-toggle span[data-i18n="toggle.toEnglish"] {
   color: var(--accent);
 }
 
-.cv-block ul {
+.snapshot-block ul {
   margin: 0;
   padding-left: 18px;
 }
 
-.cv-block li {
+.snapshot-block li {
   margin-bottom: 8px;
   font-size: 14px;
   line-height: 1.7;
   color: #57616d;
 }
 
-.cv-block li:last-child {
+.snapshot-block li:last-child {
   margin-bottom: 0;
 }
 
@@ -947,11 +923,6 @@ body[data-lang="en"] .language-toggle span[data-i18n="toggle.toEnglish"] {
 
   .hero-title {
     font-size: 30px;
-  }
-
-  .cv-scroll {
-    max-height: none;
-    overflow: visible;
   }
 
   .cv-info-grid {

@@ -20,6 +20,11 @@ for (const page of pages) {
     throw new Error("cv.html keeps nested education sublists inside their parent list items");
   }
   if (page === "index.html") {
+    assertIncludes(html, 'class="snapshot-sections"', "homepage CV snapshot renders as normal page content");
+    assertDoesNotInclude(html, 'class="cv-window"', "homepage CV snapshot does not use an inner panel");
+    assertDoesNotInclude(html, 'class="cv-window-head"', "homepage CV snapshot does not use a fake window header");
+    assertDoesNotInclude(html, 'class="cv-scroll"', "homepage CV snapshot does not use an internal scroll container");
+    assertDoesNotInclude(html, 'class="cv-dot"', "homepage CV snapshot does not show fake window dots");
     assertOrdered(
       html,
       [
@@ -74,6 +79,8 @@ const styles = readFileSync(join(root, "styles.css"), "utf8");
 assertIncludes(styles, "font-size: 17px;", "base font size is larger than the previous 16px baseline");
 assertIncludes(styles, "font-size: 14px;", "sidebar small text is raised above the previous 12px baseline");
 assertDoesNotInclude(styles, "font-size: 12px;", "stylesheet no longer uses tiny 12px text");
+assertDoesNotInclude(styles, ".cv-window", "stylesheet no longer contains inner CV panel styles");
+assertDoesNotInclude(styles, ".cv-scroll", "stylesheet no longer contains internal CV scrolling styles");
 
 function assertIncludes(haystack, needle, message) {
   if (!haystack.includes(needle)) {
