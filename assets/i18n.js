@@ -116,29 +116,32 @@
     },
     "home.news.title": { en: "News", zh: "最新动态" },
     "home.news.note": { en: "Accepted Papers Since 2024", zh: "论文接收情况" },
-    "home.news.2026.year": { en: "2026", zh: "2026" },
+    "home.news.2026.aaai.date": { en: "11/2025", zh: "11/2025" },
     "home.news.2026.aaai": {
       en: "1 paper accepted to AAAI 2026 (Oral).",
       zh: "1 paper 被 AAAI 2026 接收（Oral）。",
     },
+    "home.news.2026.cvpr.date": { en: "02/2026", zh: "02/2026" },
     "home.news.2026.cvpr": {
       en: "1 paper accepted to CVPR 2026.",
       zh: "1 paper 被 CVPR 2026 接收。",
     },
-    "home.news.2025.year": { en: "2025", zh: "2025" },
+    "home.news.2025.cvpr.date": { en: "02/2025", zh: "02/2025" },
     "home.news.2025.cvpr": {
       en: "1 paper accepted to CVPR 2025.",
       zh: "1 paper 被 CVPR 2025 接收。",
     },
+    "home.news.2025.tcsvt.date": { en: "05/2025", zh: "05/2025" },
     "home.news.2025.tcsvt": {
       en: "1 paper accepted to TCSVT 2025.",
       zh: "1 paper 被 TCSVT 2025 接收。",
     },
+    "home.news.2025.tpami.date": { en: "08/2025", zh: "08/2025" },
     "home.news.2025.tpami": {
       en: "1 paper accepted to TPAMI 2025.",
       zh: "1 paper 被 TPAMI 2025 接收。",
     },
-    "home.news.2024.year": { en: "2024", zh: "2024" },
+    "home.news.2024.aaai.date": { en: "02/2024", zh: "02/2024" },
     "home.news.2024.aaai": {
       en: "1 paper accepted to AAAI 2024.",
       zh: "1 paper 被 AAAI 2024 接收。",
