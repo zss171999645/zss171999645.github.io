@@ -350,30 +350,6 @@ body[data-lang="zh"] .hero-list li {
   color: #54606c;
 }
 
-.keyword-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.keyword-list li {
-  padding: 9px 14px;
-  border-radius: 999px;
-  background: rgba(74, 166, 200, 0.12);
-  color: #417f96;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-body[data-lang="zh"] .keyword-list li {
-  padding: 9px 15px;
-  font-size: 14px;
-  letter-spacing: 0.02em;
-}
-
 .internship-card {
   padding: 28px 32px;
 }

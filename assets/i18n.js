@@ -71,11 +71,6 @@
       en: "Research directions: 3D reconstruction, 3D world models, and controllable generation.",
       zh: "研究方向：三维重建、三维世界模型、可控生成。",
     },
-    "keyword.3dReconstruction": { en: "3D Reconstruction", zh: "三维重建" },
-    "keyword.3dFoundation": { en: "3D Foundation Models", zh: "三维基础模型" },
-    "keyword.worldModels": { en: "3D World Models", zh: "三维世界模型" },
-    "keyword.controllable": { en: "Controllable Generation", zh: "可控生成" },
-    "keyword.diffusion": { en: "Diffusion Models", zh: "扩散模型" },
     "home.internship.title": { en: "Internship Experience", zh: "实习经历" },
     "home.internship.note": { en: "Industry Research", zh: "产业研究经历" },
     "home.internship.inspatio.meta": {

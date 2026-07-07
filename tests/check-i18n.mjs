@@ -45,7 +45,8 @@ for (const page of pages) {
     assertDoesNotInclude(html, "研究方向：三维重建、世界模型、可控生成。", "homepage avoids the underspecified world-model wording");
     assertDoesNotInclude(html, "研究方向聚焦三维重建基础模型、三维世界模型与可控视觉生成", "homepage sidebar no longer uses the long research-direction sentence");
     assertDoesNotInclude(html, "研究方向主要围绕三维视觉与生成模型", "homepage hero no longer uses the long research-direction sentence");
-    assertMatchCount(html, /<li data-i18n="keyword\./g, 3, "homepage keeps three research keyword chips");
+    assertDoesNotInclude(html, 'class="keyword-list"', "homepage removes the redundant research keyword chip list");
+    assertDoesNotInclude(html, 'data-i18n="keyword.', "homepage does not render research keyword chips");
     assertIncludes(html, "影溯科技", "homepage static copy includes current InSpatio internship in Chinese");
     assertDoesNotInclude(html, 'data-i18n="home.intro.internship"', "homepage removes internship copy from the about bullet list");
     assertIncludes(html, 'class="content-card internship-card"', "homepage has a dedicated internship panel");
@@ -104,6 +105,8 @@ assertIncludes(script, "三维重建、三维世界模型、可控生成", "scri
 assertIncludes(script, "3D reconstruction, 3D world models, and controllable generation", "script contains concise English research direction");
 assertDoesNotInclude(script, "3D reconstruction, world models, and controllable generation", "script avoids the underspecified English world-model wording");
 assertDoesNotInclude(script, "My research interests lie at the intersection of 3D vision and generative models", "script no longer uses the long English research-direction sentence");
+assertDoesNotInclude(script, '"keyword.3dFoundation"', "script removes stale keyword-chip translations");
+assertDoesNotInclude(script, '"keyword.diffusion"', "script removes stale keyword-chip translations");
 assertIncludes(script, "主要论文", "script contains Chinese publications copy");
 assertIncludes(script, "News", "script contains English news copy");
 assertIncludes(script, "最新动态", "script contains Chinese news copy");
@@ -140,6 +143,7 @@ assertIncludes(styles, ".internship-timeline", "stylesheet defines the homepage 
 assertIncludes(styles, ".research-overview-list", "stylesheet defines homepage research overview layout");
 assertIncludes(styles, ".news-list", "stylesheet defines homepage news list layout");
 assertIncludes(styles, ".news-year", "stylesheet defines homepage news year labels");
+assertDoesNotInclude(styles, ".keyword-list", "stylesheet removes the redundant keyword chip styles");
 assertIncludes(styles, "font-size: 17px;", "base font size is larger than the previous 16px baseline");
 assertIncludes(styles, "font-size: 14px;", "sidebar small text is raised above the previous 12px baseline");
 assertDoesNotInclude(styles, "font-size: 12px;", "stylesheet no longer uses tiny 12px text");
