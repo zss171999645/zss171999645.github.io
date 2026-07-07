@@ -71,12 +71,14 @@ for (const page of pages) {
     assertIncludes(html, "最新动态", "homepage includes a Chinese news section");
     assertIncludes(html, 'class="news-section"', "homepage uses a low-key standalone news section");
     assertDoesNotInclude(html, 'class="content-card news-card"', "homepage news section no longer uses the same card style as major sections");
+    assertIncludes(html, "1 paper 被 ICME 2026 接收", "homepage news uses concise ICME 2026 wording");
     assertIncludes(html, "1 paper 被 AAAI 2026 接收", "homepage news uses concise AAAI 2026 wording");
     assertIncludes(html, "1 paper 被 CVPR 2026 接收", "homepage news uses concise CVPR 2026 wording");
     assertIncludes(html, "1 paper 被 CVPR 2025 接收", "homepage news uses concise CVPR 2025 wording");
     assertIncludes(html, "1 paper 被 TCSVT 2025 接收", "homepage news uses concise TCSVT 2025 wording");
     assertIncludes(html, "1 paper 被 TPAMI 2025 接收", "homepage news uses concise TPAMI 2025 wording");
     assertIncludes(html, "1 paper 被 AAAI 2024 接收", "homepage news uses concise AAAI 2024 wording");
+    assertIncludes(html, "03/2026", "homepage news includes a month for ICME 2026");
     assertIncludes(html, "02/2026", "homepage news includes a month for CVPR 2026");
     assertIncludes(html, "11/2025", "homepage news includes a month for AAAI 2026");
     assertIncludes(html, "08/2025", "homepage news includes a month for TPAMI 2025");
@@ -121,7 +123,9 @@ assertIncludes(script, "主要论文", "script contains Chinese publications cop
 assertIncludes(script, "News", "script contains English news copy");
 assertIncludes(script, "最新动态", "script contains Chinese news copy");
 assertIncludes(script, "1 paper accepted to CVPR 2026", "script contains concise English CVPR 2026 news copy");
+assertIncludes(script, "1 paper accepted to ICME 2026", "script contains concise English ICME 2026 news copy");
 assertIncludes(script, "1 paper 被 AAAI 2024 接收", "script contains concise Chinese AAAI 2024 news copy");
+assertIncludes(script, "03/2026", "script contains ICME 2026 news month");
 assertIncludes(script, "02/2026", "script contains CVPR 2026 news month");
 assertIncludes(script, "11/2025", "script contains AAAI 2026 news month");
 assertDoesNotInclude(script, "The controllable-generation survey accepted to TPAMI 2025", "script does not call the TPAMI news item a survey");

@@ -116,6 +116,11 @@
     },
     "home.news.title": { en: "News", zh: "最新动态" },
     "home.news.note": { en: "Accepted Papers Since 2024", zh: "论文接收情况" },
+    "home.news.2026.icme.date": { en: "03/2026", zh: "03/2026" },
+    "home.news.2026.icme": {
+      en: "1 paper accepted to ICME 2026.",
+      zh: "1 paper 被 ICME 2026 接收。",
+    },
     "home.news.2026.aaai.date": { en: "11/2025", zh: "11/2025" },
     "home.news.2026.aaai": {
       en: "1 paper accepted to AAAI 2026 (Oral).",
