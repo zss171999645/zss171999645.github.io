@@ -41,6 +41,7 @@
 
   const translations = {
     "nav.about": { en: "About", zh: "个人简介" },
+    "nav.news": { en: "News", zh: "最新动态" },
     "nav.publications": { en: "Publications", zh: "主要论文" },
     "nav.cv": { en: "CV", zh: "简历" },
     "toggle.toChinese": { en: "中文", zh: "中文" },
@@ -117,6 +118,35 @@
     "home.research.gen.body": {
       en: "My generative-model work focuses on controllable text-to-image generation, resolution extrapolation, and mechanism analysis, studying positional encodings, attention receptive fields, frequency-aware details, and in-domain adaptation in U-Net/DiT/FLUX-like diffusion and flow models.",
       zh: "围绕可控文生图、分辨率外推与生成机制分析，研究 U-Net/DiT/FLUX-like 扩散与流模型中的位置编码、注意力感受野、频率细节保持与域内生成适配。",
+    },
+    "home.news.title": { en: "News", zh: "最新动态" },
+    "home.news.note": { en: "Accepted Papers Since 2024", zh: "论文接收情况" },
+    "home.news.2026.year": { en: "2026", zh: "2026" },
+    "home.news.2026.aaai": {
+      en: "One paper accepted to AAAI 2026 as an Oral presentation: Exploring Position Encoding in Diffusion U-Net.",
+      zh: "AAAI 2026 Oral 论文被接收：Exploring Position Encoding in Diffusion U-Net。",
+    },
+    "home.news.2026.cvpr": {
+      en: "ResDiT accepted to CVPR 2026.",
+      zh: "ResDiT 被 CVPR 2026 接收。",
+    },
+    "home.news.2025.year": { en: "2025", zh: "2025" },
+    "home.news.2025.cvpr": {
+      en: "Image is All You Need accepted to CVPR 2025.",
+      zh: "Image is All You Need 被 CVPR 2025 接收。",
+    },
+    "home.news.2025.tcsvt": {
+      en: "OMEGAS accepted to TCSVT 2025.",
+      zh: "OMEGAS 被 TCSVT 2025 接收。",
+    },
+    "home.news.2025.tpami": {
+      en: "The controllable-generation survey accepted to TPAMI 2025.",
+      zh: "Survey 被 TPAMI 2025 接收。",
+    },
+    "home.news.2024.year": { en: "2024", zh: "2024" },
+    "home.news.2024.aaai": {
+      en: "Lifting by Image accepted to AAAI 2024.",
+      zh: "Lifting by Image 被 AAAI 2024 接收。",
     },
 
     "publications.title": { en: "Selected Publications", zh: "主要论文" },

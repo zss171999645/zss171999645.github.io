@@ -18,6 +18,7 @@ for (const page of pages) {
   assertIncludes(html, 'aria-label="Switch to English"', `${page} makes English the toggle target by default`);
   assertIncludes(html, 'class="language-toggle"', `${page} exposes a visible language toggle`);
   assertIncludes(html, 'data-i18n="nav.about"', `${page} wires navigation labels to i18n keys`);
+  assertIncludes(html, 'data-i18n="nav.news"', `${page} wires the news navigation label to i18n keys`);
   assertIncludes(html, 'data-i18n="nav.publications"', `${page} wires the publications navigation label to i18n keys`);
   assertIncludes(html, 'script src="assets/i18n.js', `${page} loads the language toggle script`);
   assertIncludes(html, `href="${scholarUrl}"`, `${page} links to Google Scholar`);
@@ -33,8 +34,10 @@ for (const page of pages) {
   }
   if (page === "index.html") {
     assertIncludes(html, 'href="#publications"', "homepage publications nav points to the local publications section");
+    assertIncludes(html, 'href="#news"', "homepage news nav points to the local news section");
+    assertIncludes(html, 'id="news"', "homepage has a news anchor section");
     assertIncludes(html, 'id="publications"', "homepage has a publications anchor section");
-    assertOrdered(html, ["research-overview-card", 'id="publications"'], "homepage places publications after research overview");
+    assertOrdered(html, ["research-overview-card", 'id="news"', 'id="publications"'], "homepage places news between research overview and publications");
     assertIncludes(html, "<title>周峰 - 个人简介</title>", "homepage has Chinese default title");
     assertIncludes(html, "北京邮电大学博士研究生", "homepage static copy defaults to Chinese");
     assertIncludes(html, "拟 2027 年 6 月毕业", "homepage static education copy includes expected graduation time");
@@ -55,8 +58,8 @@ for (const page of pages) {
     assertIncludes(html, "地平线机器人", "homepage internship panel includes the previous Horizon internship");
     assertOrdered(
       html,
-      ["hero-card", "internship-card", "research-overview-card", 'id="publications"'],
-      "homepage orders about, internship, research, and publications sections"
+      ["hero-card", "internship-card", "research-overview-card", "news-card", 'id="publications"'],
+      "homepage orders about, internship, research, news, and publications sections"
     );
     assertIncludes(html, "research-overview-card", "homepage includes a dedicated research overview section");
     assertIncludes(html, "研究内容", "homepage research overview has a Chinese section title");
@@ -64,6 +67,14 @@ for (const page of pages) {
     assertIncludes(html, "三维世界模型与空间智能", "homepage summarizes the 3D world model research line");
     assertIncludes(html, "可控生成与扩散模型", "homepage summarizes the generative-model research line");
     assertIncludes(html, "场景级三维 VAE", "homepage mentions the current scene-level 3D VAE work");
+    assertIncludes(html, "最新动态", "homepage includes a Chinese news section");
+    assertIncludes(html, "论文接收情况", "homepage news section states accepted-paper updates");
+    assertIncludes(html, "AAAI 2026 Oral 论文被接收", "homepage news includes the AAAI 2026 oral acceptance");
+    assertIncludes(html, "ResDiT 被 CVPR 2026 接收", "homepage news includes the CVPR 2026 acceptance");
+    assertIncludes(html, "Image is All You Need 被 CVPR 2025 接收", "homepage news includes the CVPR 2025 acceptance");
+    assertIncludes(html, "OMEGAS 被 TCSVT 2025 接收", "homepage news includes the TCSVT 2025 acceptance");
+    assertIncludes(html, "Survey 被 TPAMI 2025 接收", "homepage news includes the TPAMI 2025 acceptance");
+    assertIncludes(html, "Lifting by Image 被 AAAI 2024 接收", "homepage news includes the AAAI 2024 acceptance");
     assertIncludes(html, "AAAI 2026 Oral", "homepage lists the AAAI 2026 oral paper");
     assertIncludes(html, "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers", "homepage lists ResDiT");
     assertIncludes(html, "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation", "homepage lists OMEGAS");
@@ -94,6 +105,10 @@ assertIncludes(script, "3D reconstruction, 3D world models, and controllable gen
 assertDoesNotInclude(script, "3D reconstruction, world models, and controllable generation", "script avoids the underspecified English world-model wording");
 assertDoesNotInclude(script, "My research interests lie at the intersection of 3D vision and generative models", "script no longer uses the long English research-direction sentence");
 assertIncludes(script, "主要论文", "script contains Chinese publications copy");
+assertIncludes(script, "News", "script contains English news copy");
+assertIncludes(script, "最新动态", "script contains Chinese news copy");
+assertIncludes(script, "accepted to CVPR 2026", "script contains English CVPR 2026 news copy");
+assertIncludes(script, "Lifting by Image 被 AAAI 2024 接收", "script contains Chinese AAAI 2024 news copy");
 assertIncludes(script, "Internship Experience", "script contains English internship panel copy");
 assertIncludes(script, "实习经历", "script contains Chinese internship panel copy");
 assertIncludes(script, "Jun 2026 - Present · InSpatio", "script contains dated English InSpatio internship meta");
@@ -123,6 +138,8 @@ assertIncludes(styles, 'body[data-lang="zh"] .hero-list li', "stylesheet adjusts
 assertIncludes(styles, ".internship-card", "stylesheet defines the homepage internship panel");
 assertIncludes(styles, ".internship-timeline", "stylesheet defines the homepage internship panel layout");
 assertIncludes(styles, ".research-overview-list", "stylesheet defines homepage research overview layout");
+assertIncludes(styles, ".news-list", "stylesheet defines homepage news list layout");
+assertIncludes(styles, ".news-year", "stylesheet defines homepage news year labels");
 assertIncludes(styles, "font-size: 17px;", "base font size is larger than the previous 16px baseline");
 assertIncludes(styles, "font-size: 14px;", "sidebar small text is raised above the previous 12px baseline");
 assertDoesNotInclude(styles, "font-size: 12px;", "stylesheet no longer uses tiny 12px text");
