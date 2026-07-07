@@ -38,7 +38,11 @@ for (const page of pages) {
     assertIncludes(html, "<title>周峰 - 个人简介</title>", "homepage has Chinese default title");
     assertIncludes(html, "北京邮电大学博士研究生", "homepage static copy defaults to Chinese");
     assertIncludes(html, "拟 2027 年 6 月毕业", "homepage static education copy includes expected graduation time");
-    assertIncludes(html, "三维世界模型", "homepage static copy includes Chinese research direction");
+    assertIncludes(html, "研究方向：三维重建、三维世界模型、可控生成。", "homepage static copy uses concise three-term research direction");
+    assertDoesNotInclude(html, "研究方向：三维重建、世界模型、可控生成。", "homepage avoids the underspecified world-model wording");
+    assertDoesNotInclude(html, "研究方向聚焦三维重建基础模型、三维世界模型与可控视觉生成", "homepage sidebar no longer uses the long research-direction sentence");
+    assertDoesNotInclude(html, "研究方向主要围绕三维视觉与生成模型", "homepage hero no longer uses the long research-direction sentence");
+    assertMatchCount(html, /<li data-i18n="keyword\./g, 3, "homepage keeps three research keyword chips");
     assertIncludes(html, "影溯科技", "homepage static copy includes current InSpatio internship in Chinese");
     assertDoesNotInclude(html, 'data-i18n="home.intro.internship"', "homepage removes internship copy from the about bullet list");
     assertIncludes(html, 'class="content-card internship-card"', "homepage has a dedicated internship panel");
@@ -85,6 +89,10 @@ assertIncludes(script, "localStorage", "script persists language preference");
 assertIncludes(script, "个人简介", "script contains Chinese homepage copy");
 assertIncludes(script, "expected to graduate in June 2027", "script contains English homepage graduation timing");
 assertIncludes(script, "拟 2027 年 6 月毕业", "script contains Chinese homepage graduation timing");
+assertIncludes(script, "三维重建、三维世界模型、可控生成", "script contains concise Chinese research direction");
+assertIncludes(script, "3D reconstruction, 3D world models, and controllable generation", "script contains concise English research direction");
+assertDoesNotInclude(script, "3D reconstruction, world models, and controllable generation", "script avoids the underspecified English world-model wording");
+assertDoesNotInclude(script, "My research interests lie at the intersection of 3D vision and generative models", "script no longer uses the long English research-direction sentence");
 assertIncludes(script, "主要论文", "script contains Chinese publications copy");
 assertIncludes(script, "Internship Experience", "script contains English internship panel copy");
 assertIncludes(script, "实习经历", "script contains Chinese internship panel copy");
@@ -133,6 +141,13 @@ function assertIncludes(haystack, needle, message) {
 function assertDoesNotInclude(haystack, needle, message) {
   if (haystack.includes(needle)) {
     throw new Error(`${message}: unexpected ${needle}`);
+  }
+}
+
+function assertMatchCount(haystack, pattern, expected, message) {
+  const count = (haystack.match(pattern) || []).length;
+  if (count !== expected) {
+    throw new Error(`${message}: expected ${expected}, got ${count}`);
   }
 }
 

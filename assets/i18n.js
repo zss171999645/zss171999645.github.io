@@ -7,12 +7,12 @@
       en: {
         title: "Feng Zhou - About",
         description:
-          "Feng Zhou is a Ph.D. student at Beijing University of Posts and Telecommunications working on 3D reconstruction foundation models, 3D world models, and controllable visual generation.",
+          "Feng Zhou is a Ph.D. student at Beijing University of Posts and Telecommunications working on 3D reconstruction, 3D world models, and controllable generation.",
       },
       zh: {
         title: "周峰 - 个人简介",
         description:
-          "周峰，北京邮电大学博士研究生，研究方向包括三维重建基础模型、三维世界模型与可控视觉生成。",
+          "周峰，北京邮电大学博士研究生，研究方向：三维重建、三维世界模型、可控生成。",
       },
     },
     publications: {
@@ -48,8 +48,8 @@
 
     "profile.name": { en: "Feng Zhou", zh: "周峰" },
     "profile.bio": {
-      en: "Ph.D. student at Beijing University of Posts and Telecommunications. My work focuses on 3D reconstruction foundation models, 3D world models, and controllable visual generation.",
-      zh: "北京邮电大学控制科学与工程博士研究生，研究方向聚焦三维重建基础模型、三维世界模型与可控视觉生成。",
+      en: "Ph.D. student at Beijing University of Posts and Telecommunications. Research directions: 3D reconstruction, 3D world models, and controllable generation.",
+      zh: "北京邮电大学控制科学与工程博士研究生，研究方向：三维重建、三维世界模型、可控生成。",
     },
     "profile.location": { en: "Beijing, China", zh: "中国北京" },
     "profile.institution": {
@@ -67,8 +67,8 @@
       zh: "我目前是北京邮电大学控制科学与工程专业博士研究生，拟 2027 年 6 月毕业，师从尹建芹教授，在 BUPT-COST Lab 开展研究；本科毕业于北京邮电大学物联网工程专业，获工学学士学位。",
     },
     "home.intro.research": {
-      en: "My research interests lie at the intersection of 3D vision and generative models, including feed-forward 3D reconstruction, sparse-view reconstruction, 3D Gaussian Splatting, 3D world models, controllable visual generation, and resolution extrapolation in diffusion models.",
-      zh: "研究方向主要围绕三维视觉与生成模型，包括前馈式三维重建、稀疏视角重建、3D Gaussian Splatting、三维世界模型、可控视觉生成，以及扩散模型的分辨率外推。",
+      en: "Research directions: 3D reconstruction, 3D world models, and controllable generation.",
+      zh: "研究方向：三维重建、三维世界模型、可控生成。",
     },
     "keyword.3dReconstruction": { en: "3D Reconstruction", zh: "三维重建" },
     "keyword.3dFoundation": { en: "3D Foundation Models", zh: "三维基础模型" },
