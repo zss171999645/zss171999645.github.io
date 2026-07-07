@@ -118,30 +118,30 @@
     "home.news.note": { en: "Accepted Papers Since 2024", zh: "论文接收情况" },
     "home.news.2026.year": { en: "2026", zh: "2026" },
     "home.news.2026.aaai": {
-      en: "One paper accepted to AAAI 2026 as an Oral presentation: Exploring Position Encoding in Diffusion U-Net.",
-      zh: "AAAI 2026 Oral 论文被接收：Exploring Position Encoding in Diffusion U-Net。",
+      en: "1 paper accepted to AAAI 2026 (Oral).",
+      zh: "1 paper 被 AAAI 2026 接收（Oral）。",
     },
     "home.news.2026.cvpr": {
-      en: "ResDiT accepted to CVPR 2026.",
-      zh: "ResDiT 被 CVPR 2026 接收。",
+      en: "1 paper accepted to CVPR 2026.",
+      zh: "1 paper 被 CVPR 2026 接收。",
     },
     "home.news.2025.year": { en: "2025", zh: "2025" },
     "home.news.2025.cvpr": {
-      en: "Image is All You Need accepted to CVPR 2025.",
-      zh: "Image is All You Need 被 CVPR 2025 接收。",
+      en: "1 paper accepted to CVPR 2025.",
+      zh: "1 paper 被 CVPR 2025 接收。",
     },
     "home.news.2025.tcsvt": {
-      en: "OMEGAS accepted to TCSVT 2025.",
-      zh: "OMEGAS 被 TCSVT 2025 接收。",
+      en: "1 paper accepted to TCSVT 2025.",
+      zh: "1 paper 被 TCSVT 2025 接收。",
     },
     "home.news.2025.tpami": {
-      en: "The controllable-generation survey accepted to TPAMI 2025.",
-      zh: "Survey 被 TPAMI 2025 接收。",
+      en: "1 paper accepted to TPAMI 2025.",
+      zh: "1 paper 被 TPAMI 2025 接收。",
     },
     "home.news.2024.year": { en: "2024", zh: "2024" },
     "home.news.2024.aaai": {
-      en: "Lifting by Image accepted to AAAI 2024.",
-      zh: "Lifting by Image 被 AAAI 2024 接收。",
+      en: "1 paper accepted to AAAI 2024.",
+      zh: "1 paper 被 AAAI 2024 接收。",
     },
 
     "publications.title": { en: "Selected Publications", zh: "主要论文" },

@@ -59,7 +59,7 @@ for (const page of pages) {
     assertIncludes(html, "地平线机器人", "homepage internship panel includes the previous Horizon internship");
     assertOrdered(
       html,
-      ["hero-card", "internship-card", "research-overview-card", "news-card", 'id="publications"'],
+      ["hero-card", "internship-card", "research-overview-card", "news-section", 'id="publications"'],
       "homepage orders about, internship, research, news, and publications sections"
     );
     assertIncludes(html, "research-overview-card", "homepage includes a dedicated research overview section");
@@ -69,13 +69,17 @@ for (const page of pages) {
     assertIncludes(html, "可控生成与扩散模型", "homepage summarizes the generative-model research line");
     assertIncludes(html, "场景级三维 VAE", "homepage mentions the current scene-level 3D VAE work");
     assertIncludes(html, "最新动态", "homepage includes a Chinese news section");
-    assertIncludes(html, "论文接收情况", "homepage news section states accepted-paper updates");
-    assertIncludes(html, "AAAI 2026 Oral 论文被接收", "homepage news includes the AAAI 2026 oral acceptance");
-    assertIncludes(html, "ResDiT 被 CVPR 2026 接收", "homepage news includes the CVPR 2026 acceptance");
-    assertIncludes(html, "Image is All You Need 被 CVPR 2025 接收", "homepage news includes the CVPR 2025 acceptance");
-    assertIncludes(html, "OMEGAS 被 TCSVT 2025 接收", "homepage news includes the TCSVT 2025 acceptance");
-    assertIncludes(html, "Survey 被 TPAMI 2025 接收", "homepage news includes the TPAMI 2025 acceptance");
-    assertIncludes(html, "Lifting by Image 被 AAAI 2024 接收", "homepage news includes the AAAI 2024 acceptance");
+    assertIncludes(html, 'class="news-section"', "homepage uses a low-key standalone news section");
+    assertDoesNotInclude(html, 'class="content-card news-card"', "homepage news section no longer uses the same card style as major sections");
+    assertIncludes(html, "1 paper 被 AAAI 2026 接收", "homepage news uses concise AAAI 2026 wording");
+    assertIncludes(html, "1 paper 被 CVPR 2026 接收", "homepage news uses concise CVPR 2026 wording");
+    assertIncludes(html, "1 paper 被 CVPR 2025 接收", "homepage news uses concise CVPR 2025 wording");
+    assertIncludes(html, "1 paper 被 TCSVT 2025 接收", "homepage news uses concise TCSVT 2025 wording");
+    assertIncludes(html, "1 paper 被 TPAMI 2025 接收", "homepage news uses concise TPAMI 2025 wording");
+    assertIncludes(html, "1 paper 被 AAAI 2024 接收", "homepage news uses concise AAAI 2024 wording");
+    assertDoesNotInclude(html, "Survey 被 TPAMI 2025 接收", "homepage news does not call the TPAMI paper a survey");
+    assertDoesNotInclude(html, "Exploring Position Encoding in Diffusion U-Net。", "homepage news omits paper titles");
+    assertDoesNotInclude(html, "ResDiT 被 CVPR 2026 接收", "homepage news omits paper titles");
     assertIncludes(html, "AAAI 2026 Oral", "homepage lists the AAAI 2026 oral paper");
     assertIncludes(html, "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers", "homepage lists ResDiT");
     assertIncludes(html, "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation", "homepage lists OMEGAS");
@@ -110,8 +114,9 @@ assertDoesNotInclude(script, '"keyword.diffusion"', "script removes stale keywor
 assertIncludes(script, "主要论文", "script contains Chinese publications copy");
 assertIncludes(script, "News", "script contains English news copy");
 assertIncludes(script, "最新动态", "script contains Chinese news copy");
-assertIncludes(script, "accepted to CVPR 2026", "script contains English CVPR 2026 news copy");
-assertIncludes(script, "Lifting by Image 被 AAAI 2024 接收", "script contains Chinese AAAI 2024 news copy");
+assertIncludes(script, "1 paper accepted to CVPR 2026", "script contains concise English CVPR 2026 news copy");
+assertIncludes(script, "1 paper 被 AAAI 2024 接收", "script contains concise Chinese AAAI 2024 news copy");
+assertDoesNotInclude(script, "The controllable-generation survey accepted to TPAMI 2025", "script does not call the TPAMI news item a survey");
 assertIncludes(script, "Internship Experience", "script contains English internship panel copy");
 assertIncludes(script, "实习经历", "script contains Chinese internship panel copy");
 assertIncludes(script, "Jun 2026 - Present · InSpatio", "script contains dated English InSpatio internship meta");
@@ -142,7 +147,9 @@ assertIncludes(styles, ".internship-card", "stylesheet defines the homepage inte
 assertIncludes(styles, ".internship-timeline", "stylesheet defines the homepage internship panel layout");
 assertIncludes(styles, ".research-overview-list", "stylesheet defines homepage research overview layout");
 assertIncludes(styles, ".news-list", "stylesheet defines homepage news list layout");
-assertIncludes(styles, ".news-year", "stylesheet defines homepage news year labels");
+assertIncludes(styles, ".news-date", "stylesheet defines homepage news date labels");
+assertDoesNotInclude(styles, ".news-card", "stylesheet no longer styles news as a major card");
+assertDoesNotInclude(styles, ".news-year", "stylesheet removes the large year-label news layout");
 assertDoesNotInclude(styles, ".keyword-list", "stylesheet removes the redundant keyword chip styles");
 assertIncludes(styles, "font-size: 17px;", "base font size is larger than the previous 16px baseline");
 assertIncludes(styles, "font-size: 14px;", "sidebar small text is raised above the previous 12px baseline");

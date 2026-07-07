@@ -469,61 +469,62 @@ body[data-lang="zh"] .research-overview-item p {
   line-height: 1.9;
 }
 
-.news-card {
-  padding: 28px 32px;
+.news-section {
+  padding: 6px 4px 4px;
+}
+
+.news-title {
+  margin: 0 0 14px;
+  color: #4b5562;
+  font-size: 23px;
+  line-height: 1.1;
 }
 
 .news-list {
   display: grid;
-  gap: 0;
-  padding: 0;
+  gap: 7px;
+  padding-left: 22px;
   margin: 0;
-  list-style: none;
 }
 
 .news-item {
-  display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 18px;
-  padding: 13px 0;
-  border-top: 1px solid rgba(65, 73, 84, 0.1);
+  padding-left: 2px;
+  color: rgba(74, 166, 200, 0.72);
 }
 
-.news-item:first-child {
-  padding-top: 0;
-  border-top: 0;
+.news-item::marker {
+  font-size: 0.72em;
 }
 
-.news-item:last-child {
-  padding-bottom: 0;
-}
-
-.news-year {
-  color: var(--accent);
+.news-date {
+  display: inline-block;
+  min-width: 46px;
+  margin-right: 12px;
+  color: #6b7786;
   font-size: 15px;
-  font-weight: 800;
-  line-height: 1.65;
-  white-space: nowrap;
+  font-weight: 700;
+  line-height: 1.6;
 }
 
 .news-copy {
+  display: inline;
   margin: 0;
   color: #53606e;
   font-size: 15.5px;
-  line-height: 1.65;
+  line-height: 1.6;
 }
 
-body[data-lang="zh"] .news-card {
-  padding: 30px 34px;
+body[data-lang="zh"] .news-title {
+  font-size: 25px;
 }
 
-body[data-lang="zh"] .news-year {
-  font-size: 16px;
+body[data-lang="zh"] .news-date {
+  font-size: 15.5px;
 }
 
 body[data-lang="zh"] .news-copy {
   font-size: 16px;
-  line-height: 1.82;
+  line-height: 1.75;
 }
 
 .page-hero {
@@ -1086,12 +1087,6 @@ body[data-lang="zh"] .cv-timeline-heading {
     grid-template-columns: 1fr;
     gap: 8px;
     padding: 18px 0;
-  }
-
-  .news-item {
-    grid-template-columns: 1fr;
-    gap: 4px;
-    padding: 14px 0;
   }
 
   .cv-info-grid {
