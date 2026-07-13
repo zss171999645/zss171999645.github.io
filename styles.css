@@ -158,8 +158,8 @@ body[data-lang="zh"] .section-title {
 }
 
 .portrait {
-  width: 88px;
-  height: 88px;
+  width: 104px;
+  height: 104px;
   object-fit: cover;
   object-position: center 24%;
   display: block;
@@ -1057,8 +1057,8 @@ body[data-lang="zh"] .cv-timeline-heading {
   }
 
   .portrait {
-    width: 76px;
-    height: 76px;
+    width: 88px;
+    height: 88px;
   }
 
   .page-title {
