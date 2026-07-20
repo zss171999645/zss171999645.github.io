@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
-const pages = ["index.html", "cv.html"];
+const pages = ["index.html"];
 const i18nKeys = new Set();
 const scholarUrl = "https://scholar.google.com/citations?user=1XPQWKIAAAAJ&hl=en";
 
@@ -22,15 +22,12 @@ for (const page of pages) {
   assertIncludes(html, 'data-i18n="nav.publications"', `${page} wires the publications navigation label to i18n keys`);
   assertIncludes(html, 'script src="assets/i18n.js', `${page} loads the language toggle script`);
   assertIncludes(html, `href="${scholarUrl}"`, `${page} links to Google Scholar`);
-  assertIncludes(html, 'href="assets/Feng_Zhou_CV.pdf"', `${page} keeps the downloadable PDF CV link`);
+  assertDoesNotInclude(html, 'href="assets/Feng_Zhou_CV.pdf"', `${page} does not expose the downloadable PDF CV link`);
   assertDoesNotInclude(html, 'href="publications.html"', `${page} does not route publications navigation to a separate page`);
   assertDoesNotInclude(html, 'href="cv.html"', `${page} removes the visible CV page entry`);
   assertDoesNotInclude(html, '<li class="profile-row profile-row-scholar">Google Scholar</li>', `${page} does not leave Scholar as plain text`);
   for (const match of html.matchAll(/data-i18n="([^"]+)"/g)) {
     i18nKeys.add(match[1]);
-  }
-  if (page === "cv.html" && /<\/li>\s*<ul class="cv-sublist">/.test(html)) {
-    throw new Error("cv.html keeps nested education sublists inside their parent list items");
   }
   if (page === "index.html") {
     assertIncludes(html, 'href="#publications"', "homepage publications nav points to the local publications section");
@@ -101,9 +98,6 @@ for (const page of pages) {
     assertDoesNotInclude(html, 'class="snapshot-sections"', "homepage removes CV snapshot content sections");
     assertDoesNotInclude(html, 'class="snapshot-block"', "homepage removes CV snapshot content blocks");
   }
-  if (page === "cv.html") {
-    assertIncludes(html, 'href="index.html#publications"', "CV page publications nav points back to the homepage section");
-  }
 }
 
 const script = readFileSync(join(root, "assets/i18n.js"), "utf8");
@@ -112,6 +106,9 @@ assertIncludes(script, 'value === "en" || value === "zh"', "script preserves exp
 assertIncludes(script, "zhoufeng-homepage-language-v2", "script ignores stale English-first language preferences");
 assertIncludes(script, "zh-CN", "script supports Chinese locale");
 assertIncludes(script, "localStorage", "script persists language preference");
+assertDoesNotInclude(script, '"nav.cv"', "script removes CV navigation copy");
+assertDoesNotInclude(script, '"profile.cv"', "script removes CV profile-link copy");
+assertDoesNotInclude(script, '"profile.pdfCv"', "script removes PDF CV profile-link copy");
 assertIncludes(script, "个人简介", "script contains Chinese homepage copy");
 assertIncludes(script, "expected to graduate in June 2027", "script contains English homepage graduation timing");
 assertIncludes(script, "拟 2027 年 6 月毕业", "script contains Chinese homepage graduation timing");

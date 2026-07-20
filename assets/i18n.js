@@ -26,24 +26,12 @@
         description: "周峰在三维重建、可控生成与扩散模型方向的主要论文。",
       },
     },
-    cv: {
-      en: {
-        title: "Feng Zhou - CV",
-        description:
-          "Curriculum Vitae of Feng Zhou, Ph.D. student at Beijing University of Posts and Telecommunications.",
-      },
-      zh: {
-        title: "周峰 - 简历",
-        description: "周峰，北京邮电大学博士研究生，个人简历与研究经历。",
-      },
-    },
   };
 
   const translations = {
     "nav.about": { en: "About", zh: "个人简介" },
     "nav.news": { en: "News", zh: "最新动态" },
     "nav.publications": { en: "Publications", zh: "主要论文" },
-    "nav.cv": { en: "CV", zh: "简历" },
     "toggle.toChinese": { en: "中文", zh: "中文" },
     "toggle.toEnglish": { en: "EN", zh: "EN" },
 
@@ -58,9 +46,6 @@
       zh: "北京邮电大学",
     },
     "profile.email": { en: "Email", zh: "邮箱" },
-    "profile.cv": { en: "CV", zh: "简历" },
-    "profile.pdfCv": { en: "PDF CV", zh: "PDF 简历" },
-
     "home.eyebrow": { en: "About Me", zh: "个人简介" },
     "home.title": { en: "About Me", zh: "个人简介" },
     "home.intro.education": {
