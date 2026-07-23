@@ -73,8 +73,8 @@ for (const page of pages) {
     assertIncludes(html, "1 paper 被 AAAI 2026 接收", "homepage news uses concise AAAI 2026 wording");
     assertIncludes(html, "1 paper 被 CVPR 2026 接收", "homepage news uses concise CVPR 2026 wording");
     assertIncludes(html, "1 paper 被 CVPR 2025 接收", "homepage news uses concise CVPR 2025 wording");
-    assertIncludes(html, "1 paper 被 TCSVT 2025 接收", "homepage news uses concise TCSVT 2025 wording");
-    assertIncludes(html, "1 paper 被 TPAMI 2025 接收", "homepage news uses concise TPAMI 2025 wording");
+    assertIncludes(html, "1 paper 被 IEEE TCSVT 2025 接收", "homepage news uses concise IEEE TCSVT 2025 wording");
+    assertIncludes(html, "1 paper 被 IEEE TPAMI 2025 接收", "homepage news uses concise IEEE TPAMI 2025 wording");
     assertIncludes(html, "1 paper 被 AAAI 2024 接收", "homepage news uses concise AAAI 2024 wording");
     assertIncludes(html, "07/2026", "homepage news includes a month for SIGGRAPH Asia 2026");
     assertIncludes(html, "03/2026", "homepage news includes a month for ICME 2026");
@@ -84,10 +84,12 @@ for (const page of pages) {
     assertIncludes(html, "05/2025", "homepage news includes a month for TCSVT 2025");
     assertIncludes(html, "02/2025", "homepage news includes a month for CVPR 2025");
     assertIncludes(html, "02/2024", "homepage news includes a month for AAAI 2024");
-    assertDoesNotInclude(html, "Survey 被 TPAMI 2025 接收", "homepage news does not call the TPAMI paper a survey");
+    assertDoesNotInclude(html, "Survey 被 IEEE TPAMI 2025 接收", "homepage news does not call the IEEE TPAMI paper a survey");
     assertDoesNotInclude(html, "Exploring Position Encoding in Diffusion U-Net。", "homepage news omits paper titles");
     assertDoesNotInclude(html, "ResDiT 被 CVPR 2026 接收", "homepage news omits paper titles");
     assertIncludes(html, "AAAI 2026 Oral", "homepage lists the AAAI 2026 oral paper");
+    assertIncludes(html, "IEEE TCSVT 2025", "homepage labels the TCSVT publication with IEEE");
+    assertIncludes(html, "IEEE TPAMI 2025", "homepage labels the TPAMI publication with IEEE");
     assertIncludes(html, "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers", "homepage lists ResDiT");
     assertIncludes(html, "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation", "homepage lists OMEGAS");
     assertIncludes(html, "Controllable Generation with Text-to-Image Diffusion Models: A Survey", "homepage lists the TPAMI survey");
@@ -129,7 +131,7 @@ assertIncludes(script, "07/2026", "script contains SIGGRAPH Asia 2026 news month
 assertIncludes(script, "03/2026", "script contains ICME 2026 news month");
 assertIncludes(script, "02/2026", "script contains CVPR 2026 news month");
 assertIncludes(script, "11/2025", "script contains AAAI 2026 news month");
-assertDoesNotInclude(script, "The controllable-generation survey accepted to TPAMI 2025", "script does not call the TPAMI news item a survey");
+assertDoesNotInclude(script, "The controllable-generation survey accepted to IEEE TPAMI 2025", "script does not call the IEEE TPAMI news item a survey");
 assertIncludes(script, "Internship Experience", "script contains English internship panel copy");
 assertIncludes(script, "实习经历", "script contains Chinese internship panel copy");
 assertIncludes(script, "Jun 2026 - Present · InSpatio", "script contains dated English InSpatio internship meta");

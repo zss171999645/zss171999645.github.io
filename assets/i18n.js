@@ -128,13 +128,13 @@
     },
     "home.news.2025.tcsvt.date": { en: "05/2025", zh: "05/2025" },
     "home.news.2025.tcsvt": {
-      en: "1 paper accepted to TCSVT 2025.",
-      zh: "1 paper 被 TCSVT 2025 接收。",
+      en: "1 paper accepted to IEEE TCSVT 2025.",
+      zh: "1 paper 被 IEEE TCSVT 2025 接收。",
     },
     "home.news.2025.tpami.date": { en: "08/2025", zh: "08/2025" },
     "home.news.2025.tpami": {
-      en: "1 paper accepted to TPAMI 2025.",
-      zh: "1 paper 被 TPAMI 2025 接收。",
+      en: "1 paper accepted to IEEE TPAMI 2025.",
+      zh: "1 paper 被 IEEE TPAMI 2025 接收。",
     },
     "home.news.2024.aaai.date": { en: "02/2024", zh: "02/2024" },
     "home.news.2024.aaai": {
