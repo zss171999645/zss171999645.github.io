@@ -1,28 +1,18 @@
 # Feng Zhou Academic Homepage
 
-This is a local static academic homepage adapted from the provided template.
-
-Files:
-
-- `index.html` - about page
-- `publications.html` - selected publications
-- `styles.css` - shared styling
-- `assets/` - profile photo, paper PDFs, and publication previews
+Source for [zhoufeng.ai](https://zhoufeng.ai), adapted from
+[`w-r-s/academic-homepage-template`](https://github.com/w-r-s/academic-homepage-template).
 
 ## Local Preview
 
-The pages can be opened directly in a browser:
-
-- `index.html`
-- `publications.html`
-
-Or run a local server:
-
 ```bash
-python3 -m http.server 4173
+python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-Then open:
+Open `http://127.0.0.1:8080/`.
 
-- `http://127.0.0.1:4173/index.html`
-- `http://127.0.0.1:4173/publications.html`
+## Validation
+
+```bash
+node tests/check-site.mjs
+```
