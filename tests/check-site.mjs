@@ -125,6 +125,7 @@ assert.match(tpamiEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Paper
 assert.doesNotMatch(html, />\s*CV\s*</i, "Visible CV links are not allowed in this preview");
 assert.doesNotMatch(html, /language[-_ ]?(toggle|switch)|data-lang|>\s*中文\s*</i, "Language controls are not allowed in the English preview");
 assert.doesNotMatch(html, /<footer\b|Adapted from the|© 2026 Feng Zhou/i, "Footer credits must not be visible");
+assert.doesNotMatch(html, /github\.com\/zss171999645|>\s*GitHub\s*</i, "Personal GitHub link must not be visible");
 assert.doesNotMatch(html, /Alex Morgan|fictional|replace with your|sample content/i, "Template sample content remains in index.html");
 assert.doesNotMatch(css, /cursor\.png|cursor-pointer\.png/i, "Template novelty cursors must not be included");
 
