@@ -81,6 +81,11 @@ assert.match(
   /https:\/\/scholar\.google\.com\/citations\?user=1XPQWKIAAAAJ(?:&amp;|&)hl=en/,
   "Google Scholar link is missing or incorrect",
 );
+assert.match(
+  html,
+  /href=["']https:\/\/teacher\.bupt\.edu\.cn\/yinjianqin\/zh_CN\/index\.htm["'][^>]*>Prof\. Jianqin Yin<\/a>/,
+  "Advisor homepage link is missing or incorrect",
+);
 
 const newsDates = ["07/2026", "03/2026", "02/2026", "11/2025", "08/2025", "05/2025", "02/2025", "02/2024"];
 let previousNewsOffset = -1;
