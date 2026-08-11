@@ -38,6 +38,7 @@ const requiredFacts = [
   "flow-matching",
   "07/2026",
   "03/2026",
+  "I am currently seeking full-time and internship opportunities",
 ];
 const publicationTitles = [
   "Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation",
