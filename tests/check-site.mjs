@@ -15,6 +15,10 @@ assert.equal(readFileSync(resolve(root, "CNAME"), "utf8").trim(), "zhoufeng.ai",
 const html = readFileSync(indexPath, "utf8");
 const css = readFileSync(stylesheetPath, "utf8");
 
+assert.match(html, /<title>Feng Zhou \(周峰\) \| Academic Homepage<\/title>/, "Page title must include the Chinese name");
+assert.match(html, /class=["']site-name["'][^>]*>Feng Zhou \(周峰\)<\/a>/, "Header name must include the Chinese name");
+assert.match(html, /<h1 id=["']profile-name["']>Feng Zhou \(周峰\)<\/h1>/, "Profile name must include the Chinese name");
+
 const requiredSections = ["about", "news", "research", "experience", "publications"];
 const requiredResearch = ["3D Reconstruction", "3D World Models", "Controllable Generation"];
 const requiredVenues = [
