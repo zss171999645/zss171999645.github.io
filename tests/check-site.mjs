@@ -69,6 +69,17 @@ for (const section of requiredSections) {
   assert.match(html, new RegExp(`href=["']#${section}["']`), `Missing #${section} navigation link`);
 }
 
+assert.match(html, /<section id=["']journey["'][^>]*>/, "Missing #journey section");
+assert.match(html, /<h2 id=["']journey-title["']>Research Journey &amp; Vision<\/h2>/, "Research journey heading is missing");
+assert.ok(html.includes("My research journey has unfolded in two stages."), "Research journey introduction is missing");
+assert.ok(html.includes("The first began in the summer of 2022."), "First research stage is missing");
+assert.ok(html.includes("The second stage began in late 2025."), "Second research stage is missing");
+assert.match(
+  html,
+  /<strong>I found a long-term goal that I hope to pursue throughout my career:[\s\S]*?uncover\s+new physical laws\.<\/strong>/,
+  "The final research vision sentence must be bold",
+);
+
 for (const topic of requiredResearch) {
   assert.ok(html.includes(topic), `Missing research direction: ${topic}`);
 }
@@ -149,4 +160,4 @@ for (const reference of localReferences) {
   assert.ok(existsSync(resolve(root, cleanReference)), `Missing local resource: ${reference}`);
 }
 
-console.log(`Site contract passed (${requiredSections.length} sections, ${requiredFacts.length} profile facts, ${localReferences.length} local resources).`);
+console.log(`Site contract passed (${requiredSections.length + 1} sections, ${requiredFacts.length} profile facts, ${localReferences.length} local resources).`);
