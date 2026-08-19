@@ -528,6 +528,12 @@ h3 {
     width: min(calc(100% - 28px), var(--max-width));
   }
 
+  .site-nav {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    gap: 0.35rem 1rem;
+  }
+
   .page-section {
     scroll-margin-top: 106px;
     padding: 2rem 0 2.15rem;

@@ -19,7 +19,7 @@ assert.match(html, /<title>Feng Zhou \(周峰\) \| Academic Homepage<\/title>/, 
 assert.match(html, /class=["']site-name["'][^>]*>Feng Zhou \(周峰\)<\/a>/, "Header name must include the Chinese name");
 assert.match(html, /<h1 id=["']profile-name["']>Feng Zhou \(周峰\)<\/h1>/, "Profile name must include the Chinese name");
 
-const requiredSections = ["about", "news", "research", "experience", "publications"];
+const requiredSections = ["about", "news", "research", "experience", "publications", "journey"];
 const requiredResearch = ["3D Reconstruction", "3D World Models", "Controllable Generation"];
 const requiredVenues = [
   "AAAI 2026",
@@ -69,7 +69,6 @@ for (const section of requiredSections) {
   assert.match(html, new RegExp(`href=["']#${section}["']`), `Missing #${section} navigation link`);
 }
 
-assert.match(html, /<section id=["']journey["'][^>]*>/, "Missing #journey section");
 assert.match(html, /<h2 id=["']journey-title["']>Research Journey &amp; Vision<\/h2>/, "Research journey heading is missing");
 assert.ok(html.includes("My research journey has unfolded in two stages."), "Research journey introduction is missing");
 assert.ok(html.includes("The first began in the summer of 2022."), "First research stage is missing");
@@ -160,4 +159,4 @@ for (const reference of localReferences) {
   assert.ok(existsSync(resolve(root, cleanReference)), `Missing local resource: ${reference}`);
 }
 
-console.log(`Site contract passed (${requiredSections.length + 1} sections, ${requiredFacts.length} profile facts, ${localReferences.length} local resources).`);
+console.log(`Site contract passed (${requiredSections.length} sections, ${requiredFacts.length} profile facts, ${localReferences.length} local resources).`);
