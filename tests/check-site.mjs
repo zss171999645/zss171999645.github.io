@@ -139,7 +139,13 @@ assert.equal((html.match(/class=["'][^"']*publication-entry(?:\s|["'])/g) ?? [])
 const geoweaveEntry = html.match(/<article[^>]*data-publication=["']geoweave["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(geoweaveEntry, "GeoWeave publication entry is missing");
 assert.doesNotMatch(geoweaveEntry[1], /<a\b/i, "GeoWeave must not expose a paper or project link before it is public");
-assert.match(geoweaveEntry[1], /SIGGRAPH Asia 2026 · Conditional Accept/, "GeoWeave acceptance status is incorrect");
+assert.match(geoweaveEntry[1], /<p class=["']venue["']>SIGGRAPH Asia 2026<\/p>/, "GeoWeave acceptance status is incorrect");
+assert.match(
+  html,
+  /07\/2026<\/time><span>One paper was accepted to <strong>SIGGRAPH Asia 2026<\/strong>\.<\/span>/,
+  "SIGGRAPH Asia News status is incorrect",
+);
+assert.doesNotMatch(html, /conditionally accepted|Conditional Accept/i, "Conditional acceptance wording must not remain");
 
 const tvcgEntry = html.match(/<article[^>]*data-publication=["']initialize-to-generalize["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(tvcgEntry, "IEEE TVCG publication entry is missing");
