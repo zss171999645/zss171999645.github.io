@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -6,9 +7,11 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const indexPath = resolve(root, "index.html");
 const stylesheetPath = resolve(root, "stylesheet.css");
+const tvcgPaperPath = resolve(root, "assets/papers/tvcg-2026-initialize-to-generalize.pdf");
 
 assert.ok(existsSync(indexPath), "index.html is missing");
 assert.ok(existsSync(stylesheetPath), "stylesheet.css is missing");
+assert.ok(existsSync(tvcgPaperPath), "IEEE TVCG paper PDF is missing");
 assert.ok(existsSync(resolve(root, "CNAME")), "Production CNAME is missing");
 assert.equal(readFileSync(resolve(root, "CNAME"), "utf8").trim(), "zhoufeng.ai", "Production CNAME is incorrect");
 
@@ -162,6 +165,12 @@ assert.match(
 );
 assert.match(tvcgEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Paper<\/a>[\s\S]*?>Code<\/a>/, "IEEE TVCG actions are incomplete");
 assert.match(tvcgEntry[1], /<span aria-hidden=["']true["']>·<\/span>/, "IEEE TVCG actions must have a visible separator");
+
+const tvcgPdfInfo = execFileSync("pdfinfo", [tvcgPaperPath], { encoding: "utf8" });
+const tvcgFirstPage = execFileSync("pdftotext", ["-f", "1", "-l", "1", tvcgPaperPath, "-"], { encoding: "utf8" });
+assert.match(tvcgPdfInfo, /^Pages:\s+14$/m, "IEEE TVCG paper must use the 14-page final R3 submission");
+assert.match(tvcgFirstPage, /JOURNAL OF LATEX CLASS FILES/, "IEEE TVCG paper must use the IEEE journal layout");
+assert.doesNotMatch(tvcgFirstPage, /Preprint Paper/, "The early ICLR-style preprint must not be served");
 
 const tpamiEntry = html.match(/<article[^>]*data-publication=["']controllable-generation-survey["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(tpamiEntry, "IEEE TPAMI publication entry is missing");
