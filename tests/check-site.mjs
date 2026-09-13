@@ -24,6 +24,7 @@ const requiredResearch = ["3D Reconstruction", "3D World Models", "Controllable 
 const requiredVenues = [
   "AAAI 2026",
   "SIGGRAPH Asia 2026",
+  "IEEE TVCG 2026",
   "CVPR 2026",
   "CVPR 2025",
   "IEEE TCSVT 2025",
@@ -40,6 +41,7 @@ const requiredFacts = [
   "full-scene point-cloud alignment",
   "native 3D scene generation",
   "flow-matching",
+  "09/2026",
   "07/2026",
   "03/2026",
   "I am currently seeking internship or full-time opportunities",
@@ -47,16 +49,18 @@ const requiredFacts = [
 const publicationTitles = [
   "Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation",
   "GeoWeave: Learning Reliable Cross-View Dependencies for Feed-Forward 3D Reconstruction",
+  "Initialize to Generalize: A Stronger Initialization Pipeline for Sparse-View 3DGS",
   "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
   "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
   "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation",
   "Controllable Generation with Text-to-Image Diffusion Models: A Survey",
   "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
 ];
-const publicationSlugs = ["position-encoding", "geoweave", "resdit", "image-is-all-you-need", "omegas", "controllable-generation-survey", "lifting-by-image"];
+const publicationSlugs = ["position-encoding", "geoweave", "initialize-to-generalize", "resdit", "image-is-all-you-need", "omegas", "controllable-generation-survey", "lifting-by-image"];
 const requiredAuthorLines = [
   "Feng Zhou*</strong>, Pu Cao*, Yiyang Ma, Lu Yang, Yonghao Dang, Jianqin Yin",
   "Feng Zhou</strong>, Qingfeng Li, Jianqin Yin, Weiqiang Ren, Qian Zhang",
+  "Feng Zhou*</strong>, Wenkai Guo*, Pu Cao, Zhicheng Zhang, Jianqin Yin",
   "Yiyang Ma*, <strong>Feng Zhou*</strong>, Pu Cao, Yonghao Dang, Jianqin Yin",
   "Pu Cao*, <strong>Feng Zhou*</strong>, Lu Yang, Tianrui Huang, Qing Song",
   "Lizhi Wang*, <strong>Feng Zhou*</strong>, Bo Yu, Pu Cao, Jianqin Yin",
@@ -102,7 +106,7 @@ assert.match(
   "Advisor homepage link is missing or incorrect",
 );
 
-const newsDates = ["07/2026", "03/2026", "02/2026", "11/2025", "08/2025", "05/2025", "02/2025", "02/2024"];
+const newsDates = ["09/2026", "07/2026", "03/2026", "02/2026", "11/2025", "08/2025", "05/2025", "02/2025", "02/2024"];
 let previousNewsOffset = -1;
 for (const date of newsDates) {
   const offset = html.indexOf(date, previousNewsOffset + 1);
@@ -123,19 +127,24 @@ for (const slug of publicationSlugs) {
   assert.match(html, new RegExp(`data-publication=["']${slug}["']`), `Missing publication identifier: ${slug}`);
 }
 
-assert.equal((html.match(/<img\s+src=["']assets\/publications\//g) ?? []).length, 7, "Every publication must have a real figure thumbnail");
+assert.equal((html.match(/<img\s+src=["']assets\/publications\//g) ?? []).length, 8, "Every publication must have a real figure thumbnail");
 assert.doesNotMatch(html, /publication-placeholder/, "Publication text placeholders must not remain");
 
 for (const authorLine of requiredAuthorLines) {
   assert.ok(html.includes(authorLine), `Publication author line is missing or changed: ${authorLine}`);
 }
 
-assert.equal((html.match(/class=["'][^"']*publication-entry(?:\s|["'])/g) ?? []).length, 7, "Expected exactly seven publication entries");
+assert.equal((html.match(/class=["'][^"']*publication-entry(?:\s|["'])/g) ?? []).length, 8, "Expected exactly eight publication entries");
 
 const geoweaveEntry = html.match(/<article[^>]*data-publication=["']geoweave["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(geoweaveEntry, "GeoWeave publication entry is missing");
 assert.doesNotMatch(geoweaveEntry[1], /<a\b/i, "GeoWeave must not expose a paper or project link before it is public");
 assert.match(geoweaveEntry[1], /SIGGRAPH Asia 2026 · Conditional Accept/, "GeoWeave acceptance status is incorrect");
+
+const tvcgEntry = html.match(/<article[^>]*data-publication=["']initialize-to-generalize["'][^>]*>([\s\S]*?)<\/article>/i);
+assert.ok(tvcgEntry, "IEEE TVCG publication entry is missing");
+assert.doesNotMatch(tvcgEntry[1], /<a\b/i, "IEEE TVCG must not expose a paper or project link before it is public");
+assert.match(tvcgEntry[1], /IEEE TVCG 2026/, "IEEE TVCG acceptance status is incorrect");
 
 const tpamiEntry = html.match(/<article[^>]*data-publication=["']controllable-generation-survey["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(tpamiEntry, "IEEE TPAMI publication entry is missing");
