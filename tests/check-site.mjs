@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -190,6 +191,18 @@ const tvcgFirstPage = execFileSync("pdftotext", ["-f", "1", "-l", "1", tvcgPaper
 assert.match(tvcgPdfInfo, /^Pages:\s+14$/m, "IEEE TVCG paper must use the 14-page final R3 submission");
 assert.match(tvcgFirstPage, /JOURNAL OF LATEX CLASS FILES/, "IEEE TVCG paper must use the IEEE journal layout");
 assert.doesNotMatch(tvcgFirstPage, /Preprint Paper/, "The early ICLR-style preprint must not be served");
+
+const sha256 = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
+assert.equal(
+  sha256(geoweavePaperPath),
+  "009686e0864f80145d02e338fa605d2dc5f11c137d57ce17f3231a37d314e279",
+  "GeoWeave must serve the original uncompressed camera-ready PDF",
+);
+assert.equal(
+  sha256(tvcgPaperPath),
+  "9881f705bcd41e58de31ddbb5f5ff92870110ca70a0b0243827cf60f1ca7a8ff",
+  "IEEE TVCG must serve the original uncompressed final R3 PDF",
+);
 
 const tpamiEntry = html.match(/<article[^>]*data-publication=["']controllable-generation-survey["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(tpamiEntry, "IEEE TPAMI publication entry is missing");
