@@ -143,8 +143,19 @@ assert.match(geoweaveEntry[1], /SIGGRAPH Asia 2026 · Conditional Accept/, "GeoW
 
 const tvcgEntry = html.match(/<article[^>]*data-publication=["']initialize-to-generalize["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(tvcgEntry, "IEEE TVCG publication entry is missing");
-assert.doesNotMatch(tvcgEntry[1], /<a\b/i, "IEEE TVCG must not expose a paper or project link before it is public");
 assert.match(tvcgEntry[1], /IEEE TVCG 2026/, "IEEE TVCG acceptance status is incorrect");
+assert.match(
+  tvcgEntry[1],
+  /href=["']assets\/papers\/tvcg-2026-initialize-to-generalize\.pdf["']/,
+  "IEEE TVCG paper link is missing or incorrect",
+);
+assert.match(
+  tvcgEntry[1],
+  /href=["']https:\/\/github\.com\/zss171999645\/ItG-GS["']/,
+  "IEEE TVCG code link is missing or incorrect",
+);
+assert.match(tvcgEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Paper<\/a>[\s\S]*?>Code<\/a>/, "IEEE TVCG actions are incomplete");
+assert.match(tvcgEntry[1], /<span aria-hidden=["']true["']>·<\/span>/, "IEEE TVCG actions must have a visible separator");
 
 const tpamiEntry = html.match(/<article[^>]*data-publication=["']controllable-generation-survey["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(tpamiEntry, "IEEE TPAMI publication entry is missing");
@@ -154,7 +165,11 @@ assert.match(tpamiEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Paper
 assert.doesNotMatch(html, />\s*CV\s*</i, "Visible CV links are not allowed in this preview");
 assert.doesNotMatch(html, /language[-_ ]?(toggle|switch)|data-lang|>\s*中文\s*</i, "Language controls are not allowed in the English preview");
 assert.doesNotMatch(html, /<footer\b|Adapted from the|© 2026 Feng Zhou/i, "Footer credits must not be visible");
-assert.doesNotMatch(html, /github\.com\/zss171999645|>\s*GitHub\s*</i, "Personal GitHub link must not be visible");
+assert.doesNotMatch(
+  html,
+  /href=["']https:\/\/github\.com\/zss171999645\/?["']|>\s*GitHub\s*</i,
+  "Personal GitHub profile link must not be visible",
+);
 assert.doesNotMatch(html, /Alex Morgan|fictional|replace with your|sample content/i, "Template sample content remains in index.html");
 assert.doesNotMatch(css, /cursor\.png|cursor-pointer\.png/i, "Template novelty cursors must not be included");
 
