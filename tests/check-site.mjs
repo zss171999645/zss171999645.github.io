@@ -7,10 +7,12 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const indexPath = resolve(root, "index.html");
 const stylesheetPath = resolve(root, "stylesheet.css");
+const geoweavePaperPath = resolve(root, "assets/papers/siggraph-asia-2026-geoweave.pdf");
 const tvcgPaperPath = resolve(root, "assets/papers/tvcg-2026-initialize-to-generalize.pdf");
 
 assert.ok(existsSync(indexPath), "index.html is missing");
 assert.ok(existsSync(stylesheetPath), "stylesheet.css is missing");
+assert.ok(existsSync(geoweavePaperPath), "GeoWeave camera-ready PDF is missing");
 assert.ok(existsSync(tvcgPaperPath), "IEEE TVCG paper PDF is missing");
 assert.ok(existsSync(resolve(root, "CNAME")), "Production CNAME is missing");
 assert.equal(readFileSync(resolve(root, "CNAME"), "utf8").trim(), "zhoufeng.ai", "Production CNAME is incorrect");
@@ -62,7 +64,7 @@ const publicationTitles = [
 const publicationSlugs = ["position-encoding", "geoweave", "initialize-to-generalize", "resdit", "image-is-all-you-need", "omegas", "controllable-generation-survey", "lifting-by-image"];
 const requiredAuthorLines = [
   "Feng Zhou*</strong>, Pu Cao*, Yiyang Ma, Lu Yang, Yonghao Dang, Jianqin Yin",
-  "Feng Zhou</strong>, Qingfeng Li, Jianqin Yin, Weiqiang Ren, Qian Zhang",
+  "Feng Zhou*</strong>, Qingfeng Li*, Zinan Lv, Jianqin Yin, Weiqiang Ren, Qian Zhang",
   "Feng Zhou*</strong>, Wenkai Guo*, Pu Cao, Zhicheng Zhang, Jianqin Yin",
   "Yiyang Ma*, <strong>Feng Zhou*</strong>, Pu Cao, Yonghao Dang, Jianqin Yin",
   "Pu Cao*, <strong>Feng Zhou*</strong>, Lu Yang, Tianrui Huang, Qing Song",
@@ -141,14 +143,31 @@ assert.equal((html.match(/class=["'][^"']*publication-entry(?:\s|["'])/g) ?? [])
 
 const geoweaveEntry = html.match(/<article[^>]*data-publication=["']geoweave["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(geoweaveEntry, "GeoWeave publication entry is missing");
-assert.doesNotMatch(geoweaveEntry[1], /<a\b/i, "GeoWeave must not expose a paper or project link before it is public");
 assert.match(geoweaveEntry[1], /<p class=["']venue["']>SIGGRAPH Asia 2026<\/p>/, "GeoWeave acceptance status is incorrect");
+assert.match(
+  geoweaveEntry[1],
+  /href=["']assets\/papers\/siggraph-asia-2026-geoweave\.pdf["']/,
+  "GeoWeave paper link is missing or incorrect",
+);
+assert.match(
+  geoweaveEntry[1],
+  /href=["']https:\/\/doi\.org\/10\.1145\/3829340\.3842209["']/,
+  "GeoWeave DOI link is missing or incorrect",
+);
+assert.match(geoweaveEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Paper<\/a>[\s\S]*?>DOI<\/a>/, "GeoWeave actions are incomplete");
+assert.match(geoweaveEntry[1], /<span aria-hidden=["']true["']>·<\/span>/, "GeoWeave actions must have a visible separator");
 assert.match(
   html,
   /07\/2026<\/time><span>One paper was accepted to <strong>SIGGRAPH Asia 2026<\/strong>\.<\/span>/,
   "SIGGRAPH Asia News status is incorrect",
 );
 assert.doesNotMatch(html, /conditionally accepted|Conditional Accept/i, "Conditional acceptance wording must not remain");
+
+const geoweavePdfInfo = execFileSync("pdfinfo", [geoweavePaperPath], { encoding: "utf8" });
+const geoweaveFirstPage = execFileSync("pdftotext", ["-f", "1", "-l", "1", geoweavePaperPath, "-"], { encoding: "utf8" });
+assert.match(geoweavePdfInfo, /^Pages:\s+11$/m, "GeoWeave paper must use the 11-page camera-ready submission");
+assert.match(geoweaveFirstPage, /ZINAN LV/, "GeoWeave camera-ready author list is incomplete");
+assert.match(geoweaveFirstPage, /10\.1145\/3829340\.3842209/, "GeoWeave camera-ready DOI is missing");
 
 const tvcgEntry = html.match(/<article[^>]*data-publication=["']initialize-to-generalize["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(tvcgEntry, "IEEE TVCG publication entry is missing");
