@@ -120,6 +120,21 @@ for (const date of newsDates) {
   previousNewsOffset = offset;
 }
 
+const requiredNewsItems = [
+  "A paper on 3D reconstruction was accepted to <strong>IEEE TVCG</strong>.",
+  "A paper on 3D reconstruction was accepted to <strong>SIGGRAPH Asia 2026</strong>.",
+  "A paper on spatial audio understanding was accepted to <strong>ICME 2026</strong>.",
+  "A paper on image generation was accepted to <strong>CVPR 2026</strong>.",
+  "A paper on image generation was accepted to <strong>AAAI 2026</strong> as an oral presentation.",
+  "A paper on controllable generation was accepted to <strong>IEEE TPAMI 2025</strong>.",
+  "A paper on 3D scene understanding was accepted to <strong>IEEE TCSVT 2025</strong>.",
+  "A paper on controllable generation was accepted to <strong>CVPR 2025</strong>.",
+  "A paper on 3D human pose estimation was accepted to <strong>AAAI 2024</strong>.",
+];
+for (const newsItem of requiredNewsItems) {
+  assert.ok(html.includes(newsItem), `Missing or incorrect News item: ${newsItem}`);
+}
+
 assert.doesNotMatch(html, /panoramic-image|scene-level 3D VAE latent-space design/i, "Outdated InSpatio description remains");
 
 let previousPublicationOffset = -1;
@@ -164,7 +179,7 @@ assert.match(geoweaveEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Pa
 assert.equal((geoweaveEntry[1].match(/<span aria-hidden=["']true["']>·<\/span>/g) ?? []).length, 2, "GeoWeave actions must have two visible separators");
 assert.match(
   html,
-  /07\/2026<\/time><span>One paper was accepted to <strong>SIGGRAPH Asia 2026<\/strong>\.<\/span>/,
+  /07\/2026<\/time><span>A paper on 3D reconstruction was accepted to <strong>SIGGRAPH Asia 2026<\/strong>\.<\/span>/,
   "SIGGRAPH Asia News status is incorrect",
 );
 assert.doesNotMatch(html, /conditionally accepted|Conditional Accept/i, "Conditional acceptance wording must not remain");
