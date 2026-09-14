@@ -155,8 +155,13 @@ assert.match(
   /href=["']https:\/\/doi\.org\/10\.1145\/3829340\.3842209["']/,
   "GeoWeave DOI link is missing or incorrect",
 );
-assert.match(geoweaveEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Paper<\/a>[\s\S]*?>DOI<\/a>/, "GeoWeave actions are incomplete");
-assert.match(geoweaveEntry[1], /<span aria-hidden=["']true["']>·<\/span>/, "GeoWeave actions must have a visible separator");
+assert.match(
+  geoweaveEntry[1],
+  /href=["']https:\/\/github\.com\/zss171999645\/GeoWeave["']/,
+  "GeoWeave code link is missing or incorrect",
+);
+assert.match(geoweaveEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Paper<\/a>[\s\S]*?>Code<\/a>[\s\S]*?>DOI<\/a>/, "GeoWeave actions are incomplete");
+assert.equal((geoweaveEntry[1].match(/<span aria-hidden=["']true["']>·<\/span>/g) ?? []).length, 2, "GeoWeave actions must have two visible separators");
 assert.match(
   html,
   /07\/2026<\/time><span>One paper was accepted to <strong>SIGGRAPH Asia 2026<\/strong>\.<\/span>/,
@@ -203,6 +208,16 @@ assert.equal(
   "9881f705bcd41e58de31ddbb5f5ff92870110ca70a0b0243827cf60f1ca7a8ff",
   "IEEE TVCG must serve the original uncompressed final R3 PDF",
 );
+
+const imageIsAllYouNeedEntry = html.match(/<article[^>]*data-publication=["']image-is-all-you-need["'][^>]*>([\s\S]*?)<\/article>/i);
+assert.ok(imageIsAllYouNeedEntry, "Image is All You Need publication entry is missing");
+assert.match(
+  imageIsAllYouNeedEntry[1],
+  /href=["']https:\/\/github\.com\/PRIV-Creation\/In-domain-Generation-Diffusion["']/,
+  "Image is All You Need code link is missing or incorrect",
+);
+assert.match(imageIsAllYouNeedEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Paper<\/a>[\s\S]*?>Code<\/a>/, "Image is All You Need actions are incomplete");
+assert.match(imageIsAllYouNeedEntry[1], /<span aria-hidden=["']true["']>·<\/span>/, "Image is All You Need actions must have a visible separator");
 
 const tpamiEntry = html.match(/<article[^>]*data-publication=["']controllable-generation-survey["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(tpamiEntry, "IEEE TPAMI publication entry is missing");
