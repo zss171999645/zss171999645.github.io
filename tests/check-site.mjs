@@ -56,17 +56,17 @@ const requiredFacts = [
   "I am currently seeking internship or full-time opportunities",
 ];
 const publicationTitles = [
-  "Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation",
-  "GeoWeave: Learning Reliable Cross-View Dependencies for Feed-Forward 3D Reconstruction",
   "Initialize to Generalize: A Stronger Initialization Pipeline for Sparse-View 3DGS",
-  "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
+  "GeoWeave: Learning Reliable Cross-View Dependencies for Feed-Forward 3D Reconstruction",
   "DSD: Dual Self-Distillation for Robust Audio Tagging",
-  "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
-  "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation",
+  "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
+  "Exploring Position Encoding in Diffusion U-Net for Training-free High-resolution Image Generation",
   "Controllable Generation with Text-to-Image Diffusion Models: A Survey",
+  "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation",
+  "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
   "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
 ];
-const publicationSlugs = ["position-encoding", "geoweave", "initialize-to-generalize", "resdit", "dsd", "image-is-all-you-need", "omegas", "controllable-generation-survey", "lifting-by-image"];
+const publicationSlugs = ["initialize-to-generalize", "geoweave", "dsd", "resdit", "position-encoding", "controllable-generation-survey", "omegas", "image-is-all-you-need", "lifting-by-image"];
 const requiredAuthorLines = [
   "Feng Zhou*</strong>, Pu Cao*, Yiyang Ma, Lu Yang, Yonghao Dang, Jianqin Yin",
   "Feng Zhou*</strong>, Qingfeng Li*, Zinan Lv, Jianqin Yin, Weiqiang Ren, Qian Zhang",
