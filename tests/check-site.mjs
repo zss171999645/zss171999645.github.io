@@ -10,11 +10,13 @@ const indexPath = resolve(root, "index.html");
 const stylesheetPath = resolve(root, "stylesheet.css");
 const geoweavePaperPath = resolve(root, "assets/papers/siggraph-asia-2026-geoweave.pdf");
 const tvcgPaperPath = resolve(root, "assets/papers/tvcg-2026-initialize-to-generalize.pdf");
+const dsdPaperPath = resolve(root, "assets/papers/icme-2026-dsd.pdf");
 
 assert.ok(existsSync(indexPath), "index.html is missing");
 assert.ok(existsSync(stylesheetPath), "stylesheet.css is missing");
 assert.ok(existsSync(geoweavePaperPath), "GeoWeave camera-ready PDF is missing");
 assert.ok(existsSync(tvcgPaperPath), "IEEE TVCG paper PDF is missing");
+assert.ok(existsSync(dsdPaperPath), "ICME DSD paper PDF is missing");
 assert.ok(existsSync(resolve(root, "CNAME")), "Production CNAME is missing");
 assert.equal(readFileSync(resolve(root, "CNAME"), "utf8").trim(), "zhoufeng.ai", "Production CNAME is incorrect");
 
@@ -32,6 +34,7 @@ const requiredVenues = [
   "SIGGRAPH Asia 2026",
   "IEEE TVCG 2026",
   "CVPR 2026",
+  "ICME 2026",
   "CVPR 2025",
   "IEEE TCSVT 2025",
   "IEEE TPAMI 2025",
@@ -57,17 +60,19 @@ const publicationTitles = [
   "GeoWeave: Learning Reliable Cross-View Dependencies for Feed-Forward 3D Reconstruction",
   "Initialize to Generalize: A Stronger Initialization Pipeline for Sparse-View 3DGS",
   "ResDiT: Evoking the Intrinsic Resolution Scalability in Diffusion Transformers",
+  "DSD: Dual Self-Distillation for Robust Audio Tagging",
   "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
   "OMEGAS: Object Mesh Extraction from Large Scenes Guided by Gaussian Segmentation",
   "Controllable Generation with Text-to-Image Diffusion Models: A Survey",
   "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
 ];
-const publicationSlugs = ["position-encoding", "geoweave", "initialize-to-generalize", "resdit", "image-is-all-you-need", "omegas", "controllable-generation-survey", "lifting-by-image"];
+const publicationSlugs = ["position-encoding", "geoweave", "initialize-to-generalize", "resdit", "dsd", "image-is-all-you-need", "omegas", "controllable-generation-survey", "lifting-by-image"];
 const requiredAuthorLines = [
   "Feng Zhou*</strong>, Pu Cao*, Yiyang Ma, Lu Yang, Yonghao Dang, Jianqin Yin",
   "Feng Zhou*</strong>, Qingfeng Li*, Zinan Lv, Jianqin Yin, Weiqiang Ren, Qian Zhang",
   "Feng Zhou*</strong>, Wenkai Guo*, Pu Cao, Zhicheng Zhang, Jianqin Yin",
   "Yiyang Ma*, <strong>Feng Zhou*</strong>, Pu Cao, Yonghao Dang, Jianqin Yin",
+  "Sen Wang, <strong>Feng Zhou</strong>, Zhicheng Zhang, Zehao Wang, Jianqin Yin",
   "Pu Cao*, <strong>Feng Zhou*</strong>, Lu Yang, Tianrui Huang, Qing Song",
   "Lizhi Wang*, <strong>Feng Zhou*</strong>, Bo Yu, Pu Cao, Jianqin Yin",
   "Pu Cao, <strong>Feng Zhou</strong>, Qing Song, Lu Yang",
@@ -148,14 +153,14 @@ for (const slug of publicationSlugs) {
   assert.match(html, new RegExp(`data-publication=["']${slug}["']`), `Missing publication identifier: ${slug}`);
 }
 
-assert.equal((html.match(/<img\s+src=["']assets\/publications\//g) ?? []).length, 8, "Every publication must have a real figure thumbnail");
+assert.equal((html.match(/<img\s+src=["']assets\/publications\//g) ?? []).length, 9, "Every publication must have a real figure thumbnail");
 assert.doesNotMatch(html, /publication-placeholder/, "Publication text placeholders must not remain");
 
 for (const authorLine of requiredAuthorLines) {
   assert.ok(html.includes(authorLine), `Publication author line is missing or changed: ${authorLine}`);
 }
 
-assert.equal((html.match(/class=["'][^"']*publication-entry(?:\s|["'])/g) ?? []).length, 8, "Expected exactly eight publication entries");
+assert.equal((html.match(/class=["'][^"']*publication-entry(?:\s|["'])/g) ?? []).length, 9, "Expected exactly nine publication entries");
 
 const geoweaveEntry = html.match(/<article[^>]*data-publication=["']geoweave["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(geoweaveEntry, "GeoWeave publication entry is missing");
@@ -223,6 +228,17 @@ assert.equal(
   "9881f705bcd41e58de31ddbb5f5ff92870110ca70a0b0243827cf60f1ca7a8ff",
   "IEEE TVCG must serve the original uncompressed final R3 PDF",
 );
+
+const dsdEntry = html.match(/<article[^>]*data-publication=["']dsd["'][^>]*>([\s\S]*?)<\/article>/i);
+assert.ok(dsdEntry, "ICME DSD publication entry is missing");
+assert.match(dsdEntry[1], /href=["']assets\/papers\/icme-2026-dsd\.pdf["']/, "ICME DSD paper link is missing or incorrect");
+assert.match(dsdEntry[1], /class=["']publication-links["'][^>]*>[\s\S]*?>Paper<\/a>/, "ICME DSD Paper action is missing");
+assert.doesNotMatch(dsdEntry[1], />Code<\/a>/, "ICME DSD must not expose a Code action");
+
+const dsdPdfInfo = execFileSync("pdfinfo", [dsdPaperPath], { encoding: "utf8" });
+const dsdFirstPage = execFileSync("pdftotext", ["-f", "1", "-l", "1", dsdPaperPath, "-"], { encoding: "utf8" });
+assert.match(dsdPdfInfo, /^Pages:\s+6$/m, "ICME DSD paper must use the supplied 6-page PDF");
+assert.match(dsdFirstPage, /DSD: Dual Self-Distillation for Robust Audio/, "ICME DSD paper title is incorrect");
 
 const imageIsAllYouNeedEntry = html.match(/<article[^>]*data-publication=["']image-is-all-you-need["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(imageIsAllYouNeedEntry, "Image is All You Need publication entry is missing");
