@@ -161,6 +161,8 @@ for (const authorLine of requiredAuthorLines) {
 }
 
 assert.equal((html.match(/class=["'][^"']*publication-entry(?:\s|["'])/g) ?? []).length, 9, "Expected exactly nine publication entries");
+assert.doesNotMatch(html, /featured-publication/, "Publication cards must use consistent styling");
+assert.doesNotMatch(css, /\.featured-publication\b/, "Unused featured publication styling must not remain");
 
 const geoweaveEntry = html.match(/<article[^>]*data-publication=["']geoweave["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(geoweaveEntry, "GeoWeave publication entry is missing");

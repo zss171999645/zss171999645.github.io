@@ -7,7 +7,6 @@
   --accent: #bd6c18;
   --accent-dark: #754111;
   --accent-soft: #fff8eb;
-  --featured: #fffdf3;
   --max-width: 920px;
 }
 
@@ -368,13 +367,6 @@ h3 {
   border-top-color: var(--line);
 }
 
-.featured-publication {
-  margin: 0 -0.8rem;
-  padding-right: 0.8rem;
-  padding-left: 0.8rem;
-  background: var(--featured);
-}
-
 .publication-visual {
   align-self: start;
   width: 190px;
@@ -563,13 +555,6 @@ h3 {
     grid-template-columns: 1fr;
     gap: 1rem;
     padding: 1.4rem 0 1.55rem;
-  }
-
-  .featured-publication {
-    margin-right: -0.45rem;
-    margin-left: -0.45rem;
-    padding-right: 0.45rem;
-    padding-left: 0.45rem;
   }
 
   .publication-visual {
