@@ -34,6 +34,7 @@
     expanded = false,
     viewer = null;
   const t = (key) => pairs[key][lang];
+  const translateOpening = window.createSpaceFoldOpening(t);
 
   function pressed(selector, key, value) {
     document
@@ -324,6 +325,7 @@
     if (lang) heroUrl.searchParams.set("lang", "zh");
     else heroUrl.searchParams.delete("lang");
     heroLink.href = heroUrl.href;
+    translateOpening();
     updateViewerText();
     showMethod();
     showScores();

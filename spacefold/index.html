@@ -14,11 +14,12 @@
     />
     <title>SpaceFold — A 3D room from one panorama</title>
     <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=45ac4d3e" />
     <script defer src="benchmarks.js"></script>
     <script defer src="viewer.js"></script>
-    <script defer src="strings.js"></script>
-    <script defer src="page.js"></script>
+    <script defer src="strings.js?v=5296daa4"></script>
+    <script defer src="hero.js?v=67becd46"></script>
+    <script defer src="page.js?v=184decb1"></script>
   </head>
   <body id="top">
     <svg class="symbol-bank" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -53,6 +54,12 @@
       <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14m-7-7v14" /></symbol>
       <symbol id="i-reset" viewBox="0 0 24 24">
         <path d="M4.5 10a7.7 7.7 0 1 1 .8 6M4 4v6h6" />
+      </symbol>
+      <symbol id="i-play" viewBox="0 0 24 24">
+        <path d="m8 5.5 10 6.5-10 6.5Z" fill="currentColor" stroke="none" />
+      </symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24">
+        <path d="M8.5 5.5v13m7-13v13" stroke-width="3" />
       </symbol>
       <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" /></symbol>
       <symbol id="i-grip" viewBox="0 0 24 24">
@@ -115,8 +122,8 @@
                 >
               </div>
             </div>
-            <figure class="hero-plate">
-              <div class="plate-space">
+            <figure class="hero-plate" id="hero-intro">
+              <div class="plate-space" id="hero-stage" role="img" data-a="heroStage" aria-label="A bedroom seen in the original panorama and in the generated 3D model.">
                 <div class="floor-grid" aria-hidden="true"></div>
                 <div class="registration reg-a" aria-hidden="true"></div>
                 <div class="registration reg-b" aria-hidden="true"></div>
@@ -124,18 +131,29 @@
                   src="assets/hero-room.webp?v=f81862b2"
                   width="1680"
                   height="1206"
-                  class="hero-room"
+                  class="hero-room hero-poster"
                   alt="Cutaway of a generated bedroom with a bed on the left and a desk on the right. The open space beneath the desk is visible."
                   data-alt="heroAlt"
                   fetchpriority="high"
                 />
+                <video class="hero-room hero-orbit" id="hero-orbit" muted playsinline preload="none" aria-hidden="true"></video>
+                <div class="hero-projection" aria-hidden="true" hidden>
+                  <div class="hero-film" data-image="assets/hero-panorama.webp">
+                    <i></i><i></i><i></i>
+                  </div>
+                </div>
               </div>
               <figcaption class="plate-caption">
-                <span class="plate-key"></span
-                ><a id="hero-scene" data-t="heroCaption" href="?scene=desk-frame-bedroom#explorer"
-                  >Open this bedroom</a
-                ><span class="plate-rule"></span
-                ><span data-t="heroSource">Panorama of a synthetic room</span>
+                <div class="film-controls" id="hero-controls" hidden>
+                  <button id="hero-playback" type="button" aria-controls="hero-stage" data-tip="heroPlay" aria-label="Play the opening" title="Play the opening">
+                    <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
+                  </button>
+                  <div class="film-chapters" role="group" data-a="heroChapters" aria-label="Opening scenes">
+                    <button type="button" data-chapter="input" aria-pressed="false"><span data-t="heroInput">Panorama</span></button>
+                    <button type="button" data-chapter="room" aria-pressed="true"><span data-t="heroRoom">3D room</span></button>
+                  </div>
+                </div>
+                <a id="hero-scene" href="?scene=desk-frame-bedroom#explorer"><span data-t="heroCaption">Open this bedroom</span><svg class="icon" aria-hidden="true"><use href="#i-cube"></use></svg></a>
               </figcaption>
             </figure>
           </div>
