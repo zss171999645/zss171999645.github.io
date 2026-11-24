@@ -1,5 +1,5 @@
 // The movie carries the whole registered camera move. Its media time also drives the scrubber.
-window.createSpaceFoldOpening = function (translate) {
+window.createSpaceFoldStudy = function (translate) {
   "use strict";
   const intro = document.getElementById("hero-intro");
   const stage = document.getElementById("hero-stage");
@@ -40,8 +40,8 @@ window.createSpaceFoldOpening = function (translate) {
   };
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
   let duration = timing.frames / timing.fps;
-  let wantsPlay = !motion.matches && !navigator.connection?.saveData;
-  let position = wantsPlay ? 0 : duration;
+  let wantsPlay = false;
+  let position = duration;
   let visible = false,
     hasPlayed = false,
     showMovie = false,
@@ -171,14 +171,9 @@ window.createSpaceFoldOpening = function (translate) {
 
   function prepareMovie() {
     if (sources) return;
-    sources = [];
     video.muted = true;
     video.preload = "auto";
-    const apple =
-      navigator.vendor?.startsWith("Apple") || /iPad|iPhone|iPod/.test(navigator.userAgent);
-    if (apple && video.canPlayType('video/mp4; codecs="hvc1"')) sources.push("hero-orbit-hevc.mp4");
-    if (video.canPlayType('video/webm; codecs="vp9"')) sources.push("hero-orbit.webm");
-    if (video.canPlayType('video/mp4; codecs="avc1.42E01E"')) sources.push("hero-orbit.mp4");
+    sources = window.spaceFoldMovieSources(video, "hero-orbit");
     nextSource();
   }
 
@@ -388,12 +383,14 @@ window.createSpaceFoldOpening = function (translate) {
   document.getElementById("hero-readout").hidden = false;
   const query = new URLSearchParams(location.search);
   const requested = query.get("opening");
-  const cue = timing.phases.find((phase) => phase.id === requested);
   const action = timing.actions.find((a) => a.phase === requested && a.id === query.get("action"));
   if (action) goToAction(action.id);
-  else if (["encode", "decode"].includes(requested) && query.get("play") === "1" && !motion.matches)
-    playOperation(requested);
-  else if (cue) jump(cue.inspect / timing.fps);
   else labels();
+  document.getElementById("method-calculation").addEventListener("toggle", (event) => {
+    if (!event.currentTarget.open) {
+      wantsPlay = false;
+      sync();
+    }
+  });
   return labels;
 };

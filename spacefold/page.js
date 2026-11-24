@@ -34,7 +34,22 @@
     expanded = false,
     viewer = null;
   const t = (key) => pairs[key][lang];
-  const translateOpening = window.createSpaceFoldOpening(t);
+  const translateOpening = window.createSpaceFoldOverview(t, params);
+  const calculation = $("method-calculation");
+  let translateStudy;
+  calculation.addEventListener("toggle", () => {
+    if (calculation.open && !translateStudy) translateStudy = window.createSpaceFoldStudy(t);
+  });
+  const actionLink = window.SpaceFoldOpeningTiming.actions.some(
+    (step) => step.phase === params.get("opening") && step.id === params.get("action"),
+  );
+  if (actionLink || location.hash === "#method-calculation") {
+    calculation.open = true;
+    if (actionLink && location.hash !== "#method-calculation") {
+      history.replaceState(history.state, "", "#method-calculation");
+    }
+    calculation.scrollIntoView({ block: "start", behavior: "instant" });
+  }
 
   function pressed(selector, key, value) {
     document
@@ -332,6 +347,7 @@
     else heroUrl.searchParams.delete("lang");
     heroLink.href = heroUrl.href;
     translateOpening();
+    translateStudy?.();
     updateViewerText();
     showMethod();
     showScores();

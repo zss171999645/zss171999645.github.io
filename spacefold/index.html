@@ -14,16 +14,17 @@
     />
     <title>SpaceFold — A 3D room from one panorama</title>
     <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css?v=f390a862" />
+    <link rel="stylesheet" href="style.css?v=209a6070" />
     <script defer src="benchmarks.js"></script>
     <script defer src="surface-codec.js?v=b974190b"></script>
     <script defer src="viewer.js?v=f2820f98"></script>
-    <script defer src="strings.js?v=e7d0234c"></script>
+    <script defer src="strings.js?v=15d7700f"></script>
     <script defer src="hero-timeline.js?v=da2d5817"></script>
     <script defer src="hero-operation-labels.js?v=8aa4ab74"></script>
     <script defer src="assets/method/bed-edge-trace.js?v=e33e8464"></script>
-    <script defer src="hero.js?v=8db6608f"></script>
-    <script defer src="page.js?v=a0859ec3"></script>
+    <script defer src="overview.js?v=368992cf"></script>
+    <script defer src="hero.js?v=074a6457"></script>
+    <script defer src="page.js?v=5f91c6d2"></script>
   </head>
   <body id="top">
     <svg class="symbol-bank" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -126,71 +127,122 @@
                 >
               </div>
             </div>
-            <figure class="hero-plate" id="hero-intro">
-              <div class="plate-space" id="hero-stage" role="img" data-a="heroStage" aria-label="The bedroom panorama opens in 3D. Follow eight child features into one parent at the bed edge, then see which generated cells split again.">
-                <div class="floor-grid" aria-hidden="true"></div>
-                <div class="registration reg-a" aria-hidden="true"></div>
-                <div class="registration reg-b" aria-hidden="true"></div>
+            <figure class="hero-plate overview" id="overview" data-version="c497014e33">
+              <div
+                class="plate-space"
+                id="overview-stage"
+                role="img"
+                data-a="overviewStage"
+                aria-label="The panorama reveals its depth. Eight cells merge into a code. The decoder subdivides cells to build the room."
+              >
                 <img
+                  id="overview-poster"
+                  class="hero-room"
                   src="assets/hero-room.webp?v=d36436e3"
+                  alt=""
                   width="1680"
                   height="1206"
-                  class="hero-room hero-poster"
-                  alt="Cutaway of a generated bedroom with a bed on the left and a desk on the right. The open space beneath the desk is visible."
-                  data-alt="heroAlt"
                   fetchpriority="high"
                 />
-                <video class="hero-room hero-orbit" id="hero-orbit" muted playsinline preload="none" aria-hidden="true"></video>
-                <canvas id="hero-photo" class="hero-room hero-photo" width="1120" height="804"
-                  data-image="assets/hero-panorama.webp" aria-hidden="true"></canvas>
-                <canvas id="hero-operation-labels" class="hero-room hero-operation-labels" width="1120" height="804" aria-hidden="true"></canvas>
+                <video
+                  id="overview-video"
+                  class="hero-room hero-orbit"
+                  muted
+                  playsinline
+                  preload="none"
+                  aria-hidden="true"
+                ></video>
               </div>
-              <figcaption class="plate-caption">
-                <div id="hero-readout" class="hero-readout" hidden>
-                  <p id="hero-step-copy"></p>
-                  <button type="button" id="hero-step-scale" data-tip="codeInspect" hidden>32³ × 16</button>
-                  <select id="hero-level" data-a="decodeScale" aria-label="Inspect a decoder level" hidden>
-                    <option value="64">64³</option><option value="128">128³</option>
-                    <option value="256">256³</option><option value="512">512³</option>
-                    <option value="1024">1024³</option>
-                  </select>
+              <figcaption class="overview-caption">
+                <div
+                  class="equation"
+                  role="group"
+                  data-a="overviewEquation"
+                  aria-label="Geometry, encoder, visible code, conditional flow, room code, decoder, reconstructed geometry"
+                >
+                  <span class="quantity">
+                    <var>T<sub>vis</sub></var>
+                    <small data-t="overviewVisible">Visible geometry</small>
+                  </span>
+                  <button
+                    class="operator"
+                    type="button"
+                    data-phase="encode"
+                    data-tip="overviewE"
+                    aria-label="E · Encode"
+                    aria-controls="overview-stage"
+                  >
+                    <var>E</var>
+                    <span class="arrow" aria-hidden="true"></span>
+                  </button>
+                  <span class="quantity">
+                    <var>z<sub>vis</sub></var>
+                    <small data-t="overviewVisibleCode">Visible code</small>
+                  </span>
+                  <button
+                    class="operator"
+                    type="button"
+                    data-phase="flow"
+                    data-tip="overviewF"
+                    aria-label="F · Generate the room code"
+                    aria-controls="overview-stage"
+                  >
+                    <var>F</var>
+                    <span class="arrow" aria-hidden="true"></span>
+                  </button>
+                  <span class="quantity">
+                    <var>z</var>
+                    <small data-t="overviewRoomCode">Room code</small>
+                  </span>
+                  <button
+                    class="operator"
+                    type="button"
+                    data-phase="decode"
+                    data-tip="overviewD"
+                    aria-label="D · Decode"
+                    aria-controls="overview-stage"
+                  >
+                    <var>D</var>
+                    <span class="arrow" aria-hidden="true"></span>
+                  </button>
+                  <span class="quantity">
+                    <var>T&#770;</var>
+                    <small data-t="overviewSurface">Room geometry</small>
+                  </span>
                 </div>
-                <div class="operation-navigation" id="op-navigation" role="group" data-a="opControls" aria-label="Walk through an operation" hidden>
-                  <button id="op-prev" type="button" data-tip="opPrevious" title="Previous step" aria-label="Previous step">‹</button>
-                  <select id="op-step" data-a="opJump" aria-label="Choose an operation step"></select>
-                  <button id="op-next" type="button" data-tip="opNext" title="Next step" aria-label="Next step">›</button>
-                  <button id="op-inspect" class="op-inspect" type="button" data-t="opInspect">Inspect the values</button>
-                </div>
-                <div class="film-controls" id="hero-controls" hidden>
-                  <button id="hero-playback" type="button" aria-controls="hero-stage" data-tip="heroPlay" aria-label="Play the opening" title="Play the opening">
+                <p id="overview-note" data-t="overviewRoomNote">
+                  E and D are the VAE encoder and decoder. F generates the room code.
+                </p>
+                <div class="overview-transport">
+                  <button
+                    type="button"
+                    id="overview-play"
+                    data-tip="heroPlay"
+                    aria-label="Play the opening"
+                    aria-controls="overview-video"
+                    hidden
+                  >
                     <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
                   </button>
-                  <div class="film-chapters" role="group" data-a="heroChapters" aria-label="Opening scenes">
-                    <button type="button" data-chapter="input" aria-pressed="false"><span data-t="heroInput">Photo</span></button>
-                    <button type="button" data-chapter="encode" aria-pressed="false"><span data-t="heroEncode">Encode</span></button>
-                    <button type="button" data-chapter="flow" aria-pressed="false"><span data-t="heroFlow">Infer</span></button>
-                    <button type="button" data-chapter="decode" aria-pressed="false"><span data-t="heroDecode">Decode</span></button>
-                    <button type="button" data-chapter="room" aria-pressed="true"><span data-t="heroRoom">Room</span></button>
-                    <input id="hero-scrub" class="film-scrub" type="range" min="0" max="1000" step="1" value="1000"
-                      aria-controls="hero-stage" data-tip="heroScrub" aria-label="Scrub from photograph to 3D room" title="Scrub from photograph to 3D room" />
-                  </div>
+                  <input
+                    type="range"
+                    id="overview-scrub"
+                    class="film-scrub"
+                    min="0"
+                    max="240"
+                    step="1"
+                    value="240"
+                    data-tip="heroScrub"
+                    aria-controls="overview-video"
+                    hidden
+                  />
+                  <a id="hero-scene" href="?scene=desk-frame-bedroom#explorer">
+                    <svg class="icon" aria-hidden="true"><use href="#i-cube"></use></svg>
+                    <span data-t="heroCaption">Open in 3D</span>
+                  </a>
                 </div>
-                <a id="hero-scene" href="?scene=desk-frame-bedroom#explorer"><span data-t="heroCaption">Open in 3D</span><svg class="icon" aria-hidden="true"><use href="#i-cube"></use></svg></a>
               </figcaption>
             </figure>
-          </div>
-          <div class="operation-entries">
-            <button type="button" data-play-operation="encode" aria-controls="hero-stage">
-              <img src="assets/method/encoder-operation.webp?v=b9f569b1" width="132" height="76" alt="">
-              <span><strong data-t="playEncode">Play the encoder</strong><small data-t="encodeEntry">Eight child features form one parent feature.</small></span>
-              <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
-            </button>
-            <button type="button" data-play-operation="decode" aria-controls="hero-stage">
-              <img src="assets/method/decoder-operation.webp?v=de7dcac3" width="132" height="76" alt="">
-              <span><strong data-t="playDecode">Play the decoder</strong><small data-t="decodeEntry">See which cells split and which stop.</small></span>
-              <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
-            </button>
-            <div class="operation-stat"><strong>32³ × 16</strong><span data-t="opCodeSize">2 MiB per room code</span></div>
           </div>
         </div>
       </section>
@@ -429,6 +481,75 @@
               ></span>
             </button>
           </div>
+          <details id="method-calculation" class="method-calculation">
+            <summary><span data-t="overviewDetail">See the encoder and decoder in detail</span></summary>
+            <div class="study">
+              <figure class="hero-plate" id="hero-intro">
+                <div class="plate-space" id="hero-stage" role="img" data-a="heroStage" aria-label="The bedroom panorama opens in 3D. Follow eight child features into one parent at the bed edge, then see which generated cells split again.">
+                  <div class="floor-grid" aria-hidden="true"></div>
+                  <div class="registration reg-a" aria-hidden="true"></div>
+                  <div class="registration reg-b" aria-hidden="true"></div>
+                  <img
+                    src="assets/hero-room.webp?v=d36436e3"
+                    width="1680"
+                    height="1206"
+                    class="hero-room hero-poster"
+                    alt="Cutaway of a generated bedroom with a bed on the left and a desk on the right. The open space beneath the desk is visible."
+                    data-alt="heroAlt"
+                    loading="lazy"
+                  />
+                  <video class="hero-room hero-orbit" id="hero-orbit" muted playsinline preload="none" aria-hidden="true"></video>
+                  <canvas id="hero-photo" class="hero-room hero-photo" width="1120" height="804"
+                    data-image="assets/hero-panorama.webp" aria-hidden="true"></canvas>
+                  <canvas id="hero-operation-labels" class="hero-room hero-operation-labels" width="1120" height="804" aria-hidden="true"></canvas>
+                </div>
+                <figcaption class="plate-caption">
+                  <div id="hero-readout" class="hero-readout" hidden>
+                    <p id="hero-step-copy"></p>
+                    <button type="button" id="hero-step-scale" data-tip="codeInspect" hidden>32³ × 16</button>
+                    <select id="hero-level" data-a="decodeScale" aria-label="Inspect a decoder level" hidden>
+                      <option value="64">64³</option><option value="128">128³</option>
+                      <option value="256">256³</option><option value="512">512³</option>
+                      <option value="1024">1024³</option>
+                    </select>
+                  </div>
+                  <div class="operation-navigation" id="op-navigation" role="group" data-a="opControls" aria-label="Walk through an operation" hidden>
+                    <button id="op-prev" type="button" data-tip="opPrevious" title="Previous step" aria-label="Previous step">‹</button>
+                    <select id="op-step" data-a="opJump" aria-label="Choose an operation step"></select>
+                    <button id="op-next" type="button" data-tip="opNext" title="Next step" aria-label="Next step">›</button>
+                    <button id="op-inspect" class="op-inspect" type="button" data-t="opInspect">Inspect the values</button>
+                  </div>
+                  <div class="film-controls" id="hero-controls" hidden>
+                    <button id="hero-playback" type="button" aria-controls="hero-stage" data-tip="heroPlay" aria-label="Play the opening" title="Play the opening">
+                      <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
+                    </button>
+                    <div class="film-chapters" role="group" data-a="heroChapters" aria-label="Opening scenes">
+                      <button type="button" data-chapter="input" aria-pressed="false"><span data-t="heroInput">Photo</span></button>
+                      <button type="button" data-chapter="encode" aria-pressed="false"><span data-t="heroEncode">Encode</span></button>
+                      <button type="button" data-chapter="flow" aria-pressed="false"><span data-t="heroFlow">Infer</span></button>
+                      <button type="button" data-chapter="decode" aria-pressed="false"><span data-t="heroDecode">Decode</span></button>
+                      <button type="button" data-chapter="room" aria-pressed="true"><span data-t="heroRoom">Room</span></button>
+                      <input id="hero-scrub" class="film-scrub" type="range" min="0" max="1000" step="1" value="1000"
+                        aria-controls="hero-stage" data-tip="heroScrub" aria-label="Scrub from photograph to 3D room" title="Scrub from photograph to 3D room" />
+                    </div>
+                  </div>
+                </figcaption>
+              </figure>
+              <div class="operation-entries">
+                <button type="button" data-play-operation="encode" aria-controls="hero-stage">
+                  <img loading="lazy" src="assets/method/encoder-operation.webp?v=b9f569b1" width="132" height="76" alt="">
+                  <span><strong data-t="playEncode">Play the encoder</strong><small data-t="encodeEntry">Eight child features form one parent feature.</small></span>
+                  <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
+                </button>
+                <button type="button" data-play-operation="decode" aria-controls="hero-stage">
+                  <img loading="lazy" src="assets/method/decoder-operation.webp?v=de7dcac3" width="132" height="76" alt="">
+                  <span><strong data-t="playDecode">Play the decoder</strong><small data-t="decodeEntry">See which cells split and which stop.</small></span>
+                  <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
+                </button>
+                <div class="operation-stat"><strong>32³ × 16</strong><span data-t="opCodeSize">2 MiB per room code</span></div>
+              </div>
+            </div>
+          </details>
         </div>
       </section>
 

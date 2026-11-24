@@ -2227,3 +2227,154 @@ html[lang="zh-CN"] .rail-heading {
     transition: none !important;
   }
 }
+
+/* The opening uses one mathematical line. Each arrow selects its operation. */
+.overview-caption {
+  position: relative;
+  width: min(100%, 33rem);
+  margin: 14px auto 0;
+}
+.overview .hero-room {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.overview[data-frame="film"] #overview-video { opacity: 1; }
+.overview[data-frame="film"] #overview-poster { opacity: 0; }
+.equation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(29px, .55fr) minmax(0, 1fr) minmax(29px, .55fr) minmax(0, 1fr) minmax(29px, .55fr) minmax(0, 1fr);
+  align-items: start;
+  text-align: center;
+}
+.equation var {
+  display: block;
+  font: italic 2.3rem/1 "Instrument Serif", Georgia, serif;
+  color: #f4eaf8;
+}
+.equation sub {
+  font: normal .43em/1 Georgia, serif;
+  margin-left: 1px;
+  vertical-align: -.19em;
+}
+.quantity small {
+  display: block;
+  margin-top: 5px;
+  font-size: .76rem;
+  line-height: 1.2;
+  color: #c7c0d1;
+  text-wrap: balance;
+}
+.operator {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 2px 6px;
+  color: #b4a4bd;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+}
+.operator var { font-size: 1.25rem; line-height: 1; color: inherit; }
+.operator .arrow {
+  width: calc(100% - 8px);
+  max-width: 46px;
+  height: 1px;
+  background: currentColor;
+  position: relative;
+  margin-top: 4px;
+}
+.operator .arrow::after {
+  content: "";
+  position: absolute;
+  top: -2.5px;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  transform: rotate(45deg);
+}
+.operator:hover, .operator[aria-pressed="true"] { color: var(--apricot); }
+.operator[aria-pressed="true"] .arrow { box-shadow: 0 0 7px #ffc19b50; }
+#overview-note {
+  margin: 12px 0 1px;
+  min-height: 2.6em;
+  color: #d8d1de;
+  font-size: .85rem;
+  line-height: 1.35;
+  text-align: center;
+  text-wrap: balance;
+}
+.overview-transport {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #dfd5e6;
+}
+#overview-play {
+  display: grid;
+  place-content: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  color: #f5e7df;
+  border: 1px solid #a99bb257;
+  border-radius: 50%;
+  cursor: pointer;
+}
+#overview-play:hover { border-color: var(--apricot); color: var(--apricot); }
+#overview-play .icon { width: 16px; height: 16px; }
+#overview-scrub { flex: 1; width: auto; min-width: 0; }
+.overview-transport [hidden] { display: none !important; }
+#hero-scene {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  margin-left: auto;
+  font-size: .8rem;
+  white-space: nowrap;
+}
+#hero-scene .icon { width: 16px; height: 16px; }
+#hero-scene:hover { color: var(--apricot); }
+.method-calculation { margin-top: 19px; border-block: 1px solid var(--hair); }
+.method-calculation > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 9px 2px;
+  list-style: none;
+  color: #51415b;
+  font-weight: 550;
+  cursor: pointer;
+}
+.method-calculation > summary::-webkit-details-marker { display: none; }
+.method-calculation > summary::after { content: "+"; font-size: 1.3rem; font-weight: 400; }
+.method-calculation[open] > summary::after { content: "−"; }
+.study {
+  overflow: hidden;
+  padding: clamp(14px, 3vw, 32px);
+  margin-bottom: 18px;
+  background: radial-gradient(ellipse at 50% 30%, #30293e, #1c1925 68%);
+  border-radius: 7px;
+  color: #f0eaf3;
+}
+.study .hero-plate { width: min(100%, 720px); margin: 0 auto 20px; }
+.study .plate-space { height: auto; min-height: 0; aspect-ratio: 1120 / 804; }
+.study .hero-room { inset: 0; width: 100%; height: 100%; }
+.study .plate-caption { margin-inline: 0; }
+@media (max-width: 780px) {
+  .overview-caption { margin-top: 4px; }
+  .equation var { font-size: 2rem; }
+  .operator var { font-size: 1.1rem; }
+  .quantity small { font-size: .71rem; }
+}
+@media (max-width: 640px) {
+  #overview-note { margin-top: 10px; }
+  .overview-transport { gap: 9px; }
+}
