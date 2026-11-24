@@ -19,6 +19,25 @@ window.createSpaceFoldOpening = function (translate) {
   const note = document.getElementById("hero-step-copy");
   const scale = document.getElementById("hero-step-scale");
   const levelPicker = document.getElementById("hero-level");
+  const operationNav = document.getElementById("op-navigation");
+  const stepPicker = document.getElementById("op-step");
+  const previousStep = document.getElementById("op-prev");
+  const nextStep = document.getElementById("op-next");
+  const startButtons = [...document.querySelectorAll("[data-play-operation]")];
+  const overlay = document.getElementById("hero-operation-labels");
+  const words = overlay.getContext("2d");
+  const actionKeys = {
+    locate: "opLocation",
+    children: "opRead",
+    merge: "opFuse",
+    add: "opAdd",
+    latent: "opCode",
+    predict: "opPredict",
+    split: "opExpand",
+    branch: "opDecision",
+    bed: "opReturn",
+    refine: "opLevels",
+  };
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
   let duration = timing.frames / timing.fps;
   let wantsPlay = !motion.matches && !navigator.connection?.saveData;
@@ -30,31 +49,66 @@ window.createSpaceFoldOpening = function (translate) {
   let frame = 0,
     playRequest = false,
     desiredSeek = null,
-    sources;
+    sources,
+    stopAt = null,
+    menuKey = "",
+    drawn = "";
+
+  function operationControls(phase, action) {
+    operationNav.hidden = !action;
+    if (!action) return;
+    const items = timing.actions.filter((a) => a.phase === phase);
+    const key = phase + document.documentElement.lang;
+    if (menuKey !== key) {
+      stepPicker.replaceChildren(
+        ...items.map(
+          (item, i) =>
+            new Option(
+              i + 1 + " / " + items.length + " · " + translate(actionKeys[item.id]),
+              item.id,
+            ),
+        ),
+      );
+      menuKey = key;
+    }
+    stepPicker.value = action.id;
+    previousStep.disabled = action === items[0];
+    nextStep.disabled = action === items[items.length - 1];
+  }
 
   function paint() {
     const end = position >= duration - 0.001;
     const index = Math.round(position * timing.fps);
     const phase = timing.phases.findLast((p) => index >= p.frame).id;
-    const level = phase === "decode" ? timing.levels.findLast((entry) => index >= entry[1])[0] : 0;
-    const caption = translate(keys[phase][1]);
-    const dimensions = level
-      ? level + "³"
-      : phase === "encode" || phase === "flow"
-        ? "32³ × 16"
-        : "";
+    const action = timing.actions.findLast((a) => a.phase === phase && index >= a.frame);
+    const level =
+      phase === "decode" ? (timing.levels.findLast((entry) => index >= entry[1])?.[0] ?? 0) : 0;
+    const codeView = action?.id === "latent" || phase === "flow";
+    const caption = translate(action ? actionKeys[action.id] + "Note" : keys[phase][1]);
+    const dimensions = level ? level + "³" : codeView ? "32³ × 16" : "";
     if (note.textContent !== caption) note.textContent = caption;
-    scale.hidden = phase !== "encode" && phase !== "flow";
+    scale.hidden = !codeView;
     levelPicker.hidden = !level;
     if (level) levelPicker.value = String(level);
     intro.dataset.phase = phase;
+    intro.dataset.action = action?.id ?? "";
+    operationControls(phase, action);
     stage.dataset.frame = !end && showMovie ? "video" : !end && photoReady ? "input" : "room";
+    const opacity = showMovie ? window.SpaceFoldOperationLabels.opacity(index) : 0;
+    stage.style.setProperty("--op-magnification", String(1 + 0.11 * opacity));
+    const labelKey = opacity > 0 ? index + document.documentElement.lang : "";
+    if (drawn !== labelKey) {
+      drawn = labelKey;
+      words.clearRect(0, 0, overlay.width, overlay.height);
+      if (opacity > 0) window.SpaceFoldOperationLabels.paint(words, index, translate, opacity);
+    }
     const fraction = Math.min(1, position / duration);
     scrub.value = String(Math.round(fraction * Number(scrub.max)));
     scrub.style.setProperty("--played", (fraction * 100).toFixed(2) + "%");
     scrub.setAttribute(
       "aria-valuetext",
       translate(keys[phase][0]) +
+        (action ? " · " + translate(actionKeys[action.id]) : "") +
         (dimensions ? " · " + dimensions : "") +
         " · " +
         position.toFixed(1) +
@@ -103,6 +157,7 @@ window.createSpaceFoldOpening = function (translate) {
       for (const button of chapters) {
         button.hidden = !["input", "room"].includes(button.dataset.chapter);
       }
+      for (const button of startButtons) button.disabled = true;
       wantsPlay = false;
       position = position < 1 ? 0 : duration;
       if (!position) preparePhoto();
@@ -111,7 +166,7 @@ window.createSpaceFoldOpening = function (translate) {
     }
     video.toggleAttribute("data-matte", file === "hero-orbit.mp4");
     desiredSeek = position;
-    video.src = "assets/" + file + "?v=c3a0815b";
+    video.src = "assets/" + file + "?v=c7e8aa38";
   }
 
   function prepareMovie() {
@@ -138,6 +193,10 @@ window.createSpaceFoldOpening = function (translate) {
     cancelAnimationFrame(frame);
     if (!wantsPlay || !visible || document.hidden || video.paused) return;
     if (desiredSeek === null && !video.seeking) position = video.currentTime;
+    if (stopAt !== null && position >= stopAt) {
+      jump(stopAt);
+      return;
+    }
     paint();
     frame = requestAnimationFrame(tick);
   }
@@ -170,6 +229,7 @@ window.createSpaceFoldOpening = function (translate) {
   }
 
   function jump(to, play = false) {
+    stopAt = null;
     wantsPlay = play;
     position = Math.max(0, Math.min(duration, to));
     video.pause();
@@ -225,6 +285,84 @@ window.createSpaceFoldOpening = function (translate) {
     const cue = timing.phases.find((phase) => phase.id === button.dataset.chapter);
     button.addEventListener("click", () => jump(cue.inspect / timing.fps));
   }
+  function goToAction(id) {
+    const action = timing.actions.find((a) => a.id === id);
+    if (action) jump(action.inspect / timing.fps);
+  }
+  function advanceStep(offset) {
+    const active = timing.actions.findIndex((a) => a.id === stepPicker.value);
+    const item = timing.actions[active + offset];
+    if (item && item.phase === timing.actions[active]?.phase) goToAction(item.id);
+  }
+  stepPicker.addEventListener("change", () => goToAction(stepPicker.value));
+  previousStep.addEventListener("click", () => advanceStep(-1));
+  nextStep.addEventListener("click", () => advanceStep(1));
+  function playOperation(id) {
+    const i = timing.phases.findIndex((p) => p.id === id);
+    jump(timing.phases[i].frame / timing.fps, true);
+    stopAt = timing.operationHolds[id] / timing.fps;
+  }
+  for (const button of startButtons)
+    button.addEventListener("click", () => {
+      if (!visible) stage.scrollIntoView({ block: "center", behavior: "instant" });
+      playOperation(button.dataset.playOperation);
+    });
+  const proof = document.getElementById("branch-dialog");
+  const trace = globalThis.SpaceFoldBedTrace;
+  const options = document.getElementById("branch-children");
+  const numeric = (n, places) => n.toFixed(places).replace("-", "−");
+  function chooseChild(i) {
+    const child = trace.decoder.children[i];
+    for (const [j, b] of [...options.children].entries()) {
+      b.setAttribute("aria-pressed", String(i === j));
+      b.setAttribute("aria-label", translate("opChild") + " " + (j + 1));
+    }
+    document.getElementById("branch-distance").textContent = numeric(child.distance, 3);
+    document.getElementById("branch-logit").textContent =
+      (child.logit > 0 ? "+" : "") + numeric(child.logit, 3);
+    const result = document.getElementById("branch-outcome");
+    result.textContent = translate(child.split ? "opWillSplit" : "opWillStop");
+    result.dataset.split = String(child.split);
+  }
+  trace.decoder.children.forEach((child, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = String(i + 1);
+    b.dataset.split = String(child.split);
+    b.addEventListener("click", () => chooseChild(i));
+    options.append(b);
+  });
+  const encoderLevel = document.getElementById("branch-encoder-level");
+  function showFusion() {
+    const a = trace.encoder.path.find(
+      (level) => level.parent === Number(encoderLevel.value),
+    ).example;
+    for (const [id, val] of [
+      ["branch-summary", a.summary],
+      ["branch-distance-feature", a.self],
+      ["branch-fused", a.fused],
+    ]) {
+      document.getElementById(id).textContent = numeric(val, 6);
+    }
+  }
+  encoderLevel.addEventListener("change", showFusion);
+  document.getElementById("op-inspect").addEventListener("click", () => {
+    if (!video.paused) position = video.currentTime;
+    wantsPlay = false;
+    sync();
+    const enc = intro.dataset.phase === "encode";
+    document.getElementById("branch-encoding").hidden = !enc;
+    document.getElementById("branch-decoding").hidden = enc;
+    if (enc) {
+      encoderLevel.value = "64";
+      showFusion();
+    } else chooseChild(trace.decoder.hold);
+    proof.showModal();
+  });
+  document.getElementById("close-branch").addEventListener("click", () => proof.close());
+  proof.addEventListener("click", (e) => {
+    if (e.target === proof) proof.close();
+  });
   levelPicker.addEventListener("change", () => {
     const index = timing.levels.find(([resolution]) => resolution === Number(levelPicker.value))[1];
     jump((index + 7) / timing.fps);
@@ -248,9 +386,14 @@ window.createSpaceFoldOpening = function (translate) {
   });
   document.getElementById("hero-controls").hidden = false;
   document.getElementById("hero-readout").hidden = false;
-  const requested = new URLSearchParams(location.search).get("opening");
+  const query = new URLSearchParams(location.search);
+  const requested = query.get("opening");
   const cue = timing.phases.find((phase) => phase.id === requested);
-  if (cue) jump(cue.inspect / timing.fps);
+  const action = timing.actions.find((a) => a.phase === requested && a.id === query.get("action"));
+  if (action) goToAction(action.id);
+  else if (["encode", "decode"].includes(requested) && query.get("play") === "1" && !motion.matches)
+    playOperation(requested);
+  else if (cue) jump(cue.inspect / timing.fps);
   else labels();
   return labels;
 };

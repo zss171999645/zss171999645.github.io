@@ -14,13 +14,15 @@
     />
     <title>SpaceFold — A 3D room from one panorama</title>
     <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css?v=d8833c1d" />
+    <link rel="stylesheet" href="style.css?v=f390a862" />
     <script defer src="benchmarks.js"></script>
     <script defer src="surface-codec.js?v=b974190b"></script>
     <script defer src="viewer.js?v=f2820f98"></script>
-    <script defer src="strings.js?v=77bb1ae1"></script>
-    <script defer src="hero-timeline.js?v=cfc2dfbd"></script>
-    <script defer src="hero.js?v=532e47d3"></script>
+    <script defer src="strings.js?v=e7d0234c"></script>
+    <script defer src="hero-timeline.js?v=da2d5817"></script>
+    <script defer src="hero-operation-labels.js?v=8aa4ab74"></script>
+    <script defer src="assets/method/bed-edge-trace.js?v=e33e8464"></script>
+    <script defer src="hero.js?v=8db6608f"></script>
     <script defer src="page.js?v=a0859ec3"></script>
   </head>
   <body id="top">
@@ -125,7 +127,7 @@
               </div>
             </div>
             <figure class="hero-plate" id="hero-intro">
-              <div class="plate-space" id="hero-stage" role="img" data-a="heroStage" aria-label="The bedroom panorama opens into 3D. The VAE encodes visible surfaces, the flow model predicts the room code, and the VAE decodes the room at five resolutions.">
+              <div class="plate-space" id="hero-stage" role="img" data-a="heroStage" aria-label="The bedroom panorama opens in 3D. Follow eight child features into one parent at the bed edge, then see which generated cells split again.">
                 <div class="floor-grid" aria-hidden="true"></div>
                 <div class="registration reg-a" aria-hidden="true"></div>
                 <div class="registration reg-b" aria-hidden="true"></div>
@@ -141,6 +143,7 @@
                 <video class="hero-room hero-orbit" id="hero-orbit" muted playsinline preload="none" aria-hidden="true"></video>
                 <canvas id="hero-photo" class="hero-room hero-photo" width="1120" height="804"
                   data-image="assets/hero-panorama.webp" aria-hidden="true"></canvas>
+                <canvas id="hero-operation-labels" class="hero-room hero-operation-labels" width="1120" height="804" aria-hidden="true"></canvas>
               </div>
               <figcaption class="plate-caption">
                 <div id="hero-readout" class="hero-readout" hidden>
@@ -152,38 +155,43 @@
                     <option value="1024">1024³</option>
                   </select>
                 </div>
+                <div class="operation-navigation" id="op-navigation" role="group" data-a="opControls" aria-label="Walk through an operation" hidden>
+                  <button id="op-prev" type="button" data-tip="opPrevious" title="Previous step" aria-label="Previous step">‹</button>
+                  <select id="op-step" data-a="opJump" aria-label="Choose an operation step"></select>
+                  <button id="op-next" type="button" data-tip="opNext" title="Next step" aria-label="Next step">›</button>
+                  <button id="op-inspect" class="op-inspect" type="button" data-t="opInspect">Inspect the values</button>
+                </div>
                 <div class="film-controls" id="hero-controls" hidden>
                   <button id="hero-playback" type="button" aria-controls="hero-stage" data-tip="heroPlay" aria-label="Play the opening" title="Play the opening">
                     <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
                   </button>
                   <div class="film-chapters" role="group" data-a="heroChapters" aria-label="Opening scenes">
-                    <button type="button" data-chapter="input" aria-pressed="false"><span data-t="heroInput">Panorama</span></button>
+                    <button type="button" data-chapter="input" aria-pressed="false"><span data-t="heroInput">Photo</span></button>
                     <button type="button" data-chapter="encode" aria-pressed="false"><span data-t="heroEncode">Encode</span></button>
-                    <button type="button" data-chapter="flow" aria-pressed="false"><span data-t="heroFlow">Complete</span></button>
+                    <button type="button" data-chapter="flow" aria-pressed="false"><span data-t="heroFlow">Infer</span></button>
                     <button type="button" data-chapter="decode" aria-pressed="false"><span data-t="heroDecode">Decode</span></button>
                     <button type="button" data-chapter="room" aria-pressed="true"><span data-t="heroRoom">Room</span></button>
                     <input id="hero-scrub" class="film-scrub" type="range" min="0" max="1000" step="1" value="1000"
                       aria-controls="hero-stage" data-tip="heroScrub" aria-label="Scrub from photograph to 3D room" title="Scrub from photograph to 3D room" />
                   </div>
                 </div>
-                <a id="hero-scene" href="?scene=desk-frame-bedroom#explorer"><span data-t="heroCaption">Open this bedroom</span><svg class="icon" aria-hidden="true"><use href="#i-cube"></use></svg></a>
+                <a id="hero-scene" href="?scene=desk-frame-bedroom#explorer"><span data-t="heroCaption">Open in 3D</span><svg class="icon" aria-hidden="true"><use href="#i-cube"></use></svg></a>
               </figcaption>
             </figure>
           </div>
-          <dl class="hero-stats">
-            <div>
-              <dt>2 <span>MiB</span></dt>
-              <dd data-t="statCode">to encode one room</dd>
-            </div>
-            <div>
-              <dt>32³ <span>×</span> 16</dt>
-              <dd data-t="statGrid">coding grid, 16 values per cell</dd>
-            </div>
-            <div>
-              <dt>64³ <span>–</span> 1024³</dt>
-              <dd data-t="statLevels">five grid resolutions</dd>
-            </div>
-          </dl>
+          <div class="operation-entries">
+            <button type="button" data-play-operation="encode" aria-controls="hero-stage">
+              <img src="assets/method/encoder-operation.webp?v=b9f569b1" width="132" height="76" alt="">
+              <span><strong data-t="playEncode">Play the encoder</strong><small data-t="encodeEntry">Eight child features form one parent feature.</small></span>
+              <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
+            </button>
+            <button type="button" data-play-operation="decode" aria-controls="hero-stage">
+              <img src="assets/method/decoder-operation.webp?v=de7dcac3" width="132" height="76" alt="">
+              <span><strong data-t="playDecode">Play the decoder</strong><small data-t="decodeEntry">See which cells split and which stop.</small></span>
+              <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
+            </button>
+            <div class="operation-stat"><strong>32³ × 16</strong><span data-t="opCodeSize">2 MiB per room code</span></div>
+          </div>
         </div>
       </section>
 
@@ -395,9 +403,9 @@
             <div class="method-annotation">
               <h3 id="method-heading">A compact code for the whole room</h3>
               <div><p id="method-body">
-                The variational autoencoder (VAE) compresses 3D surface distances into a spatial
-                code. Its decoder starts with a coarse grid and subdivides cells near surfaces
-                to recover finer shapes.
+                The variational autoencoder (VAE) combines eight child features with each parent’s own
+                surface-distance feature. Repeating this across scales gives a spatial code. The decoder
+                predicts both a distance and whether to split each cell again.
               </p>
               <button class="proof-link code-inspect" type="button" id="method-codes" data-t="codeInspect">Inspect the room’s code slices</button></div>
             </div>
@@ -641,6 +649,32 @@
         </div>
       </div>
     </footer>
+    <dialog id="branch-dialog" aria-labelledby="branch-title">
+      <div class="code-dialog-head"><h3 id="branch-title" data-t="opProofTitle">One parent at the bed edge</h3>
+        <button class="light-btn" type="button" id="close-branch" data-tip="close" aria-label="Close"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <div id="branch-encoding" hidden>
+        <p class="code-intro" data-t="opProofEncode">One recorded channel of the 128-value parent feature.</p>
+        <label class="branch-level"><span data-t="opFusionScale">Fusion level</span>
+          <select id="branch-encoder-level"><option value="512">1024³ → 512³</option><option value="256">512³ → 256³</option><option value="128">256³ → 128³</option><option value="64" selected>128³ → 64³</option></select>
+        </label>
+        <dl class="branch-values">
+          <div><dt data-t="opChildSummary">Child summary</dt><dd id="branch-summary"></dd></div>
+          <div><dt data-t="opParentDistance">Distance feature</dt><dd id="branch-distance-feature"></dd></div>
+          <div><dt data-t="opParentFeature">Parent feature</dt><dd id="branch-fused"></dd></div>
+        </dl>
+        <p class="code-note" data-t="opProofAdd">Adding the first two values gives the third.</p>
+      </div>
+      <div id="branch-decoding" hidden>
+        <p class="code-intro" data-t="opProofDecode">Choose one of the eight children to inspect its decision.</p>
+        <div id="branch-children" role="group" data-a="opChooseChild" aria-label="Choose a child cell"></div>
+        <dl class="branch-values">
+          <div><dt data-t="opDistanceHead">Distance in cells</dt><dd id="branch-distance"></dd></div>
+          <div><dt data-t="opSplitHead">Split score</dt><dd id="branch-logit"></dd></div>
+        </dl>
+        <p id="branch-outcome" class="branch-outcome" aria-live="polite"></p>
+      </div>
+    </dialog>
     <dialog id="code-dialog" aria-labelledby="code-title">
       <div class="code-dialog-head">
         <h3 id="code-title" data-t="codeTitle">Two codes for the same bedroom</h3>
