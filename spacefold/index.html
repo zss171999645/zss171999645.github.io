@@ -14,13 +14,14 @@
     />
     <title>SpaceFold — A 3D room from one panorama</title>
     <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css?v=4d67d126" />
+    <link rel="stylesheet" href="style.css?v=d8833c1d" />
     <script defer src="benchmarks.js"></script>
     <script defer src="surface-codec.js?v=b974190b"></script>
     <script defer src="viewer.js?v=f2820f98"></script>
-    <script defer src="strings.js?v=5296daa4"></script>
-    <script defer src="hero.js?v=083494f0"></script>
-    <script defer src="page.js?v=88d118cb"></script>
+    <script defer src="strings.js?v=77bb1ae1"></script>
+    <script defer src="hero-timeline.js?v=cfc2dfbd"></script>
+    <script defer src="hero.js?v=532e47d3"></script>
+    <script defer src="page.js?v=a0859ec3"></script>
   </head>
   <body id="top">
     <svg class="symbol-bank" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -124,7 +125,7 @@
               </div>
             </div>
             <figure class="hero-plate" id="hero-intro">
-              <div class="plate-space" id="hero-stage" role="img" data-a="heroStage" aria-label="A bedroom seen in the original panorama and in the generated 3D model.">
+              <div class="plate-space" id="hero-stage" role="img" data-a="heroStage" aria-label="The bedroom panorama opens into 3D. The VAE encodes visible surfaces, the flow model predicts the room code, and the VAE decodes the room at five resolutions.">
                 <div class="floor-grid" aria-hidden="true"></div>
                 <div class="registration reg-a" aria-hidden="true"></div>
                 <div class="registration reg-b" aria-hidden="true"></div>
@@ -138,20 +139,31 @@
                   fetchpriority="high"
                 />
                 <video class="hero-room hero-orbit" id="hero-orbit" muted playsinline preload="none" aria-hidden="true"></video>
-                <div class="hero-projection" aria-hidden="true" hidden>
-                  <div class="hero-film" data-image="assets/hero-panorama.webp">
-                    <i></i><i></i><i></i>
-                  </div>
-                </div>
+                <canvas id="hero-photo" class="hero-room hero-photo" width="1120" height="804"
+                  data-image="assets/hero-panorama.webp" aria-hidden="true"></canvas>
               </div>
               <figcaption class="plate-caption">
+                <div id="hero-readout" class="hero-readout" hidden>
+                  <p id="hero-step-copy"></p>
+                  <button type="button" id="hero-step-scale" data-tip="codeInspect" hidden>32³ × 16</button>
+                  <select id="hero-level" data-a="decodeScale" aria-label="Inspect a decoder level" hidden>
+                    <option value="64">64³</option><option value="128">128³</option>
+                    <option value="256">256³</option><option value="512">512³</option>
+                    <option value="1024">1024³</option>
+                  </select>
+                </div>
                 <div class="film-controls" id="hero-controls" hidden>
                   <button id="hero-playback" type="button" aria-controls="hero-stage" data-tip="heroPlay" aria-label="Play the opening" title="Play the opening">
                     <svg class="icon" aria-hidden="true"><use href="#i-play"></use></svg>
                   </button>
                   <div class="film-chapters" role="group" data-a="heroChapters" aria-label="Opening scenes">
                     <button type="button" data-chapter="input" aria-pressed="false"><span data-t="heroInput">Panorama</span></button>
-                    <button type="button" data-chapter="room" aria-pressed="true"><span data-t="heroRoom">3D room</span></button>
+                    <button type="button" data-chapter="encode" aria-pressed="false"><span data-t="heroEncode">Encode</span></button>
+                    <button type="button" data-chapter="flow" aria-pressed="false"><span data-t="heroFlow">Complete</span></button>
+                    <button type="button" data-chapter="decode" aria-pressed="false"><span data-t="heroDecode">Decode</span></button>
+                    <button type="button" data-chapter="room" aria-pressed="true"><span data-t="heroRoom">Room</span></button>
+                    <input id="hero-scrub" class="film-scrub" type="range" min="0" max="1000" step="1" value="1000"
+                      aria-controls="hero-stage" data-tip="heroScrub" aria-label="Scrub from photograph to 3D room" title="Scrub from photograph to 3D room" />
                   </div>
                 </div>
                 <a id="hero-scene" href="?scene=desk-frame-bedroom#explorer"><span data-t="heroCaption">Open this bedroom</span><svg class="icon" aria-hidden="true"><use href="#i-cube"></use></svg></a>
@@ -382,11 +394,12 @@
           <div class="method-exhibit" data-method-panel="codec">
             <div class="method-annotation">
               <h3 id="method-heading">A compact code for the whole room</h3>
-              <p id="method-body">
-                Five grids of different resolutions store the distance to the nearest surface.
-                SpaceFold combines these measurements into one code. To rebuild the room, it starts
-                with large cells and splits them where more detail is needed.
+              <div><p id="method-body">
+                The variational autoencoder (VAE) compresses 3D surface distances into a spatial
+                code. Its decoder starts with a coarse grid and subdivides cells near surfaces
+                to recover finer shapes.
               </p>
+              <button class="proof-link code-inspect" type="button" id="method-codes" data-t="codeInspect">Inspect the room’s code slices</button></div>
             </div>
             <button
               id="diagram-open"
@@ -628,6 +641,19 @@
         </div>
       </div>
     </footer>
+    <dialog id="code-dialog" aria-labelledby="code-title">
+      <div class="code-dialog-head">
+        <h3 id="code-title" data-t="codeTitle">Two codes for the same bedroom</h3>
+        <button class="light-btn" type="button" id="close-codes" data-tip="close" aria-label="Close"><svg class="icon"><use href="#i-close"></use></svg></button>
+      </div>
+      <p class="code-intro" data-t="codeIntro">Compare matching horizontal slices. Move the slider to change their height together.</p>
+      <div class="code-pair">
+        <figure><canvas id="code-visible" width="32" height="32" role="img" data-a="visibleCode" aria-label="Code for visible surfaces"></canvas><figcaption data-t="visibleCode">Code for visible surfaces</figcaption></figure>
+        <figure><canvas id="code-complete" width="32" height="32" role="img" data-a="completeCode" aria-label="Predicted whole-room code"></canvas><figcaption data-t="completeCode">Predicted whole-room code</figcaption></figure>
+      </div>
+      <label class="code-height" for="code-height"><span data-t="sliceHeight">Slice height</span><input id="code-height" type="range" min="0" max="31" step="1" value="13"><output id="code-meters" for="code-height"></output></label>
+      <p class="code-note" data-t="codeLegend">Each cell shows the RMS magnitude of its 16 values. Both slices use the same scale. Lighter cells have larger values.</p>
+    </dialog>
     <dialog id="figure-dialog" aria-labelledby="figure-title">
       <div class="dialog-top">
         <strong id="figure-title"></strong>

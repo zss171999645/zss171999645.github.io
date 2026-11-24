@@ -460,6 +460,46 @@
   $("diagram-open").addEventListener("click", () =>
     openFigure($("method-image"), t(method + "Heading"), method === "codec"),
   );
+  let codeAtlas = null;
+  function drawCodeSlices() {
+    const index = Number($("code-height").value);
+    const height = -1.1168862251 + (index + 0.5) * 0.156036921;
+    $("code-meters").textContent = height.toFixed(2) + " m";
+    $("code-height").setAttribute("aria-valuetext", $("code-meters").textContent);
+    if (!codeAtlas?.naturalWidth) return;
+    for (const [part, id] of ["code-visible", "code-complete"].entries()) {
+      const ctx = $(id).getContext("2d");
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(codeAtlas, part * 32, index * 32, 32, 32, 0, 0, 32, 32);
+    }
+  }
+  function inspectCodes() {
+    const dialog = $("code-dialog");
+    dialog.showModal();
+    if (!codeAtlas) {
+      dialog.setAttribute("aria-busy", "true");
+      codeAtlas = new Image();
+      codeAtlas.onload = () => {
+        drawCodeSlices();
+        dialog.setAttribute("aria-busy", "false");
+      };
+      codeAtlas.onerror = () => {
+        dialog.setAttribute("aria-busy", "false");
+        dialog.querySelector(".code-note").textContent = t("codeLoadError");
+        codeAtlas = null;
+      };
+      codeAtlas.src = "assets/method/room-code-slices.png?v=ddc1f9c6";
+    }
+    dialog.querySelector(".code-note").textContent = t("codeLegend");
+    drawCodeSlices();
+  }
+  $("method-codes").addEventListener("click", inspectCodes);
+  $("hero-step-scale").addEventListener("click", inspectCodes);
+  $("code-height").addEventListener("input", drawCodeSlices);
+  $("close-codes").addEventListener("click", () => $("code-dialog").close());
+  $("code-dialog").addEventListener("click", (event) => {
+    if (event.target === $("code-dialog")) $("code-dialog").close();
+  });
   for (const button of document.querySelectorAll("[data-detail]"))
     button.addEventListener("click", () => {
       const image = button.querySelector("img");

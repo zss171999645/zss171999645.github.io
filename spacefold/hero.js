@@ -1,199 +1,256 @@
-// The photograph and orbit are two views of the same research sample.
+// The movie carries the whole registered camera move. Its media time also drives the scrubber.
 window.createSpaceFoldOpening = function (translate) {
   "use strict";
   const intro = document.getElementById("hero-intro");
   const stage = document.getElementById("hero-stage");
-  const projection = stage.querySelector(".hero-projection");
-  const film = stage.querySelector(".hero-film");
+  const photo = document.getElementById("hero-photo");
   const video = document.getElementById("hero-orbit");
   const playback = document.getElementById("hero-playback");
-  const icon = playback.querySelector("use");
+  const scrub = document.getElementById("hero-scrub");
   const chapters = [...intro.querySelectorAll("[data-chapter]")];
+  const timing = window.SpaceFoldOpeningTiming;
+  const keys = {
+    input: ["heroInput", "openingInputNote"],
+    encode: ["heroEncode", "openingEncodeNote"],
+    flow: ["heroFlow", "openingFlowNote"],
+    decode: ["heroDecode", "openingDecodeNote"],
+    room: ["heroRoom", "openingRoomNote"],
+  };
+  const note = document.getElementById("hero-step-copy");
+  const scale = document.getElementById("hero-step-scale");
+  const levelPicker = document.getElementById("hero-level");
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
-  const orbitStart = 1.42, chapterChange = 2.05, filmEnd = 2.63;
-  let duration = orbitStart + 4.5;
+  let duration = timing.frames / timing.fps;
   let wantsPlay = !motion.matches && !navigator.connection?.saveData;
-  let time = wantsPlay ? 0 : duration;
-  let visible = false, photoReady = false, photoRequested = false, hasPlayed = false;
-  let previousTick = null, frame = 0, clipStartedAt = null, clipUnavailable = false;
-  let sources;
+  let position = wantsPlay ? 0 : duration;
+  let visible = false,
+    hasPlayed = false,
+    showMovie = false,
+    photoReady = false;
+  let frame = 0,
+    playRequest = false,
+    desiredSeek = null,
+    sources;
 
-  function smooth(start, end, at) {
-    const u = Math.max(0, Math.min(1, (at - start) / (end - start)));
-    return u * u * (3 - 2 * u);
+  function paint() {
+    const end = position >= duration - 0.001;
+    const index = Math.round(position * timing.fps);
+    const phase = timing.phases.findLast((p) => index >= p.frame).id;
+    const level = phase === "decode" ? timing.levels.findLast((entry) => index >= entry[1])[0] : 0;
+    const caption = translate(keys[phase][1]);
+    const dimensions = level
+      ? level + "³"
+      : phase === "encode" || phase === "flow"
+        ? "32³ × 16"
+        : "";
+    if (note.textContent !== caption) note.textContent = caption;
+    scale.hidden = phase !== "encode" && phase !== "flow";
+    levelPicker.hidden = !level;
+    if (level) levelPicker.value = String(level);
+    intro.dataset.phase = phase;
+    stage.dataset.frame = !end && showMovie ? "video" : !end && photoReady ? "input" : "room";
+    const fraction = Math.min(1, position / duration);
+    scrub.value = String(Math.round(fraction * Number(scrub.max)));
+    scrub.style.setProperty("--played", (fraction * 100).toFixed(2) + "%");
+    scrub.setAttribute(
+      "aria-valuetext",
+      translate(keys[phase][0]) +
+        (dimensions ? " · " + dimensions : "") +
+        " · " +
+        position.toFixed(1) +
+        (document.documentElement.lang.startsWith("zh") ? " 秒" : " s"),
+    );
+    for (const button of chapters)
+      button.setAttribute("aria-pressed", String(button.dataset.chapter === phase));
   }
 
-  function labelPlayback() {
-    const replay = time >= duration && hasPlayed;
-    const resume = time > 0 && time < duration;
-    const key = wantsPlay ? "heroPause" : replay ? "heroReplay" : resume ? "heroResume" : "heroPlay";
+  function labels() {
+    const end = position >= duration - 0.001;
+    const key = wantsPlay
+      ? "heroPause"
+      : end && hasPlayed
+        ? "heroReplay"
+        : position > 0 && !end
+          ? "heroResume"
+          : "heroPlay";
     playback.dataset.tip = key;
     playback.title = translate(key);
     playback.setAttribute("aria-label", playback.title);
-    icon.setAttribute("href", wantsPlay ? "#i-pause" : replay ? "#i-reset" : "#i-play");
-    intro.dataset.playback = wantsPlay ? "playing" : time >= duration ? "finished" : "paused";
+    playback
+      .querySelector("use")
+      .setAttribute("href", wantsPlay ? "#i-pause" : end && hasPlayed ? "#i-reset" : "#i-play");
+    intro.dataset.playback = wantsPlay ? "playing" : end ? "finished" : "paused";
+    paint();
   }
 
-  function paint() {
-    const showingFilm = photoReady && time < filmEnd;
-    projection.hidden = !showingFilm;
-    if (showingFilm) {
-      const fold = smooth(0.95, filmEnd, time);
-      const drift = smooth(0, 1.36, time);
-      projection.style.opacity = 1 - smooth(1.79, filmEnd, time);
-      film.style.setProperty("--film-x", (-20 * fold) + "%");
-      film.style.setProperty("--film-y", (5 * fold) + "%");
-      film.style.setProperty("--film-scale", 1 + 0.028 * drift - 0.59 * fold);
-      film.style.setProperty("--film-pitch", (3 + 39 * fold) + "deg");
-      film.style.setProperty("--film-yaw", (-5 + 28 * fold) + "deg");
-      film.style.setProperty("--film-roll", (-1 - 7 * fold) + "deg");
-      film.style.setProperty("--wing", (4 + 63 * fold) + "deg");
-      film.style.setProperty("--crease", fold);
-    }
-    const room = photoReady ? smooth(1.29, 2.38, time) : 1;
-    const clip = clipStartedAt === null ? 0 :
-      smooth(clipStartedAt, clipStartedAt + 0.16, time) * (1 - smooth(duration - 0.23, duration, time));
-    stage.style.setProperty("--poster-opacity", room * (1 - clip));
-    stage.style.setProperty("--orbit-opacity", room * clip);
-    const roomActive = time >= chapterChange || !photoReady;
-    chapters[0].setAttribute("aria-pressed", String(!roomActive));
-    chapters[1].setAttribute("aria-pressed", String(roomActive));
-    chapters[0].style.setProperty("--progress", Math.max(0.035, Math.min(1, time / chapterChange)));
-    chapters[1].style.setProperty("--progress", Math.max(0, (time - chapterChange) / (duration - chapterChange)));
-  }
-
+  const inputImage = new Image();
+  inputImage.onload = () => {
+    const ctx = photo.getContext("2d");
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(inputImage, 48, 114, 1024, 576);
+    photoReady = true;
+    paint();
+  };
   function preparePhoto() {
-    if (photoRequested) return;
-    photoRequested = true;
-    const photo = new Image();
-    photo.onload = () => {
-      film.style.setProperty("--photo", 'url("' + film.dataset.image + '")');
-      photoReady = true;
-      paint();
-      syncPlayback();
-    };
-    photo.onerror = () => {
-      wantsPlay = false;
-      time = duration;
-      document.getElementById("hero-controls").hidden = true;
-      paint();
-      syncPlayback();
-    };
-    photo.src = film.dataset.image;
+    if (!inputImage.getAttribute("src")) inputImage.src = photo.dataset.image;
   }
 
-  function prepareOrbit() {
+  function nextSource() {
+    const file = sources.shift();
+    showMovie = false;
+    if (!file) {
+      playback.hidden = scrub.hidden = true;
+      for (const button of chapters) {
+        button.hidden = !["input", "room"].includes(button.dataset.chapter);
+      }
+      wantsPlay = false;
+      position = position < 1 ? 0 : duration;
+      if (!position) preparePhoto();
+      labels();
+      return;
+    }
+    video.toggleAttribute("data-matte", file === "hero-orbit.mp4");
+    desiredSeek = position;
+    video.src = "assets/" + file + "?v=c3a0815b";
+  }
+
+  function prepareMovie() {
     if (sources) return;
+    sources = [];
     video.muted = true;
     video.preload = "auto";
-    sources = [];
-    // Apple WebKit decodes the auxiliary HEVC alpha layer. Other engines
-    // may advertise HEVC support while decoding only the opaque base layer.
-    const apple = navigator.vendor?.startsWith("Apple") || /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const apple =
+      navigator.vendor?.startsWith("Apple") || /iPad|iPhone|iPod/.test(navigator.userAgent);
     if (apple && video.canPlayType('video/mp4; codecs="hvc1"')) sources.push("hero-orbit-hevc.mp4");
     if (video.canPlayType('video/webm; codecs="vp9"')) sources.push("hero-orbit.webm");
     if (video.canPlayType('video/mp4; codecs="avc1.42E01E"')) sources.push("hero-orbit.mp4");
     nextSource();
   }
 
-  function nextSource() {
-    const file = sources.shift();
-    clipStartedAt = null;
-    clipUnavailable = !file;
-    if (!file) return;
-    video.toggleAttribute("data-matte", file === "hero-orbit.mp4");
-    video.src = "assets/" + file + "?v=d36436e3";
+  function applySeek() {
+    if (desiredSeek === null || video.readyState < 1) return;
+    const to = Math.min(desiredSeek, video.duration);
+    desiredSeek = null;
+    if (Math.abs(video.currentTime - to) > 0.005) video.currentTime = to;
   }
 
-  function playOrbit() {
-    if (clipUnavailable || video.readyState < 2 || time < orbitStart || time >= duration - 0.24) return;
-    if (clipStartedAt === null) {
-      clipStartedAt = time;
-      video.currentTime = Math.min(time - orbitStart, video.duration);
-    }
-    video.play().catch((error) => {
-      if (error.name !== "AbortError") {
-        clipStartedAt = null;
-        clipUnavailable = true;
-        paint();
-      }
-    });
-  }
-
-  function tick(stamp) {
-    if (previousTick !== null) time = Math.min(duration, time + (stamp - previousTick) / 1000);
-    previousTick = stamp;
-    if (time >= duration) {
-      wantsPlay = false;
-      syncPlayback();
-      paint();
-      return;
-    }
-    if (clipStartedAt === null) playOrbit();
+  function tick() {
+    cancelAnimationFrame(frame);
+    if (!wantsPlay || !visible || document.hidden || video.paused) return;
+    if (desiredSeek === null && !video.seeking) position = video.currentTime;
     paint();
     frame = requestAnimationFrame(tick);
   }
 
-  function syncPlayback() {
-    cancelAnimationFrame(frame);
-    previousTick = null;
-    if (wantsPlay && visible && !document.hidden) {
-      preparePhoto();
-      prepareOrbit();
-      if (photoReady) {
-        hasPlayed = true;
-        playOrbit();
-        frame = requestAnimationFrame(tick);
-      }
-    } else {
+  function sync() {
+    if (!wantsPlay || !visible || document.hidden) {
       video.pause();
+      cancelAnimationFrame(frame);
+    } else {
+      preparePhoto();
+      prepareMovie();
+      applySeek();
+      if (!playback.hidden && video.readyState >= 2 && video.paused && !playRequest) {
+        playRequest = true;
+        video
+          .play()
+          .catch((error) => {
+            if (error.name !== "AbortError" && !video.error) {
+              wantsPlay = false;
+              labels();
+            }
+          })
+          .finally(() => {
+            playRequest = false;
+            if (wantsPlay && visible && !document.hidden && video.paused && !video.error) sync();
+          });
+      }
     }
-    labelPlayback();
+    labels();
   }
 
-  function seek(to) {
+  function jump(to, play = false) {
+    wantsPlay = play;
+    position = Math.max(0, Math.min(duration, to));
     video.pause();
-    clipStartedAt = null;
-    time = to;
-    if (to < duration) preparePhoto();
-    paint();
-    syncPlayback();
+    if (position <= 0 || position >= duration) showMovie = false;
+    if (position < duration) preparePhoto();
+    if (position > 0 && position < duration) prepareMovie();
+    desiredSeek = position;
+    applySeek();
+    if (position > 0 && position < duration && video.readyState >= 2) showMovie = true;
+    sync();
   }
 
   video.addEventListener("loadedmetadata", () => {
-    const atEnd = time >= duration;
-    duration = orbitStart + video.duration;
-    if (atEnd) time = duration;
+    const atEnd = position >= duration;
+    duration = video.duration;
+    if (atEnd) position = duration;
+    applySeek();
+    labels();
+  });
+  video.addEventListener("canplay", () => {
+    if (position > 0 && position < duration) showMovie = true;
+    sync();
+  });
+  video.addEventListener("playing", () => {
+    if (!wantsPlay || !visible || document.hidden) {
+      video.pause();
+      return;
+    }
+    hasPlayed = showMovie = true;
+    labels();
+    tick();
+  });
+  video.addEventListener("seeked", () => {
+    if (position > 0 && position < duration) showMovie = true;
     paint();
+  });
+  video.addEventListener("ended", () => {
+    jump(duration);
   });
   video.addEventListener("error", () => {
     if (sources) nextSource();
-    paint();
   });
   playback.addEventListener("click", () => {
-    wantsPlay = !wantsPlay;
-    if (wantsPlay && time >= duration) seek(0);
-    else syncPlayback();
-  });
-  for (const chapter of chapters) {
-    chapter.addEventListener("click", () => {
+    if (wantsPlay) {
+      if (!video.paused) position = video.currentTime;
       wantsPlay = false;
-      seek(chapter.dataset.chapter === "room" ? duration : 0);
-    });
-  }
-  new IntersectionObserver(([entry]) => {
-    visible = entry.intersectionRatio >= 0.14;
-    syncPlayback();
-  }, { threshold: 0.14 }).observe(stage);
-  document.addEventListener("visibilitychange", syncPlayback);
-  motion.addEventListener("change", () => {
-    if (motion.matches) {
-      wantsPlay = false;
-      seek(duration);
+      sync();
+    } else {
+      jump(position >= duration - 0.001 ? 0 : position, true);
     }
   });
+  for (const button of chapters) {
+    const cue = timing.phases.find((phase) => phase.id === button.dataset.chapter);
+    button.addEventListener("click", () => jump(cue.inspect / timing.fps));
+  }
+  levelPicker.addEventListener("change", () => {
+    const index = timing.levels.find(([resolution]) => resolution === Number(levelPicker.value))[1];
+    jump((index + 7) / timing.fps);
+  });
+  scale.addEventListener("click", () => {
+    if (!video.paused) position = video.currentTime;
+    wantsPlay = false;
+    sync();
+  });
+  scrub.addEventListener("input", () => jump((Number(scrub.value) / Number(scrub.max)) * duration));
+  new IntersectionObserver(
+    ([entry]) => {
+      visible = entry.intersectionRatio >= 0.14;
+      sync();
+    },
+    { threshold: 0.14 },
+  ).observe(stage);
+  document.addEventListener("visibilitychange", sync);
+  motion.addEventListener("change", () => {
+    if (motion.matches) jump(duration);
+  });
   document.getElementById("hero-controls").hidden = false;
-  paint();
-  labelPlayback();
-  return labelPlayback;
+  document.getElementById("hero-readout").hidden = false;
+  const requested = new URLSearchParams(location.search).get("opening");
+  const cue = timing.phases.find((phase) => phase.id === requested);
+  if (cue) jump(cue.inspect / timing.fps);
+  else labels();
+  return labels;
 };
