@@ -102,7 +102,7 @@ window.createSpaceFoldOpening = function (translate) {
     clipUnavailable = !file;
     if (!file) return;
     video.toggleAttribute("data-matte", file === "hero-orbit.mp4");
-    video.src = "assets/" + file;
+    video.src = "assets/" + file + "?v=d36436e3";
   }
 
   function playOrbit() {

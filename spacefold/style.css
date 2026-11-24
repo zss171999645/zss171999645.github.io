@@ -641,15 +641,8 @@ h2 {
   min-width: 0;
   min-height: clamp(390px, 33vw, 535px);
   isolation: isolate;
-  background: radial-gradient(ellipse at 50% 42%, #363343 0%, #262430 48%, #1c1b26 96%);
+  background: radial-gradient(ellipse at 50% 40%, #383640 0%, #2a2932 53%, #1e1d26 100%);
   color: #f1eef5;
-}
-.scene-screen::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(#b3a8c620 0.65px, transparent 0.8px) 0 0/14px 14px;
-  pointer-events: none;
 }
 #stage {
   position: absolute;

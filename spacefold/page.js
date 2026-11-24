@@ -81,7 +81,11 @@
   function chooseScene(id) {
     scene = id;
     pressed("[data-scene]", "scene", id);
-    if (!viewer) viewer = new window.SpaceFoldViewer($("stage"), updateViewerText);
+    if (!viewer) {
+      viewer = new window.SpaceFoldViewer($("stage"), updateViewerText);
+      const initialView = params.get("view");
+      if (initialView === "cutaway" || initialView === "panorama") viewer.setMode(initialView);
+    }
     viewer.select(scene);
     updateViewerText();
   }
@@ -90,6 +94,8 @@
     if (!["https:", "http:"].includes(location.protocol)) return;
     const url = new URL(location.href);
     url.searchParams.set("scene", id);
+    if (viewer?.mode && viewer.mode !== "geometry") url.searchParams.set("view", viewer.mode);
+    else url.searchParams.delete("view");
     history.replaceState(history.state, "", url);
   }
 
@@ -104,7 +110,7 @@
       previews.className = "scene-previews";
       for (const suffix of ["thumb", "cutaway"]) {
         const image = new Image(256, 144);
-        image.src = "assets/scenes/" + id + "-" + suffix + ".webp";
+        image.src = "assets/scenes/" + id + "-" + suffix + ".webp" + (suffix === "cutaway" ? "?v=surfaces1" : "");
         image.alt = "";
         if (suffix === "cutaway") image.className = "cutaway-thumb";
         image.loading = "lazy";
@@ -394,12 +400,14 @@
   $("input-preview").addEventListener("click", () => {
     if (!viewer) chooseScene(scene);
     viewer.setMode("panorama");
+    updateSceneAddress(scene);
     $("stage").focus({ preventScroll: true });
   });
   for (const button of document.querySelectorAll(".mode-switch [data-view]")) {
     button.addEventListener("click", () => {
       if (!viewer) chooseScene(scene);
       viewer.setMode(button.dataset.view);
+      updateSceneAddress(scene);
     });
   }
   $("occlusion").addEventListener("change", () => {
