@@ -49,13 +49,14 @@ const requiredFacts = [
   "TOPOS1.0",
   "full-scene point-cloud alignment",
   "native 3D scene generation",
-  "flow-matching",
+  "2 MiB per scene",
   "09/2026",
   "07/2026",
   "03/2026",
   "I am currently seeking internship or full-time opportunities",
 ];
 const publicationTitles = [
+  "SpaceFold: Multiscale 3D Autoencoding for Holistic Panoramic Scene Generation",
   "Initialize to Generalize: A Stronger Initialization Pipeline for Sparse-View 3DGS",
   "GeoWeave: Learning Reliable Cross-View Dependencies for Feed-Forward 3D Reconstruction",
   "DSD: Dual Self-Distillation for Robust Audio Tagging",
@@ -66,8 +67,9 @@ const publicationTitles = [
   "Image is All You Need to Empower Large-scale Diffusion Models for In-Domain Generation",
   "Lifting by Image - Leveraging Image Cues for Accurate 3D Human Pose Estimation",
 ];
-const publicationSlugs = ["initialize-to-generalize", "geoweave", "dsd", "resdit", "position-encoding", "controllable-generation-survey", "omegas", "image-is-all-you-need", "lifting-by-image"];
+const publicationSlugs = ["spacefold", "initialize-to-generalize", "geoweave", "dsd", "resdit", "position-encoding", "controllable-generation-survey", "omegas", "image-is-all-you-need", "lifting-by-image"];
 const requiredAuthorLines = [
+  "Feng Zhou*</strong>, Xiaojun Xiang*, Xiaoyu Zhang, Zhaopei Han, Pu Cao, Jianqin Yin†, Guofeng Zhang†, Haomin Liu",
   "Feng Zhou*</strong>, Pu Cao*, Yiyang Ma, Lu Yang, Yonghao Dang, Jianqin Yin",
   "Feng Zhou*</strong>, Qingfeng Li*, Zinan Lv, Jianqin Yin, Weiqiang Ren, Qian Zhang",
   "Feng Zhou*</strong>, Wenkai Guo*, Pu Cao, Zhicheng Zhang, Jianqin Yin",
@@ -117,7 +119,7 @@ assert.match(
   "Advisor homepage link is missing or incorrect",
 );
 
-const newsDates = ["09/2026", "07/2026", "03/2026", "02/2026", "11/2025", "08/2025", "05/2025", "02/2025", "02/2024"];
+const newsDates = ["11/2026", "09/2026", "07/2026", "03/2026", "02/2026", "11/2025", "08/2025", "05/2025", "02/2025", "02/2024"];
 let previousNewsOffset = -1;
 for (const date of newsDates) {
   const offset = html.indexOf(date, previousNewsOffset + 1);
@@ -149,20 +151,29 @@ for (const title of publicationTitles) {
   previousPublicationOffset = offset;
 }
 
-for (const slug of publicationSlugs) {
-  assert.match(html, new RegExp(`data-publication=["']${slug}["']`), `Missing publication identifier: ${slug}`);
+const entries = [...html.matchAll(/<article\b[^>]*data-publication=["']([^"']+)["'][^>]*>([\s\S]*?)<\/article>/g)];
+assert.deepEqual(entries.map(([, slug]) => slug), publicationSlugs, "Publication order changed");
+for (const [, slug, body] of entries) {
+  assert.match(body, /<img\b[^>]*\bsrc=["'][^"']+["']/, `Missing thumbnail for ${slug}`);
 }
 
-assert.equal((html.match(/<img\s+src=["']assets\/publications\//g) ?? []).length, 9, "Every publication must have a real figure thumbnail");
 assert.doesNotMatch(html, /publication-placeholder/, "Publication text placeholders must not remain");
 
 for (const authorLine of requiredAuthorLines) {
   assert.ok(html.includes(authorLine), `Publication author line is missing or changed: ${authorLine}`);
 }
 
-assert.equal((html.match(/class=["'][^"']*publication-entry(?:\s|["'])/g) ?? []).length, 9, "Expected exactly nine publication entries");
+assert.equal((html.match(/class=["'][^"']*publication-entry(?:\s|["'])/g) ?? []).length, publicationSlugs.length, "Unexpected number of publication entries");
 assert.doesNotMatch(html, /featured-publication/, "Publication cards must use consistent styling");
 assert.doesNotMatch(css, /\.featured-publication\b/, "Unused featured publication styling must not remain");
+
+const spacefoldEntry = entries.find(([, slug]) => slug === "spacefold")[2];
+assert.match(spacefoldEntry, /class="venue">Preprint · November 2026<\/p>/);
+assert.match(spacefoldEntry, /href="spacefold\/paper\/main\.pdf">Paper<\/a>/);
+assert.match(spacefoldEntry, /href="https:\/\/github\.com\/zss171999645\/SpaceFold">Code<\/a>/);
+assert.match(spacefoldEntry, /href="spacefold\/index\.html">Project<\/a>/);
+const spacefoldInfo = execFileSync("pdfinfo", [resolve(root, "spacefold/paper/main.pdf")], { encoding: "utf8" });
+assert.match(spacefoldInfo, /^Author:\s+Feng Zhou, Xiaojun Xiang, Xiaoyu Zhang, Zhaopei Han, Pu Cao, Jianqin Yin, Guofeng Zhang, Haomin Liu$/m, "SpaceFold must serve the attributed preprint");
 
 const geoweaveEntry = html.match(/<article[^>]*data-publication=["']geoweave["'][^>]*>([\s\S]*?)<\/article>/i);
 assert.ok(geoweaveEntry, "GeoWeave publication entry is missing");
