@@ -444,7 +444,7 @@ window.SpaceFoldStrings = {
     "用多尺度三维自编码，从全景图生成完整场景",
   ],
   paperBupt: ["Beijing University of Posts and Telecommunications", "北京邮电大学"],
-  paperCadLab: ["State Key Lab of CAD&CG, Zhejiang University", "浙江大学 CAD&CG 国家重点实验室"],
+  paperCadLab: ["State Key Lab of CAD&CG, Zhejiang University", "浙江大学计算机辅助设计与图形系统全国重点实验室"],
   paperAuthorNotes: [
     "* Equal contribution · † Corresponding authors · ‡ Work done during an internship at InSpatio",
     "* 共同第一作者 · † 通讯作者 · ‡ 在影溯科技实习期间完成",
